@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: #f7f5ef;
+  --color-surface: #ffffff;
+
+  --color-text-primary: #232323;
+  --color-text-secondary: #676767;
+
+  --color-product-orange: #c9852f;
+  --color-product-teal: #537b7d;
+  --color-product-graphite: #343434;
+
+  --page-max-width: 1280px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+}
