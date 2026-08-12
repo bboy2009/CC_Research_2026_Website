@@ -1,0 +1,88 @@
+---
+const capabilities = [
+  {
+    number: "01",
+    title: "Scheduled Dosing",
+    description:
+      "Medication schedules determine which prepared dose compartment becomes due and when.",
+  },
+  {
+    number: "02",
+    title: "Removable Compartments",
+    description:
+      "Medication remains contained inside an individual compartment through patient hand-off.",
+  },
+  {
+    number: "03",
+    title: "Visual Verification",
+    description:
+      "The system inspects expected medication contents before the dose is presented.",
+  },
+  {
+    number: "04",
+    title: "Pickup Tracking",
+    description:
+      "The device later determines whether the presented compartment was removed.",
+  },
+];
+---
+
+<section class="py-16 lg:py-28">
+  <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+    <p
+      class="
+        text-sm
+        font-semibold
+        uppercase
+        tracking-[0.18em]
+        text-[var(--color-accent-orange)]
+      "
+    >
+      Core Capabilities
+    </p>
+
+    <div
+      class="
+        mt-10
+        grid
+        grid-cols-1
+        gap-5
+        lg:grid-cols-4
+      "
+    >
+      {
+        capabilities.map((item) => (
+          <article
+            class="
+              rounded-3xl
+              border
+              border-[var(--color-border)]
+              bg-white
+              p-7
+            "
+          >
+            <p class="text-sm text-[var(--color-accent-orange)]">
+              {item.number}
+            </p>
+
+            <h3 class="mt-6 text-2xl font-semibold">
+              {item.title}
+            </h3>
+
+            <p
+              class="
+                mt-4
+                leading-7
+                text-[var(--color-text-secondary)]
+              "
+            >
+              {item.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+  </div>
+</section>
