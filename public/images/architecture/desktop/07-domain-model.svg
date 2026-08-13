@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1040" viewBox="0 0 1800 1040" font-family="Inter, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+      <defs>
+        <marker id="d7-arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#587D7D"></path></marker>
+      </defs>
+      <rect x="0" y="0" width="1800" height="1040" fill="#F5F2EA"></rect>
+      <text x="60" y="76" font-size="46" font-weight="600" fill="#222222">Domain model</text>
+      <text x="60" y="118" font-size="21" fill="#666666">Schedule data, physical compartment state and event history are stored as separate concerns in SQLite.</text>
+
+      <rect x="60" y="180" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="86" y="228" font-size="24" font-weight="600" fill="#222222">Patient</text>
+      <line x1="60" y1="248" x2="372" y2="248" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="86" y="286" font-size="19" fill="#666666">identity</text>
+      <text x="86" y="316" font-size="19" fill="#666666">timezone</text>
+      <text x="86" y="346" font-size="19" fill="#666666">active state</text>
+      <line x1="372" y1="280" x2="398" y2="280" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="402" y="180" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="428" y="228" font-size="24" font-weight="600" fill="#222222">Schedule</text>
+      <line x1="402" y1="248" x2="714" y2="248" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="428" y="286" font-size="19" fill="#666666">recurring or one-time</text>
+      <text x="428" y="316" font-size="19" fill="#666666">medication + quantity</text>
+      <text x="428" y="346" font-size="19" fill="#666666">timezone-aware</text>
+      <line x1="714" y1="280" x2="740" y2="280" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="744" y="180" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="770" y="228" font-size="24" font-weight="600" fill="#222222">ScheduledDose</text>
+      <line x1="744" y1="248" x2="1056" y2="248" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="770" y="286" font-size="19" fill="#666666">concrete occurrence</text>
+      <text x="770" y="316" font-size="19" fill="#666666">due time</text>
+      <text x="770" y="346" font-size="19" fill="#666666">dose state</text>
+      <line x1="1056" y1="280" x2="1082" y2="280" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="1086" y="180" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1112" y="228" font-size="24" font-weight="600" fill="#222222">PresentationEvent</text>
+      <line x1="1086" y1="248" x2="1398" y2="248" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1112" y="286" font-size="19" fill="#666666">verified compartment</text>
+      <text x="1112" y="316" font-size="19" fill="#666666">moved to hand-off</text>
+      <text x="1112" y="346" font-size="19" fill="#666666">timestamp</text>
+      <line x1="1398" y1="280" x2="1424" y2="280" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="1428" y="180" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1454" y="228" font-size="24" font-weight="600" fill="#222222">PickupEvent</text>
+      <line x1="1428" y1="248" x2="1740" y2="248" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1454" y="286" font-size="19" fill="#666666">collected / not collected</text>
+      <text x="1454" y="316" font-size="19" fill="#666666">ambiguous</text>
+      <text x="1454" y="346" font-size="19" fill="#666666">manually resolved</text>
+
+      <path d="M 558 470 L 558 384" fill="none" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></path>
+      <path d="M 1242 470 L 1242 384" fill="none" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></path>
+
+      <rect x="402" y="470" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="428" y="518" font-size="24" font-weight="600" fill="#222222">Medication</text>
+      <line x1="402" y1="538" x2="714" y2="538" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="428" y="576" font-size="19" fill="#666666">canonical identity</text>
+      <text x="428" y="606" font-size="19" fill="#666666">name and form</text>
+      <line x1="714" y1="570" x2="740" y2="570" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="744" y="470" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="770" y="518" font-size="24" font-weight="600" fill="#222222">Compartment</text>
+      <text x="770" y="546" font-size="24" font-weight="600" fill="#222222">Medication</text>
+      <line x1="744" y1="562" x2="1056" y2="562" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="770" y="600" font-size="19" fill="#666666">expected medication</text>
+      <text x="770" y="630" font-size="19" fill="#666666">loaded quantity</text>
+      <line x1="1082" y1="570" x2="1060" y2="570" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="1086" y="470" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1112" y="518" font-size="24" font-weight="600" fill="#222222">Removable</text>
+      <text x="1112" y="546" font-size="24" font-weight="600" fill="#222222">Compartment</text>
+      <line x1="1086" y1="562" x2="1398" y2="562" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1112" y="600" font-size="19" fill="#666666">physical ID + station</text>
+      <text x="1112" y="630" font-size="19" fill="#666666">presence, lifecycle state</text>
+      <line x1="1398" y1="570" x2="1424" y2="570" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></line>
+
+      <rect x="1428" y="470" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1454" y="518" font-size="24" font-weight="600" fill="#222222">InspectionEvent</text>
+      <line x1="1428" y1="538" x2="1740" y2="538" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1454" y="576" font-size="19" fill="#666666">content or presence</text>
+      <text x="1454" y="606" font-size="19" fill="#666666">confidence, annotations</text>
+
+      <path d="M 1242 670 L 1242 756" fill="none" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></path>
+      <path d="M 1584 670 L 1584 756" fill="none" stroke="#587D7D" stroke-width="1.6" marker-end="url(#d7-arw)"></path>
+
+      <rect x="1086" y="760" width="312" height="200" rx="10" fill="#EAE5D9" stroke="rgba(0,0,0,0.08)"></rect>
+      <text x="1112" y="808" font-size="24" font-weight="600" fill="#343434">SystemEvent</text>
+      <line x1="1086" y1="828" x2="1398" y2="828" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1112" y="866" font-size="19" fill="#666666">auditable history of</text>
+      <text x="1112" y="896" font-size="19" fill="#666666">user, software and</text>
+      <text x="1112" y="926" font-size="19" fill="#666666">hardware events</text>
+
+      <rect x="1428" y="760" width="312" height="200" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="1.8"></rect>
+      <text x="1454" y="808" font-size="24" font-weight="600" fill="#222222">Alert</text>
+      <line x1="1428" y1="828" x2="1740" y2="828" stroke="rgba(0,0,0,0.1)"></line>
+      <text x="1454" y="866" font-size="19" fill="#666666">user-facing exception</text>
+      <text x="1454" y="896" font-size="19" fill="#666666">delivery state</text>
+
+      <rect x="60" y="760" width="980" height="200" rx="10" fill="#EAE5D9" stroke="rgba(0,0,0,0.08)"></rect>
+      <text x="90" y="812" font-size="22" font-weight="600" fill="#343434">Separation of concerns</text>
+      <text x="90" y="854" font-size="19" fill="#666666">Compartment identity and carrier station are separate fields — logical identity is never derived from</text>
+      <text x="90" y="884" font-size="19" fill="#666666">angular position. Schedule data is stored apart from compartment assignment and physical presence,</text>
+      <text x="90" y="914" font-size="19" fill="#666666">so a mid-cycle schedule change cannot silently alter what is already loaded in a compartment.</text>
+    </svg>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1010" viewBox="0 0 1800 1010" font-family="Inter, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+      <defs>
+        <marker id="d4-arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#587D7D"></path></marker>
+        <marker id="d4-arwo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77D24"></path></marker>
+      </defs>
+      <rect x="0" y="0" width="1800" height="1010" fill="#F5F2EA"></rect>
+      <text x="60" y="76" font-size="46" font-weight="600" fill="#222222">Embedded controller states</text>
+      <text x="60" y="118" font-size="21" fill="#666666">Firmware owns position certainty and the hand-off interlock. It never decides verification or adherence.</text>
+
+      <rect x="100" y="210" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="290" y="266" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">POWER_ON</text>
+      <text x="290" y="302" font-size="19" fill="#666666" text-anchor="middle">Initialized, motion inhibited</text>
+      <text x="290" y="328" font-size="19" fill="#666666" text-anchor="middle">until reference established</text>
+      <line x1="480" y1="290" x2="506" y2="290" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></line>
+
+      <rect x="510" y="210" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="700" y="266" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">HOMING</text>
+      <text x="700" y="302" font-size="19" fill="#666666" text-anchor="middle">Finding the physical HOME</text>
+      <text x="700" y="328" font-size="19" fill="#666666" text-anchor="middle">reference sensor</text>
+      <line x1="890" y1="290" x2="916" y2="290" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></line>
+
+      <rect x="920" y="210" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1110" y="266" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">READY</text>
+      <text x="1110" y="302" font-size="19" fill="#666666" text-anchor="middle">Known station index and</text>
+      <text x="1110" y="328" font-size="19" fill="#666666" text-anchor="middle">safe hand-off condition</text>
+
+      <path d="M 1300 262 L 1326 262" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></path>
+      <path d="M 1326 318 L 1300 318" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></path>
+
+      <rect x="1330" y="210" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1520" y="266" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">MOVING</text>
+      <text x="1520" y="302" font-size="19" fill="#666666" text-anchor="middle">Rotation active, motion</text>
+      <text x="1520" y="328" font-size="19" fill="#666666" text-anchor="middle">timeout enforced</text>
+
+      <path d="M 1080 370 L 1080 466" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></path>
+      <text x="1096" y="425" font-size="18" fill="#666666">compartment presented</text>
+      <path d="M 1240 470 L 1240 420 L 1180 420 L 1180 374" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></path>
+
+      <rect x="920" y="470" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1110" y="526" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">HANDOFF_WAIT</text>
+      <text x="1110" y="562" font-size="19" fill="#666666" text-anchor="middle">Motion inhibited pending a</text>
+      <text x="1110" y="588" font-size="19" fill="#666666" text-anchor="middle">safe removal or presence state</text>
+
+      <path d="M 920 550 L 820 550 L 820 756" fill="none" stroke="#C77D24" stroke-width="1.8" stroke-dasharray="7 6" marker-end="url(#d4-arwo)"></path>
+      <path d="M 700 370 L 700 756" fill="none" stroke="#C77D24" stroke-width="1.8" stroke-dasharray="7 6" marker-end="url(#d4-arwo)"></path>
+      <path d="M 1520 370 L 1520 700 L 600 700 L 600 756" fill="none" stroke="#C77D24" stroke-width="1.8" stroke-dasharray="7 6" marker-end="url(#d4-arwo)"></path>
+      <path d="M 290 370 L 290 690 L 520 690 L 520 756" fill="none" stroke="#C77D24" stroke-width="1.8" stroke-dasharray="7 6" marker-end="url(#d4-arwo)"></path>
+      <text x="1120" y="690" font-size="18" fill="#C77D24">unsafe or unknown physical condition</text>
+
+      <rect x="510" y="760" width="380" height="160" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="1.8"></rect>
+      <text x="700" y="816" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">FAULT</text>
+      <text x="700" y="852" font-size="19" fill="#666666" text-anchor="middle">Non-moving state; motion</text>
+      <text x="700" y="878" font-size="19" fill="#666666" text-anchor="middle">commands rejected</text>
+
+      <path d="M 510 840 L 380 840 L 380 450 L 620 450 L 620 374" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d4-arw)"></path>
+      <text x="396" y="620" font-size="18" fill="#587D7D">re-home after explicit recovery</text>
+
+      <rect x="1000" y="760" width="710" height="160" rx="10" fill="#EAE5D9" stroke="rgba(0,0,0,0.08)"></rect>
+      <text x="1030" y="812" font-size="22" font-weight="600" fill="#343434">Commands accepted on the serial link</text>
+      <text x="1030" y="848" font-size="19" fill="#666666">HOME · MOVE_TO_INSPECTION · MOVE_TO_HANDOFF</text>
+      <text x="1030" y="874" font-size="19" fill="#666666">LIGHT_ON / LIGHT_OFF · GET_STATUS · RESET / RECOVER</text>
+      <text x="1030" y="900" font-size="19" fill="#666666">Each answered with ACK, status, DONE or ERROR.</text>
+    </svg>

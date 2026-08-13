@@ -28,10 +28,7 @@ const withBase = (path: string) =>
     "
   >
     <div>
-      <a
-        href={withBase("/")}
-        class="text-xl font-semibold"
-      >
+      <a href={withBase("/")} class="text-xl font-semibold">
         Medicine Dispensing Device
       </a>
 
@@ -58,26 +55,14 @@ const withBase = (path: string) =>
         text-sm
         lg:justify-self-end
       "
+      aria-label="Footer navigation"
     >
-      <a href={withBase("/product/")}>
-        Product
-      </a>
-
-      <a href={withBase("/how-it-works/")}>
-        How It Works
-      </a>
-
-      <a href={withBase("/design/")}>
-        Design
-      </a>
-
-      <a href={withBase("/technology/")}>
-        Technology
-      </a>
-
-      <a href={withBase("/research/")}>
-        Research
-      </a>
+      <a href={withBase("/product/")}>Product</a>
+      <a href={withBase("/how-it-works/")}>How It Works</a>
+      <a href={withBase("/design/")}>Design</a>
+      <a href={withBase("/technology/")}>Technology</a>
+      <a href={withBase("/vision/")}>Computer Vision</a>
+      <a href={withBase("/research/")}>Research</a>
     </nav>
   </div>
 
@@ -100,12 +85,7 @@ const withBase = (path: string) =>
       lg:px-10
     "
   >
-    <span>
-      Prototype Research Project
-    </span>
-
-    <span>
-      © 2026
-    </span>
+    <span>Prototype Research Project</span>
+    <span>© 2026</span>
   </div>
 </footer>

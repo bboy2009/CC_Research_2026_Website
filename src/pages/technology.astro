@@ -1,46 +1,33 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import ResponsiveDiagram from "../components/common/ResponsiveDiagram.astro";
 
-const architectureLayers = [
-  {
-    title: "Browser / Device UI",
-    description:
-      "Local or remote-capable user experience for scheduling, status, alerts, and refill workflows.",
-  },
-  {
-    title: "API Layer",
-    description:
-      "Validated interface between the browser UI and application services.",
-  },
+const base = import.meta.env.BASE_URL;
+const visionPage = `${base}/vision/`;
+
+const responsibilities = [
   {
     title: "Application Workflows",
     description:
-      "Coordinates scheduling, compartment state, vision, hardware control, events, and notifications.",
+      "Coordinate multi-step dose operations and keep scheduling, vision, persistence, notifications, and hardware responsibilities separated.",
+  },
+  {
+    title: "Vision Service",
+    description:
+      "Returns medication identity, count, confidence, geometry or annotation data, and compartment presence information where available.",
   },
   {
     title: "Device Service",
     description:
-      "Isolates serial communication and device-level commands from application workflows.",
+      "Provides the application-facing boundary for serial commands, device status, homing, motion, lighting, and recovery operations.",
   },
   {
-    title: "Arduino Firmware",
+    title: "Embedded Controller",
     description:
-      "Owns low-level motion, homing, sensors, illumination, interlocks, and deterministic device responses.",
+      "Owns deterministic motor control, sensors, illumination, homing behavior, interlocks, and hardware fault responses.",
   },
-  {
-    title: "Physical Hardware",
-    description:
-      "Stepper motor, home sensor, hand-off sensing, lighting, and rotating carrier.",
-  },
-];
-
-const visionOutputs = [
-  "Medication identity",
-  "Count",
-  "Confidence",
-  "Geometry / annotation",
-  "Presence / absence",
 ];
 
 const deviceCommands = [
@@ -52,50 +39,14 @@ const deviceCommands = [
   "GET_STATUS",
   "RESET / RECOVER",
 ];
-
-const domains = [
-  {
-    title: "Scheduling",
-    items: [
-      "Patient",
-      "Medication",
-      "Schedule",
-      "ScheduledDose",
-    ],
-  },
-  {
-    title: "Compartment State",
-    items: [
-      "RemovableCompartment",
-      "CompartmentMedication",
-    ],
-  },
-  {
-    title: "Workflow Events",
-    items: [
-      "InspectionEvent",
-      "PresentationEvent",
-      "PickupEvent",
-    ],
-  },
-  {
-    title: "Operations",
-    items: [
-      "Alert",
-      "SystemEvent",
-    ],
-  },
-];
 ---
 
 <MainLayout
-  title="Technology | Medicine Dispensing Device"
-  description="Explore the software, vision, device-control, embedded-controller, and persistence architecture of the medicine dispenser prototype."
+  title="Technology & Architecture | Medicine Dispensing Device"
+  description="Explore the application, computer-vision, device-service, embedded-controller, interface, state, and persistence architecture of the medicine dispensing prototype."
 >
-  <!-- Hero -->
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <p
         class="
           text-sm
@@ -105,13 +56,13 @@ const domains = [
           text-[var(--color-accent-orange)]
         "
       >
-        Technology
+        Technology & Architecture
       </p>
 
       <h1
         class="
           mt-5
-          max-w-[980px]
+          max-w-[1000px]
           text-4xl
           font-semibold
           leading-[1.05]
@@ -119,98 +70,110 @@ const domains = [
           lg:text-7xl
         "
       >
-        Software and hardware coordinated through clear system boundaries.
+        Clear boundaries between application decisions and physical control.
       </h1>
 
       <p
         class="
           mt-7
-          max-w-[780px]
+          max-w-[800px]
           text-lg
           leading-8
           text-[var(--color-text-secondary)]
           lg:text-xl
         "
       >
-        The prototype uses a modular Python application, browser
-        interface, computer vision, device service, and separate
-        embedded controller to coordinate medication workflows
-        without coupling high-level decisions directly to motor control.
+        The system is organized around a modular application layer,
+        replaceable camera and device adapters, a Vision Service,
+        local persistence, and a separate embedded controller responsible
+        for deterministic hardware execution.
       </p>
     </div>
   </section>
 
-  <!-- Architecture -->
   <section class="bg-white py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-12
-        px-6
-        lg:grid-cols-[0.7fr_1.3fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="System Architecture"
-        title="Application intelligence remains separate from embedded hardware control."
+        title="From browser interaction to motor, sensors, and lighting."
+        description="The architecture keeps high-level medication decisions in the application while hardware-specific timing and interlocks remain under embedded control."
       />
 
-      <div class="space-y-3">
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/01-layered-system-architecture.svg"
+          mobilePath="/images/architecture/mobile/01-layers-mobile.svg"
+          alt="Layered system architecture for the medicine dispensing device"
+          caption="Desktop and mobile versions present the same architectural boundary at different information densities."
+          eager={true}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Responsibilities"
+        title="Subsystems have distinct ownership."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-2
+        "
+      >
         {
-          architectureLayers.map((layer, index) => (
-            <div>
-              <div
+          responsibilities.map((item) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-white
+                p-7
+                lg:p-8
+              "
+            >
+              <h2 class="text-xl font-semibold">{item.title}</h2>
+              <p
                 class="
-                  rounded-2xl
-                  border
-                  border-[var(--color-border)]
-                  bg-[var(--color-background)]
-                  p-6
+                  mt-4
+                  leading-7
+                  text-[var(--color-text-secondary)]
                 "
               >
-                <p class="font-semibold">
-                  {layer.title}
-                </p>
-
-                <p
-                  class="
-                    mt-2
-                    leading-7
-                    text-[var(--color-text-secondary)]
-                  "
-                >
-                  {layer.description}
-                </p>
-              </div>
-
-              {
-                index < architectureLayers.length - 1 && (
-                  <div
-                    class="
-                      flex
-                      h-7
-                      items-center
-                      justify-center
-                      text-[var(--color-accent-orange)]
-                    "
-                  >
-                    ↓
-                  </div>
-                )
-              }
-            </div>
+                {item.description}
+              </p>
+            </article>
           ))
         }
       </div>
     </div>
   </section>
 
-  <!-- Vision -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Interface Boundaries"
+        title="Data and commands move through explicit interfaces."
+        description="The control map documents producer-to-consumer boundaries across the browser, application workflows, services, camera, firmware, and sensors."
+      />
+
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/06-interface-control-map.svg"
+          mobilePath="/images/architecture/mobile/06-interfaces-mobile.svg"
+          alt="Interface control map for the medicine dispensing device"
+        />
+      </div>
+    </div>
+  </section>
+
   <section class="py-16 lg:py-28">
     <div
       class="
@@ -220,8 +183,8 @@ const domains = [
         grid-cols-1
         gap-12
         px-6
-        lg:grid-cols-[0.9fr_1.1fr]
-        lg:items-center
+        lg:grid-cols-[0.8fr_1.2fr]
+        lg:items-start
         lg:gap-20
         lg:px-10
       "
@@ -229,35 +192,14 @@ const domains = [
       <div>
         <SectionHeader
           label="Computer Vision"
-          title="Medication verification happens at the application layer."
-          description="The Vision Service supports pre-hand-off medication verification and may also classify whether a compartment remains present at the hand-off station."
+          title="Visual inspection is an application service, not a motor-control responsibility."
+          description="Vision provides evidence that application workflows can compare with the expected scheduled dose before a compartment is made available to the patient."
         />
 
-        <div
-          class="
-            mt-8
-            flex
-            flex-wrap
-            gap-3
-          "
-        >
-          {
-            visionOutputs.map((output) => (
-              <span
-                class="
-                  rounded-full
-                  border
-                  border-[var(--color-border)]
-                  bg-white
-                  px-4
-                  py-2
-                  text-sm
-                "
-              >
-                {output}
-              </span>
-            ))
-          }
+        <div class="mt-8">
+          <Button href={visionPage} variant="secondary">
+            View Interim Vision Results →
+          </Button>
         </div>
       </div>
 
@@ -272,37 +214,19 @@ const domains = [
       >
         {
           [
-            "Camera",
-            "Image",
+            "Camera image",
             "Vision Service",
-            "Detection & Classification",
-            "Expected vs Detected",
-            "Decision",
+            "Identity + count + confidence",
+            "Expected vs detected",
+            "Workflow decision",
           ].map((item, index, array) => (
             <div>
-              <div
-                class="
-                  rounded-2xl
-                  bg-white/10
-                  px-6
-                  py-5
-                  text-center
-                "
-              >
+              <div class="rounded-2xl bg-white/10 px-6 py-5 text-center">
                 {item}
               </div>
-
               {
                 index < array.length - 1 && (
-                  <div
-                    class="
-                      py-2
-                      text-center
-                      text-white/30
-                    "
-                  >
-                    ↓
-                  </div>
+                  <div class="py-2 text-center text-white/30">↓</div>
                 )
               }
             </div>
@@ -312,84 +236,23 @@ const domains = [
     </div>
   </section>
 
-  <!-- Device control -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
-        label="Device Control"
-        title="The application requests device-level actions. Firmware owns physical execution."
+        label="Embedded Controller"
+        title="Firmware owns deterministic physical execution."
+        description="The embedded controller handles homing, indexed movement, hand-off waiting, sensor and interlock behavior, illumination, and hardware fault states."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-[0.8fr_1.2fr]
-        "
-      >
-        <div
-          class="
-            rounded-3xl
-            border
-            border-[var(--color-border)]
-            bg-[var(--color-background)]
-            p-7
-          "
-        >
-          <h2 class="text-xl font-semibold">
-            Application
-          </h2>
-
-          <p
-            class="
-              mt-4
-              leading-7
-              text-[var(--color-text-secondary)]
-            "
-          >
-            Determines what operation is needed based on schedules,
-            compartment state, vision results, and workflow rules.
-          </p>
-        </div>
-
-        <div
-          class="
-            rounded-3xl
-            border
-            border-[var(--color-border)]
-            bg-[var(--color-background)]
-            p-7
-          "
-        >
-          <h2 class="text-xl font-semibold">
-            Embedded Controller
-          </h2>
-
-          <p
-            class="
-              mt-4
-              leading-7
-              text-[var(--color-text-secondary)]
-            "
-          >
-            Generates motor timing, reads sensors, controls lighting,
-            enforces interlocks, performs homing, and returns
-            deterministic status or fault responses.
-          </p>
-        </div>
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/04-embedded-controller-states.svg"
+          mobilePath="/images/architecture/mobile/04-firmware-states-mobile.svg"
+          alt="Embedded controller state diagram for the medicine dispensing device"
+        />
       </div>
 
-      <div
-        class="
-          mt-10
-          flex
-          flex-wrap
-          gap-3
-        "
-      >
+      <div class="mt-8 flex flex-wrap gap-3">
         {
           deviceCommands.map((command) => (
             <code
@@ -410,60 +273,24 @@ const domains = [
     </div>
   </section>
 
-  <!-- Domain model -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Domain Model"
-        title="Persistent data separates scheduling, physical state, workflow events, and operations."
+        title="Scheduling, physical state, evidence, and operations remain explicit."
+        description="Persistent entities represent planned doses, removable compartments, medication assignments, inspection and pickup evidence, alerts, and system events."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-4
-        "
-      >
-        {
-          domains.map((domain) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-white
-                p-7
-              "
-            >
-              <h2 class="text-xl font-semibold">
-                {domain.title}
-              </h2>
-
-              <ul
-                class="
-                  mt-5
-                  space-y-3
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                {
-                  domain.items.map((item) => (
-                    <li>{item}</li>
-                  ))
-                }
-              </ul>
-            </article>
-          ))
-        }
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/07-domain-model.svg"
+          mobilePath="/images/architecture/mobile/07-domain-model-mobile.svg"
+          alt="Domain model for the medicine dispensing application"
+        />
       </div>
     </div>
   </section>
 
-  <!-- Testing -->
   <section
     class="
       bg-[var(--color-graphite)]
@@ -473,11 +300,10 @@ const domains = [
     "
   >
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Testing & Simulation"
-        title="Software workflows can run without physical hardware."
-        description="The architecture supports fake Device and Camera adapters so end-to-end workflows can be exercised during development and testing before hardware is available."
+        title="Application workflows can be exercised without physical hardware."
+        description="Replaceable Device and Camera adapters allow the same application workflows to run with simulated hardware during development and with physical hardware as integration progresses."
         light={true}
       />
     </div>

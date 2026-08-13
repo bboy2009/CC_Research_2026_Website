@@ -1,6 +1,10 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+const visionPage = `${base}/vision/`;
 
 const researchAreas = [
   {
@@ -364,6 +368,36 @@ const validation = [
             </article>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Current evidence -->
+  <section class="py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-10
+        px-6
+        lg:grid-cols-[1fr_auto]
+        lg:items-end
+        lg:px-10
+      "
+    >
+      <SectionHeader
+        label="Current Evidence"
+        title="Interim visual-inspection outputs are now documented separately."
+        description="The current computer-vision images show development-stage object annotations and confidence outputs. They are intentionally separated from formal validation results until controlled benchmark evidence is available."
+      />
+
+      <div>
+        <Button href={visionPage} variant="secondary">
+          View Vision Evidence →
+        </Button>
       </div>
     </div>
   </section>
