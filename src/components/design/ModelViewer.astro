@@ -99,43 +99,15 @@ const posterPath =
 <script>
   import "@google/model-viewer";
 
-  console.log("[ModelViewer] client script loaded");
-
   customElements
     .whenDefined("model-viewer")
     .then(() => {
-      console.log(
-        "[ModelViewer] custom element registered"
-      );
-
       const viewer =
         document.querySelector("#medicine-model");
 
       if (!viewer) {
-        console.warn(
-          "[ModelViewer] model-viewer element not found"
-        );
-
         return;
       }
-
-      console.log(
-        "[ModelViewer] model-viewer element found"
-      );
-
-      console.log(
-        "[ModelViewer] camera-controls:",
-        viewer.hasAttribute("camera-controls")
-      );
-
-      viewer.addEventListener(
-        "load",
-        () => {
-          console.log(
-            "[ModelViewer] GLB model loaded"
-          );
-        }
-      );
 
       viewer.addEventListener(
         "error",
