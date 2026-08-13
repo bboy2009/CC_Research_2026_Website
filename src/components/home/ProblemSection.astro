@@ -4,7 +4,12 @@ import SectionHeader from "../common/SectionHeader.astro";
 
 <section
   id="product"
-  class="scroll-mt-20 bg-white py-16 lg:py-28"
+  class="
+    scroll-mt-20
+    bg-white
+    py-16
+    lg:py-28
+  "
 >
   <div
     class="
@@ -14,7 +19,7 @@ import SectionHeader from "../common/SectionHeader.astro";
       grid-cols-1
       gap-10
       px-6
-      lg:grid-cols-[0.7fr_1.3fr]
+      lg:grid-cols-[0.55fr_1.45fr]
       lg:gap-20
       lg:px-10
     "
@@ -33,10 +38,27 @@ import SectionHeader from "../common/SectionHeader.astro";
       </p>
     </div>
 
-    <SectionHeader
-      label="The Concept"
-      title="Designed around controlled, verified medication hand-off."
-      description="The prototype organizes medication into individual removable dose compartments. When a dose becomes due, the system positions the correct compartment for inspection, verifies its contents, and only then presents the complete compartment for pickup."
-    />
+    <div>
+      <SectionHeader
+        title="A removable dose compartment becomes the unit of medication hand-off."
+        description="Rather than releasing loose pills, the prototype keeps each prepared dose inside an individual removable compartment throughout storage, inspection, presentation, and patient pickup."
+      />
+
+      <p
+        class="
+          mt-7
+          max-w-[760px]
+          text-lg
+          leading-8
+          text-[var(--color-text-secondary)]
+        "
+      >
+        Eleven compartments are arranged around a rotating carrier.
+        When a scheduled dose becomes due, the assigned compartment
+        first moves to a fixed inspection position. If visual
+        verification passes, that same compartment is moved to the
+        patient hand-off position.
+      </p>
+    </div>
   </div>
 </section>
