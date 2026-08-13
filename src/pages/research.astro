@@ -2,6 +2,8 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
 import Button from "../components/common/Button.astro";
+import StatusBadge from "../components/research/StatusBadge.astro";
+import DevelopmentTimeline from "../components/research/DevelopmentTimeline.astro";
 
 const base = import.meta.env.BASE_URL;
 const visionPage = `${base}/vision/`;
@@ -102,24 +104,27 @@ const validation = [
 ---
 
 <MainLayout
-  title="Research | Medicine Dispensing Device"
-  description="Explore the active engineering questions, research areas, and validation approach behind the medicine dispensing prototype."
+  title="Research & Development | Medicine Dispensing Device"
+  description="Follow the current evidence, open engineering decisions, planned validation work, and development progression of the medicine dispensing prototype."
 >
   <!-- Hero -->
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="flex flex-wrap items-center gap-3">
+        <p
+          class="
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-[var(--color-accent-orange)]
+          "
+        >
+          Research & Development
+        </p>
 
-      <p
-        class="
-          text-sm
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-          text-[var(--color-accent-orange)]
-        "
-      >
-        Research
-      </p>
+        <StatusBadge status="INTERIM RESULT" />
+      </div>
 
       <h1
         class="
@@ -132,13 +137,13 @@ const validation = [
           lg:text-7xl
         "
       >
-        A prototype shaped by measurable engineering questions.
+        A prototype shaped by evidence, open questions, and planned validation.
       </h1>
 
       <p
         class="
           mt-7
-          max-w-[780px]
+          max-w-[820px]
           text-lg
           leading-8
           text-[var(--color-text-secondary)]
@@ -146,17 +151,141 @@ const validation = [
         "
       >
         The project remains an integrated engineering prototype.
-        Mechanical design, computer vision, embedded control,
-        software architecture, safety, and user interaction are
-        being evaluated together.
+        Current artifacts document product definition, industrial design,
+        system architecture, and interim computer-vision behavior. Several
+        mechanical, sensing, motion-control, safety, and human-factor
+        questions remain intentionally unresolved until test evidence is available.
       </p>
+    </div>
+  </section>
+
+  <!-- Status guide -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div
+        class="
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-[0.8fr_1.2fr]
+          lg:items-start
+          lg:gap-16
+        "
+      >
+        <div>
+          <p
+            class="
+              text-sm
+              font-semibold
+              uppercase
+              tracking-[0.18em]
+              text-[var(--color-accent-orange)]
+            "
+          >
+            Evidence Language
+          </p>
+
+          <h2 class="mt-4 text-2xl font-semibold lg:text-3xl">
+            Status labels distinguish evidence from intent.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <StatusBadge status="INTERIM RESULT" />
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              Development evidence exists, but formal validation is incomplete.
+            </p>
+          </div>
+
+          <div>
+            <StatusBadge status="OPEN DECISION" />
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              An engineering choice remains unresolved pending evidence.
+            </p>
+          </div>
+
+          <div>
+            <StatusBadge status="PLANNED VALIDATION" />
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              A validation method is defined, but the result is not yet available.
+            </p>
+          </div>
+
+          <div>
+            <StatusBadge status="VALIDATED RESULT" />
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              Reserved for conclusions supported by defined evidence and acceptance criteria.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current evidence -->
+  <section class="py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-10
+        px-6
+        lg:grid-cols-[0.8fr_1.2fr]
+        lg:items-start
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <SectionHeader
+        label="Current Evidence"
+        title="The computer-vision work is the first documented implementation evidence."
+        description="Four current inspection images demonstrate object annotation, pill-type labeling, and model-output confidence under single-object and increasingly complex mixed-object scenes."
+      />
+
+      <article
+        class="
+          rounded-[2rem]
+          border
+          border-[var(--color-border)]
+          bg-white
+          p-7
+          lg:p-9
+        "
+      >
+        <StatusBadge status="INTERIM RESULT" />
+
+        <h2 class="mt-5 text-2xl font-semibold">
+          Visual Inspection Interim Results
+        </h2>
+
+        <p
+          class="
+            mt-4
+            leading-7
+            text-[var(--color-text-secondary)]
+          "
+        >
+          Current annotated images show PILL_A, PILL_B, mixed pill
+          types, and a crowded multi-object scene. The displayed
+          confidence values are model outputs and are not presented
+          as a measured system accuracy rate.
+        </p>
+
+        <div class="mt-7">
+          <Button href={visionPage} variant="secondary">
+            View Vision Evidence →
+          </Button>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- Research areas -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Research Areas"
         title="Six disciplines converge in the current prototype."
@@ -212,7 +341,7 @@ const validation = [
     </div>
   </section>
 
-  <!-- Open questions -->
+  <!-- Open engineering decisions -->
   <section class="py-16 lg:py-28">
     <div
       class="
@@ -227,11 +356,17 @@ const validation = [
         lg:px-10
       "
     >
-      <SectionHeader
-        label="Open Engineering Decisions"
-        title="Several design choices remain intentionally evidence-driven."
-        description="These questions require mechanical testing, sensing experiments, image evaluation, or human-factor validation before the product architecture is finalized."
-      />
+      <div>
+        <SectionHeader
+          label="Open Engineering Decisions"
+          title="Several design choices remain intentionally unresolved."
+          description="These questions require mechanical testing, sensing experiments, image evaluation, or human-factor validation before the product architecture is finalized."
+        />
+
+        <div class="mt-6">
+          <StatusBadge status="OPEN DECISION" />
+        </div>
+      </div>
 
       <div
         class="
@@ -275,14 +410,29 @@ const validation = [
     </div>
   </section>
 
-  <!-- Validation -->
+  <!-- Planned validation -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div
+        class="
+          flex
+          flex-col
+          gap-5
+          lg:flex-row
+          lg:items-end
+          lg:justify-between
+        "
+      >
+        <SectionHeader
+          label="Planned Validation"
+          title="Prototype requirements are paired with observable test evidence."
+          description="These methods define how future integrated testing can establish whether the prototype meets its intended mechanical, sensing, safety, and workflow behavior."
+        />
 
-      <SectionHeader
-        label="Validation Approach"
-        title="Prototype requirements are tied to observable test evidence."
-      />
+        <div class="shrink-0">
+          <StatusBadge status="PLANNED VALIDATION" />
+        </div>
+      </div>
 
       <div class="mt-12 space-y-4">
         {
@@ -352,7 +502,7 @@ const validation = [
                     text-[var(--color-accent-orange)]
                   "
                 >
-                  Pass Evidence
+                  Intended Evidence
                 </p>
 
                 <p
@@ -372,37 +522,20 @@ const validation = [
     </div>
   </section>
 
-
-  <!-- Current evidence -->
+  <!-- Development timeline -->
   <section class="py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-10
-        px-6
-        lg:grid-cols-[1fr_auto]
-        lg:items-end
-        lg:px-10
-      "
-    >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Current Evidence"
-        title="Interim visual-inspection outputs are now documented separately."
-        description="The current computer-vision images show development-stage object annotations and confidence outputs. They are intentionally separated from formal validation results until controlled benchmark evidence is available."
+        label="Development Timeline"
+        title="The prototype has progressed from requirements to implementation evidence."
+        description="The timeline summarizes the current engineering progression without implying that planned integrated validation has already been completed."
       />
 
-      <div>
-        <Button href={visionPage} variant="secondary">
-          View Vision Evidence →
-        </Button>
-      </div>
+      <DevelopmentTimeline />
     </div>
   </section>
 
-  <!-- Status -->
+  <!-- Prototype status -->
   <section
     class="
       bg-[var(--color-graphite)]
@@ -412,10 +545,9 @@ const validation = [
     "
   >
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Prototype Status"
-        title="The current design is intentionally iterative."
+        title="The current design remains intentionally iterative."
         description="Mechanical architecture, sensing choices, vision performance, motion repeatability, safety behavior, and caregiver ergonomics will continue to evolve as integrated prototype testing produces evidence."
         light={true}
       />
