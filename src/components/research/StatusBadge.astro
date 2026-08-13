@@ -1,0 +1,42 @@
+---
+interface Props {
+  status:
+    | "INTERIM RESULT"
+    | "ACTIVE EXPERIMENT"
+    | "OPEN DECISION"
+    | "PLANNED VALIDATION"
+    | "VALIDATED RESULT";
+}
+
+const { status } = Astro.props;
+
+const styles = {
+  "INTERIM RESULT":
+    "border-[var(--color-accent-teal)]/35 bg-[var(--color-accent-teal)]/10 text-[var(--color-accent-teal)]",
+  "ACTIVE EXPERIMENT":
+    "border-[var(--color-accent-orange)]/35 bg-[var(--color-accent-orange)]/10 text-[var(--color-accent-orange)]",
+  "OPEN DECISION":
+    "border-black/15 bg-black/5 text-[var(--color-text-primary)]",
+  "PLANNED VALIDATION":
+    "border-[var(--color-border)] bg-white text-[var(--color-text-secondary)]",
+  "VALIDATED RESULT":
+    "border-[var(--color-accent-teal)]/45 bg-[var(--color-accent-teal)] text-white",
+};
+---
+
+<span
+  class={`
+    inline-flex
+    rounded-full
+    border
+    px-3
+    py-1.5
+    text-[11px]
+    font-semibold
+    uppercase
+    tracking-[0.12em]
+    ${styles[status]}
+  `}
+>
+  {status}
+</span>

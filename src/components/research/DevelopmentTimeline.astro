@@ -1,0 +1,160 @@
+---
+import StatusBadge from "./StatusBadge.astro";
+
+const stages = [
+  {
+    number: "01",
+    title: "Product Definition",
+    status: "VALIDATED RESULT" as const,
+    description:
+      "Product and system requirements established the removable-compartment dispensing concept, user workflows, system boundaries, and first-generation engineering goals.",
+    artifact:
+      "PRD, SRD, product architecture, and workflow definitions",
+  },
+  {
+    number: "02",
+    title: "Computer Vision Exploration",
+    status: "INTERIM RESULT" as const,
+    description:
+      "Development work explored pill localization, classification, annotation, counting, and visual verification under increasingly complex scenes.",
+    artifact:
+      "Annotated single-pill and mixed-pill inspection examples",
+  },
+  {
+    number: "03",
+    title: "Software Architecture",
+    status: "INTERIM RESULT" as const,
+    description:
+      "The prototype software evolved toward clear application, repository, vision, persistence, and device-control boundaries.",
+    artifact:
+      "Python prototype implementation and responsive architecture diagrams",
+  },
+  {
+    number: "04",
+    title: "Industrial Design",
+    status: "INTERIM RESULT" as const,
+    description:
+      "The carousel, removable dose compartments, magnetic retention concept, inspection position, and patient hand-off geometry were developed as an integrated product concept.",
+    artifact:
+      "Industrial design renders and interactive 3D model",
+  },
+  {
+    number: "05",
+    title: "Technical Showcase",
+    status: "INTERIM RESULT" as const,
+    description:
+      "The research website now consolidates product definition, architecture, workflow diagrams, design artifacts, and current vision evidence.",
+    artifact:
+      "Responsive website through Milestone 4",
+  },
+  {
+    number: "06",
+    title: "Integrated Prototype Validation",
+    status: "PLANNED VALIDATION" as const,
+    description:
+      "Future work will combine mechanical, sensing, embedded-control, computer-vision, and workflow testing against defined acceptance evidence.",
+    artifact:
+      "Planned integrated test program",
+  },
+];
+---
+
+<div class="mt-12 space-y-4">
+  {
+    stages.map((stage, index) => (
+      <article
+        class="
+          grid
+          grid-cols-[auto_1fr]
+          gap-5
+          rounded-3xl
+          border
+          border-[var(--color-border)]
+          bg-white
+          p-6
+          lg:grid-cols-[90px_1fr_auto]
+          lg:items-start
+          lg:gap-8
+          lg:p-8
+        "
+      >
+        <div>
+          <div
+            class="
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
+              rounded-full
+              bg-[var(--color-background)]
+              text-sm
+              font-semibold
+              text-[var(--color-accent-orange)]
+            "
+          >
+            {stage.number}
+          </div>
+
+          {
+            index < stages.length - 1 && (
+              <div
+                class="
+                  mx-auto
+                  mt-3
+                  hidden
+                  h-12
+                  w-px
+                  bg-[var(--color-border)]
+                  lg:block
+                "
+              />
+            )
+          }
+        </div>
+
+        <div>
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="text-xl font-semibold lg:text-2xl">
+              {stage.title}
+            </h3>
+
+            <div class="lg:hidden">
+              <StatusBadge status={stage.status} />
+            </div>
+          </div>
+
+          <p
+            class="
+              mt-3
+              max-w-[780px]
+              leading-7
+              text-[var(--color-text-secondary)]
+            "
+          >
+            {stage.description}
+          </p>
+
+          <p
+            class="
+              mt-4
+              text-sm
+              leading-6
+              text-[var(--color-text-secondary)]
+            "
+          >
+            <span class="font-semibold text-[var(--color-text-primary)]">
+              Current artifact:
+            </span>
+            {" "}
+            {stage.artifact}
+          </p>
+        </div>
+
+        <div class="hidden lg:block">
+          <StatusBadge status={stage.status} />
+        </div>
+      </article>
+    ))
+  }
+</div>
