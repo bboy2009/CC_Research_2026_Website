@@ -1,11 +1,108 @@
-Medicine Dispensing Device
+---
+const base = import.meta.env.BASE_URL;
+---
 
-Engineering prototype exploring automated medication
-scheduling, computer vision, and controlled hand-off.
+<footer
+  class="
+    border-t
+    border-black/10
+    bg-[var(--color-graphite)]
+    py-14
+    text-white
+    lg:py-16
+  "
+>
+  <div
+    class="
+      mx-auto
+      grid
+      max-w-[1280px]
+      grid-cols-1
+      gap-10
+      px-6
+      lg:grid-cols-[1.3fr_0.7fr]
+      lg:px-10
+    "
+  >
+    <div>
+      <a
+        href={base}
+        class="text-xl font-semibold"
+      >
+        Medicine Dispensing Device
+      </a>
 
-Product
-Design
-Technology
-Research
+      <p
+        class="
+          mt-4
+          max-w-[550px]
+          leading-7
+          text-white/65
+        "
+      >
+        Engineering prototype exploring automated medication
+        scheduling, computer vision, removable dose compartments,
+        and controlled patient hand-off.
+      </p>
+    </div>
 
-© 2026
+    <nav
+      class="
+        grid
+        grid-cols-2
+        gap-x-8
+        gap-y-4
+        text-sm
+        lg:justify-self-end
+      "
+    >
+      <a href={`${base}/#product`}>
+        Product
+      </a>
+
+      <a href={`${base}/#how-it-works`}>
+        How It Works
+      </a>
+
+      <a href={`${base}/design/`}>
+        Design
+      </a>
+
+      <a href={`${base}/#technology`}>
+        Technology
+      </a>
+
+      <a href={`${base}/#research`}>
+        Research
+      </a>
+    </nav>
+  </div>
+
+  <div
+    class="
+      mx-auto
+      mt-12
+      flex
+      max-w-[1280px]
+      flex-col
+      gap-2
+      border-t
+      border-white/10
+      px-6
+      pt-6
+      text-sm
+      text-white/50
+      lg:flex-row
+      lg:justify-between
+      lg:px-10
+    "
+  >
+    <span>
+      Prototype Research Project
+    </span>
+
+    <span>
+      © 2026
+    </span>
+  </div>
+</footer>

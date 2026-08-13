@@ -1,0 +1,112 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+
+const researchAreas = [
+  {
+    number: "01",
+    title: "Mechanical Design",
+    description:
+      "Carousel geometry, removable compartments, magnetic retention, and hand-off ergonomics.",
+  },
+  {
+    number: "02",
+    title: "Computer Vision",
+    description:
+      "Medication detection, identification, counting, and compartment presence verification.",
+  },
+  {
+    number: "03",
+    title: "Motion Control",
+    description:
+      "Homing, indexed positioning, repeatability, motor control, and safe movement.",
+  },
+  {
+    number: "04",
+    title: "Software Architecture",
+    description:
+      "Scheduling, workflow orchestration, persistence, vision, and device integration.",
+  },
+  {
+    number: "05",
+    title: "Safety & Interlocks",
+    description:
+      "Safe hand-off state, partial-removal detection, fault handling, and recovery.",
+  },
+  {
+    number: "06",
+    title: "Human Interaction",
+    description:
+      "Compartment loading, removal, return, refill, notifications, and caregiver workflows.",
+  },
+];
+---
+
+<section
+  id="research"
+  class="scroll-mt-20 bg-white py-16 lg:py-28"
+>
+  <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+    <div
+      class="
+        grid
+        grid-cols-1
+        gap-12
+        lg:grid-cols-[0.8fr_1.2fr]
+        lg:gap-20
+      "
+    >
+      <div>
+        <SectionHeader
+          label="Research Prototype"
+          title="Engineering questions drive each iteration."
+          description="The prototype is being developed as an integrated investigation across mechanical design, computer vision, embedded control, software architecture, safety, and user interaction."
+        />
+      </div>
+
+      <div
+        class="
+          grid
+          grid-cols-1
+          gap-px
+          overflow-hidden
+          rounded-3xl
+          border
+          border-[var(--color-border)]
+          bg-[var(--color-border)]
+          lg:grid-cols-2
+        "
+      >
+        {
+          researchAreas.map((area) => (
+            <article class="bg-white p-7">
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {area.number}
+              </p>
+
+              <h3 class="mt-5 text-xl font-semibold">
+                {area.title}
+              </h3>
+
+              <p
+                class="
+                  mt-3
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {area.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

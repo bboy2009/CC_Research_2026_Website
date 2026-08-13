@@ -1,4 +1,11 @@
-<section class="bg-white py-16 lg:py-28">
+---
+import SectionHeader from "../common/SectionHeader.astro";
+---
+
+<section
+  id="product"
+  class="scroll-mt-20 bg-white py-16 lg:py-28"
+>
   <div
     class="
       mx-auto
@@ -26,33 +33,10 @@
       </p>
     </div>
 
-    <div>
-      <h2
-        class="
-          max-w-[800px]
-          text-3xl
-          font-semibold
-          leading-tight
-          lg:text-5xl
-        "
-      >
-        Designed around controlled, verified medication hand-off.
-      </h2>
-
-      <p
-        class="
-          mt-6
-          max-w-[750px]
-          text-lg
-          leading-8
-          text-[var(--color-text-secondary)]
-        "
-      >
-        The prototype organizes medication into individual removable
-        dose compartments. When a dose is due, the system positions the
-        correct compartment for inspection, verifies its contents, and
-        only then presents the complete compartment for pickup.
-      </p>
-    </div>
+    <SectionHeader
+      label="Product Direction"
+      title="Designed around controlled, verified medication hand-off."
+      description="The prototype organizes medication into individual removable dose compartments. When a dose becomes due, the system positions the correct compartment for inspection, verifies its contents, and only then presents the complete compartment for pickup."
+    />
   </div>
 </section>

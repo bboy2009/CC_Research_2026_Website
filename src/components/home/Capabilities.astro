@@ -1,4 +1,6 @@
 ---
+import SectionHeader from "../common/SectionHeader.astro";
+
 const capabilities = [
   {
     number: "01",
@@ -30,21 +32,14 @@ const capabilities = [
 <section class="py-16 lg:py-28">
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
 
-    <p
-      class="
-        text-sm
-        font-semibold
-        uppercase
-        tracking-[0.18em]
-        text-[var(--color-accent-orange)]
-      "
-    >
-      Core Capabilities
-    </p>
+    <SectionHeader
+      label="Core Capabilities"
+      title="A connected workflow from preparation to pickup."
+    />
 
     <div
       class="
-        mt-10
+        mt-12
         grid
         grid-cols-1
         gap-5
@@ -60,9 +55,18 @@ const capabilities = [
               border-[var(--color-border)]
               bg-white
               p-7
+              transition
+              lg:hover:-translate-y-1
+              lg:hover:shadow-lg
             "
           >
-            <p class="text-sm text-[var(--color-accent-orange)]">
+            <p
+              class="
+                text-sm
+                font-semibold
+                text-[var(--color-accent-orange)]
+              "
+            >
               {item.number}
             </p>
 
@@ -83,6 +87,5 @@ const capabilities = [
         ))
       }
     </div>
-
   </div>
 </section>

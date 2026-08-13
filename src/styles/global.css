@@ -22,8 +22,11 @@ html {
 
 body {
   margin: 0;
+  min-width: 320px;
+
   background: var(--color-background);
   color: var(--color-text-primary);
+
   font-family:
     Inter,
     ui-sans-serif,
@@ -32,4 +35,26 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--color-accent-orange);
+  color: white;
 }
