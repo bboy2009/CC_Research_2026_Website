@@ -1,0 +1,485 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+
+const architectureLayers = [
+  {
+    title: "Browser / Device UI",
+    description:
+      "Local or remote-capable user experience for scheduling, status, alerts, and refill workflows.",
+  },
+  {
+    title: "API Layer",
+    description:
+      "Validated interface between the browser UI and application services.",
+  },
+  {
+    title: "Application Workflows",
+    description:
+      "Coordinates scheduling, compartment state, vision, hardware control, events, and notifications.",
+  },
+  {
+    title: "Device Service",
+    description:
+      "Isolates serial communication and device-level commands from application workflows.",
+  },
+  {
+    title: "Arduino Firmware",
+    description:
+      "Owns low-level motion, homing, sensors, illumination, interlocks, and deterministic device responses.",
+  },
+  {
+    title: "Physical Hardware",
+    description:
+      "Stepper motor, home sensor, hand-off sensing, lighting, and rotating carrier.",
+  },
+];
+
+const visionOutputs = [
+  "Medication identity",
+  "Count",
+  "Confidence",
+  "Geometry / annotation",
+  "Presence / absence",
+];
+
+const deviceCommands = [
+  "HOME",
+  "MOVE_TO_INSPECTION",
+  "MOVE_TO_HANDOFF",
+  "LIGHT_ON",
+  "LIGHT_OFF",
+  "GET_STATUS",
+  "RESET / RECOVER",
+];
+
+const domains = [
+  {
+    title: "Scheduling",
+    items: [
+      "Patient",
+      "Medication",
+      "Schedule",
+      "ScheduledDose",
+    ],
+  },
+  {
+    title: "Compartment State",
+    items: [
+      "RemovableCompartment",
+      "CompartmentMedication",
+    ],
+  },
+  {
+    title: "Workflow Events",
+    items: [
+      "InspectionEvent",
+      "PresentationEvent",
+      "PickupEvent",
+    ],
+  },
+  {
+    title: "Operations",
+    items: [
+      "Alert",
+      "SystemEvent",
+    ],
+  },
+];
+---
+
+<MainLayout
+  title="Technology | Medicine Dispensing Device"
+  description="Explore the software, vision, device-control, embedded-controller, and persistence architecture of the medicine dispenser prototype."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <p
+        class="
+          text-sm
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[var(--color-accent-orange)]
+        "
+      >
+        Technology
+      </p>
+
+      <h1
+        class="
+          mt-5
+          max-w-[980px]
+          text-4xl
+          font-semibold
+          leading-[1.05]
+          tracking-tight
+          lg:text-7xl
+        "
+      >
+        Software and hardware coordinated through clear system boundaries.
+      </h1>
+
+      <p
+        class="
+          mt-7
+          max-w-[780px]
+          text-lg
+          leading-8
+          text-[var(--color-text-secondary)]
+          lg:text-xl
+        "
+      >
+        The prototype uses a modular Python application, browser
+        interface, computer vision, device service, and separate
+        embedded controller to coordinate medication workflows
+        without coupling high-level decisions directly to motor control.
+      </p>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="bg-white py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-[0.7fr_1.3fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <SectionHeader
+        label="System Architecture"
+        title="Application intelligence remains separate from embedded hardware control."
+      />
+
+      <div class="space-y-3">
+        {
+          architectureLayers.map((layer, index) => (
+            <div>
+              <div
+                class="
+                  rounded-2xl
+                  border
+                  border-[var(--color-border)]
+                  bg-[var(--color-background)]
+                  p-6
+                "
+              >
+                <p class="font-semibold">
+                  {layer.title}
+                </p>
+
+                <p
+                  class="
+                    mt-2
+                    leading-7
+                    text-[var(--color-text-secondary)]
+                  "
+                >
+                  {layer.description}
+                </p>
+              </div>
+
+              {
+                index < architectureLayers.length - 1 && (
+                  <div
+                    class="
+                      flex
+                      h-7
+                      items-center
+                      justify-center
+                      text-[var(--color-accent-orange)]
+                    "
+                  >
+                    ↓
+                  </div>
+                )
+              }
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-[0.9fr_1.1fr]
+        lg:items-center
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div>
+        <SectionHeader
+          label="Computer Vision"
+          title="Medication verification happens at the application layer."
+          description="The Vision Service supports pre-hand-off medication verification and may also classify whether a compartment remains present at the hand-off station."
+        />
+
+        <div
+          class="
+            mt-8
+            flex
+            flex-wrap
+            gap-3
+          "
+        >
+          {
+            visionOutputs.map((output) => (
+              <span
+                class="
+                  rounded-full
+                  border
+                  border-[var(--color-border)]
+                  bg-white
+                  px-4
+                  py-2
+                  text-sm
+                "
+              >
+                {output}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <div
+        class="
+          rounded-[2rem]
+          bg-[var(--color-graphite)]
+          p-7
+          text-white
+          lg:p-10
+        "
+      >
+        {
+          [
+            "Camera",
+            "Image",
+            "Vision Service",
+            "Detection & Classification",
+            "Expected vs Detected",
+            "Decision",
+          ].map((item, index, array) => (
+            <div>
+              <div
+                class="
+                  rounded-2xl
+                  bg-white/10
+                  px-6
+                  py-5
+                  text-center
+                "
+              >
+                {item}
+              </div>
+
+              {
+                index < array.length - 1 && (
+                  <div
+                    class="
+                      py-2
+                      text-center
+                      text-white/30
+                    "
+                  >
+                    ↓
+                  </div>
+                )
+              }
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Device control -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Device Control"
+        title="The application requests device-level actions. Firmware owns physical execution."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-[0.8fr_1.2fr]
+        "
+      >
+        <div
+          class="
+            rounded-3xl
+            border
+            border-[var(--color-border)]
+            bg-[var(--color-background)]
+            p-7
+          "
+        >
+          <h2 class="text-xl font-semibold">
+            Application
+          </h2>
+
+          <p
+            class="
+              mt-4
+              leading-7
+              text-[var(--color-text-secondary)]
+            "
+          >
+            Determines what operation is needed based on schedules,
+            compartment state, vision results, and workflow rules.
+          </p>
+        </div>
+
+        <div
+          class="
+            rounded-3xl
+            border
+            border-[var(--color-border)]
+            bg-[var(--color-background)]
+            p-7
+          "
+        >
+          <h2 class="text-xl font-semibold">
+            Embedded Controller
+          </h2>
+
+          <p
+            class="
+              mt-4
+              leading-7
+              text-[var(--color-text-secondary)]
+            "
+          >
+            Generates motor timing, reads sensors, controls lighting,
+            enforces interlocks, performs homing, and returns
+            deterministic status or fault responses.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="
+          mt-10
+          flex
+          flex-wrap
+          gap-3
+        "
+      >
+        {
+          deviceCommands.map((command) => (
+            <code
+              class="
+                rounded-full
+                bg-[var(--color-graphite)]
+                px-4
+                py-2
+                text-sm
+                text-white
+              "
+            >
+              {command}
+            </code>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Domain model -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Domain Model"
+        title="Persistent data separates scheduling, physical state, workflow events, and operations."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-4
+        "
+      >
+        {
+          domains.map((domain) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-white
+                p-7
+              "
+            >
+              <h2 class="text-xl font-semibold">
+                {domain.title}
+              </h2>
+
+              <ul
+                class="
+                  mt-5
+                  space-y-3
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {
+                  domain.items.map((item) => (
+                    <li>{item}</li>
+                  ))
+                }
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testing -->
+  <section
+    class="
+      bg-[var(--color-graphite)]
+      py-16
+      text-white
+      lg:py-28
+    "
+  >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Testing & Simulation"
+        title="Software workflows can run without physical hardware."
+        description="The architecture supports fake Device and Camera adapters so end-to-end workflows can be exercised during development and testing before hardware is available."
+        light={true}
+      />
+    </div>
+  </section>
+</MainLayout>

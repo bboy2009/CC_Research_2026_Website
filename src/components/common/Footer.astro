@@ -1,5 +1,8 @@
 ---
 const base = import.meta.env.BASE_URL;
+
+const withBase = (path: string) =>
+  `${base}${path.startsWith("/") ? path : `/${path}`}`;
 ---
 
 <footer
@@ -26,7 +29,7 @@ const base = import.meta.env.BASE_URL;
   >
     <div>
       <a
-        href={base}
+        href={withBase("/")}
         class="text-xl font-semibold"
       >
         Medicine Dispensing Device
@@ -56,23 +59,23 @@ const base = import.meta.env.BASE_URL;
         lg:justify-self-end
       "
     >
-      <a href={`${base}/#product`}>
+      <a href={withBase("/product/")}>
         Product
       </a>
 
-      <a href={`${base}/#how-it-works`}>
+      <a href={withBase("/how-it-works/")}>
         How It Works
       </a>
 
-      <a href={`${base}/design/`}>
+      <a href={withBase("/design/")}>
         Design
       </a>
 
-      <a href={`${base}/#technology`}>
+      <a href={withBase("/technology/")}>
         Technology
       </a>
 
-      <a href={`${base}/#research`}>
+      <a href={withBase("/research/")}>
         Research
       </a>
     </nav>

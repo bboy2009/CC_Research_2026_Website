@@ -1,5 +1,11 @@
 ---
 import SectionHeader from "../common/SectionHeader.astro";
+import Button from "../common/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const researchPage =
+  `${base}/research/`;
 
 const researchAreas = [
   {
@@ -62,6 +68,15 @@ const researchAreas = [
           title="Engineering questions drive each iteration."
           description="The prototype is being developed as an integrated investigation across mechanical design, computer vision, embedded control, software architecture, safety, and user interaction."
         />
+
+        <div class="mt-8">
+          <Button
+            href={researchPage}
+            variant="secondary"
+          >
+            Explore the Research →
+          </Button>
+        </div>
       </div>
 
       <div

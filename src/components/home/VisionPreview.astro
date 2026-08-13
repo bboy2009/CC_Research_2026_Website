@@ -1,5 +1,11 @@
 ---
 import SectionHeader from "../common/SectionHeader.astro";
+import Button from "../common/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const technologyPage =
+  `${base}/technology/`;
 
 const stages = [
   "Capture",
@@ -67,6 +73,15 @@ const visualFeatures = [
             </span>
           ))
         }
+      </div>
+
+      <div class="mt-8">
+        <Button
+          href={technologyPage}
+          variant="secondary"
+        >
+          Explore the Technology →
+        </Button>
       </div>
     </div>
 

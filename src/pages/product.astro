@@ -1,0 +1,371 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const imagePath =
+  `${base}/images/product/design-03.jpg`;
+
+const actors = [
+  {
+    title: "Patient",
+    description:
+      "Receives the scheduled dose by removing the complete presented compartment and receives local alerts when appropriate.",
+  },
+  {
+    title: "Caregiver",
+    description:
+      "Defines medication schedules, loads and reinstalls removable compartments, reviews history, and resolves alerts or exceptions.",
+  },
+];
+
+const capabilities = [
+  "Medication and schedule management",
+  "Guided compartment loading and refill",
+  "Scheduled carousel positioning",
+  "Pre-hand-off medication inspection",
+  "Controlled compartment presentation",
+  "Pickup and adherence verification",
+];
+
+const principles = [
+  {
+    number: "01",
+    title: "Verify before hand-off",
+    description:
+      "A compartment is not presented until its contents pass configured inspection criteria or an authorized override is recorded.",
+  },
+  {
+    number: "02",
+    title: "Present the complete dose container",
+    description:
+      "Medication remains inside its removable compartment during patient hand-off.",
+  },
+  {
+    number: "03",
+    title: "Deterministic positioning",
+    description:
+      "The system establishes a known carousel reference before automatic operation.",
+  },
+  {
+    number: "04",
+    title: "Positive compartment state",
+    description:
+      "Each compartment is tracked through installed, loaded, presented, removed, returned, and exception states.",
+  },
+  {
+    number: "05",
+    title: "Controlled patient access",
+    description:
+      "Normal patient interaction occurs at a defined hand-off opening rather than through access to the moving carousel.",
+  },
+  {
+    number: "06",
+    title: "Application-layer orchestration",
+    description:
+      "Scheduling, vision, device control, persistence, and notifications remain separate responsibilities coordinated by workflows.",
+  },
+];
+---
+
+<MainLayout
+  title="Product | Medicine Dispensing Device"
+  description="Explore the product concept, users, capabilities, and design principles of the removable-compartment medicine dispensing prototype."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        items-center
+        gap-12
+        px-6
+        lg:grid-cols-[0.9fr_1.1fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div>
+        <p
+          class="
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-[var(--color-accent-orange)]
+          "
+        >
+          Product
+        </p>
+
+        <h1
+          class="
+            mt-5
+            max-w-[760px]
+            text-4xl
+            font-semibold
+            leading-[1.05]
+            tracking-tight
+            lg:text-7xl
+          "
+        >
+          Medication management designed around prepared,
+          removable doses.
+        </h1>
+
+        <p
+          class="
+            mt-7
+            max-w-[650px]
+            text-lg
+            leading-8
+            text-[var(--color-text-secondary)]
+            lg:text-xl
+          "
+        >
+          The first-generation prototype stores medication in
+          eleven removable individual dose compartments and
+          coordinates scheduling, inspection, patient hand-off,
+          and pickup verification.
+        </p>
+      </div>
+
+      <div
+        class="
+          overflow-hidden
+          rounded-[2rem]
+          bg-white
+          p-6
+          lg:p-10
+        "
+      >
+        <img
+          src={imagePath}
+          alt="Medicine dispensing device product concept"
+          class="mx-auto w-full"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="bg-white py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-[0.65fr_1.35fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div>
+        <p
+          class="
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-[var(--color-accent-orange)]
+          "
+        >
+          The Problem
+        </p>
+      </div>
+
+      <div>
+        <h2
+          class="
+            max-w-[850px]
+            text-3xl
+            font-semibold
+            leading-tight
+            lg:text-5xl
+          "
+        >
+          Medication routines can become difficult to manage
+          consistently.
+        </h2>
+
+        <p
+          class="
+            mt-6
+            max-w-[760px]
+            text-lg
+            leading-8
+            text-[var(--color-text-secondary)]
+          "
+        >
+          The prototype is intended to reduce missed doses and
+          incorrect medication use while reducing caregiver burden.
+          Instead of dispensing loose pills, the system presents a
+          prepared, removable dose compartment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Users -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Users"
+        title="Designed around the patient and caregiver."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-6
+          lg:grid-cols-2
+        "
+      >
+        {
+          actors.map((actor) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-white
+                p-8
+                lg:p-10
+              "
+            >
+              <h2 class="text-2xl font-semibold">
+                {actor.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  max-w-[560px]
+                  leading-8
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {actor.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Product Capabilities"
+        title="One coordinated system from preparation through pickup."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-px
+          overflow-hidden
+          rounded-3xl
+          border
+          border-[var(--color-border)]
+          bg-[var(--color-border)]
+          lg:grid-cols-3
+        "
+      >
+        {
+          capabilities.map((capability, index) => (
+            <div class="bg-[var(--color-background)] p-7">
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {String(index + 1).padStart(2, "0")}
+              </p>
+
+              <p class="mt-4 text-lg font-medium">
+                {capability}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Design Principles"
+        title="Product decisions are organized around verification, state, and controlled access."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-3
+        "
+      >
+        {
+          principles.map((principle) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-white
+                p-7
+              "
+            >
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {principle.number}
+              </p>
+
+              <h2 class="mt-5 text-xl font-semibold">
+                {principle.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {principle.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</MainLayout>
