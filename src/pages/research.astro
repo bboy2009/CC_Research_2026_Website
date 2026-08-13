@@ -1,0 +1,390 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+
+const researchAreas = [
+  {
+    title: "Mechanical Design",
+    description:
+      "Retention force, carrier geometry, compartment alignment, manual removal, and indexed movement.",
+  },
+  {
+    title: "Computer Vision",
+    description:
+      "Medication verification, image repeatability, detection confidence, and compartment presence classification.",
+  },
+  {
+    title: "Motion Control",
+    description:
+      "Homing, positioning repeatability, motor profiles, backlash, and safe movement.",
+  },
+  {
+    title: "Safety & Interlocks",
+    description:
+      "Partial-removal detection, hand-off safety, fault states, and recovery behavior.",
+  },
+  {
+    title: "Software Architecture",
+    description:
+      "Workflow orchestration, persistence, state management, simulation, and hardware integration.",
+  },
+  {
+    title: "Human Interaction",
+    description:
+      "Loading, compartment return, refill, patient pickup, caregiver resolution, and alert workflows.",
+  },
+];
+
+const openQuestions = [
+  "Magnet type and retention force",
+  "Compartment identity sensing",
+  "Hand-off presence sensing",
+  "Partial-removal interlock mechanism",
+  "Camera field of view",
+  "Carrier bearing and drive geometry",
+  "Return and reinstall workflow",
+];
+
+const validation = [
+  {
+    area: "Magnetic retention",
+    method: "Repeated loaded rotation testing",
+    evidence:
+      "No unintended displacement or ejection of installed compartments.",
+  },
+  {
+    area: "Manual removal",
+    method: "Human-factor bench testing",
+    evidence:
+      "Presented compartment can be removed without tools or disturbing adjacent compartments.",
+  },
+  {
+    area: "Indexing",
+    method: "Repeated homing and positioning",
+    evidence:
+      "Every compartment repeatedly reaches inspection and hand-off alignment.",
+  },
+  {
+    area: "Inspection framing",
+    method: "Image repeatability testing",
+    evidence:
+      "Each compartment is consistently framed for medication analysis.",
+  },
+  {
+    area: "Pickup detection",
+    method: "Presence / absence testing",
+    evidence:
+      "System reliably distinguishes installed versus removed compartments.",
+  },
+  {
+    area: "Partial-removal safety",
+    method: "Fault-injection testing",
+    evidence:
+      "Motion is rejected when the hand-off condition is unsafe.",
+  },
+  {
+    area: "Power-loss recovery",
+    method: "Power interruption testing",
+    evidence:
+      "System re-homes and reconciles compartment state before automatic operation resumes.",
+  },
+  {
+    area: "End-to-end workflow",
+    method: "Integrated scenario testing",
+    evidence:
+      "Due → inspect → verify → hand-off → pickup verification → software update completes deterministically.",
+  },
+];
+---
+
+<MainLayout
+  title="Research | Medicine Dispensing Device"
+  description="Explore the active engineering questions, research areas, and validation approach behind the medicine dispensing prototype."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <p
+        class="
+          text-sm
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[var(--color-accent-orange)]
+        "
+      >
+        Research
+      </p>
+
+      <h1
+        class="
+          mt-5
+          max-w-[980px]
+          text-4xl
+          font-semibold
+          leading-[1.05]
+          tracking-tight
+          lg:text-7xl
+        "
+      >
+        A prototype shaped by measurable engineering questions.
+      </h1>
+
+      <p
+        class="
+          mt-7
+          max-w-[780px]
+          text-lg
+          leading-8
+          text-[var(--color-text-secondary)]
+          lg:text-xl
+        "
+      >
+        The project remains an integrated engineering prototype.
+        Mechanical design, computer vision, embedded control,
+        software architecture, safety, and user interaction are
+        being evaluated together.
+      </p>
+    </div>
+  </section>
+
+  <!-- Research areas -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Research Areas"
+        title="Six disciplines converge in the current prototype."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-3
+        "
+      >
+        {
+          researchAreas.map((area, index) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-7
+              "
+            >
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {String(index + 1).padStart(2, "0")}
+              </p>
+
+              <h2 class="mt-5 text-xl font-semibold">
+                {area.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {area.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Open questions -->
+  <section class="py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-[0.75fr_1.25fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <SectionHeader
+        label="Open Engineering Decisions"
+        title="Several design choices remain intentionally evidence-driven."
+        description="These questions require mechanical testing, sensing experiments, image evaluation, or human-factor validation before the product architecture is finalized."
+      />
+
+      <div
+        class="
+          overflow-hidden
+          rounded-3xl
+          border
+          border-[var(--color-border)]
+          bg-white
+        "
+      >
+        {
+          openQuestions.map((question, index) => (
+            <div
+              class="
+                flex
+                gap-5
+                border-b
+                border-[var(--color-border)]
+                px-6
+                py-5
+                last:border-b-0
+              "
+            >
+              <span
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <span>
+                {question}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Validation -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Validation Approach"
+        title="Prototype requirements are tied to observable test evidence."
+      />
+
+      <div class="mt-12 space-y-4">
+        {
+          validation.map((item) => (
+            <article
+              class="
+                grid
+                grid-cols-1
+                gap-5
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-6
+                lg:grid-cols-[0.6fr_0.8fr_1.6fr]
+                lg:items-start
+              "
+            >
+              <div>
+                <p
+                  class="
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-[0.12em]
+                    text-[var(--color-accent-orange)]
+                  "
+                >
+                  Area
+                </p>
+
+                <p class="mt-2 font-semibold">
+                  {item.area}
+                </p>
+              </div>
+
+              <div>
+                <p
+                  class="
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-[0.12em]
+                    text-[var(--color-accent-orange)]
+                  "
+                >
+                  Method
+                </p>
+
+                <p
+                  class="
+                    mt-2
+                    text-[var(--color-text-secondary)]
+                  "
+                >
+                  {item.method}
+                </p>
+              </div>
+
+              <div>
+                <p
+                  class="
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-[0.12em]
+                    text-[var(--color-accent-orange)]
+                  "
+                >
+                  Pass Evidence
+                </p>
+
+                <p
+                  class="
+                    mt-2
+                    leading-7
+                    text-[var(--color-text-secondary)]
+                  "
+                >
+                  {item.evidence}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Status -->
+  <section
+    class="
+      bg-[var(--color-graphite)]
+      py-16
+      text-white
+      lg:py-28
+    "
+  >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Prototype Status"
+        title="The current design is intentionally iterative."
+        description="Mechanical architecture, sensing choices, vision performance, motion repeatability, safety behavior, and caregiver ergonomics will continue to evolve as integrated prototype testing produces evidence."
+        light={true}
+      />
+    </div>
+  </section>
+</MainLayout>

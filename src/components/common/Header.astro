@@ -1,28 +1,29 @@
 ---
 const base = import.meta.env.BASE_URL;
 
-const home = base;
+const withBase = (path: string) =>
+  `${base}${path.startsWith("/") ? path : `/${path}`}`;
 
 const navigation = [
   {
     label: "Product",
-    href: `${base}/#product`,
+    href: withBase("/product/"),
   },
   {
     label: "How It Works",
-    href: `${base}/#how-it-works`,
+    href: withBase("/how-it-works/"),
   },
   {
     label: "Design",
-    href: `${base}/design/`,
+    href: withBase("/design/"),
   },
   {
     label: "Technology",
-    href: `${base}/#technology`,
+    href: withBase("/technology/"),
   },
   {
     label: "Research",
-    href: `${base}/#research`,
+    href: withBase("/research/"),
   },
 ];
 ---
@@ -51,16 +52,13 @@ const navigation = [
     "
   >
     <a
-      href={home}
-      class="
-        font-semibold
-        tracking-tight
-      "
+      href={withBase("/")}
+      class="font-semibold tracking-tight"
     >
       Medication Dispenser
     </a>
 
-    <!-- Desktop -->
+    <!-- Desktop navigation -->
     <nav
       class="
         hidden
@@ -87,7 +85,7 @@ const navigation = [
       }
     </nav>
 
-    <!-- Mobile -->
+    <!-- Mobile navigation -->
     <details class="relative lg:hidden">
       <summary
         class="

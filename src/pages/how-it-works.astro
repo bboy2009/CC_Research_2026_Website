@@ -1,0 +1,423 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+
+const phases = [
+  {
+    number: "01",
+    title: "Prepare",
+    description:
+      "The caregiver loads an identified removable compartment with the expected medication and returns it to the carrier.",
+  },
+  {
+    number: "02",
+    title: "Inspect",
+    description:
+      "When the dose becomes due, the carousel moves the assigned compartment to the fixed camera inspection station.",
+  },
+  {
+    number: "03",
+    title: "Verify",
+    description:
+      "The captured medication image is compared with the expected contents before patient access is allowed.",
+  },
+  {
+    number: "04",
+    title: "Present",
+    description:
+      "If verification passes, the same compartment rotates to the patient-accessible hand-off opening.",
+  },
+  {
+    number: "05",
+    title: "Confirm",
+    description:
+      "After the pickup interval, the system determines whether the presented compartment was removed.",
+  },
+];
+
+const pickupResults = [
+  {
+    title: "Collected",
+    description:
+      "Removal is positively confirmed and the compartment becomes unavailable until returned and reloaded.",
+  },
+  {
+    title: "Not Collected",
+    description:
+      "The pickup interval expires while the compartment remains present.",
+  },
+  {
+    title: "Ambiguous",
+    description:
+      "The system cannot confidently determine presence or removal and requests user or caregiver resolution.",
+  },
+];
+
+const lifecycle = [
+  "Available Empty",
+  "Loaded",
+  "Verified",
+  "Due",
+  "Presented",
+  "Removed",
+  "Returned",
+];
+---
+
+<MainLayout
+  title="How It Works | Medicine Dispensing Device"
+  description="Follow the medication dispensing workflow from preparation and inspection through verified hand-off and pickup confirmation."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <p
+        class="
+          text-sm
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[var(--color-accent-orange)]
+        "
+      >
+        How It Works
+      </p>
+
+      <h1
+        class="
+          mt-5
+          max-w-[950px]
+          text-4xl
+          font-semibold
+          leading-[1.05]
+          tracking-tight
+          lg:text-7xl
+        "
+      >
+        From scheduled dose to verified pickup.
+      </h1>
+
+      <p
+        class="
+          mt-7
+          max-w-[760px]
+          text-lg
+          leading-8
+          text-[var(--color-text-secondary)]
+          lg:text-xl
+        "
+      >
+        Application workflows coordinate scheduling, compartment
+        state, carousel movement, medication verification,
+        patient hand-off, and pickup confirmation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Five phases -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Dose Journey"
+        title="Five phases organize the end-to-end experience."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-4
+          lg:grid-cols-5
+        "
+      >
+        {
+          phases.map((phase) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-6
+              "
+            >
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {phase.number}
+              </p>
+
+              <h2 class="mt-5 text-xl font-semibold">
+                {phase.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  text-sm
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {phase.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Decision flow -->
+  <section class="py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-[0.7fr_1.3fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <SectionHeader
+        label="Decision Flow"
+        title="Verification determines whether the dose can proceed."
+        description="The system blocks presentation if medication verification fails. Pickup is also not assumed merely because the compartment reaches the hand-off station."
+      />
+
+      <div
+        class="
+          rounded-[2rem]
+          border
+          border-[var(--color-border)]
+          bg-white
+          p-7
+          lg:p-10
+        "
+      >
+        <div class="space-y-4 text-center">
+
+          <div class="rounded-2xl bg-[var(--color-background)] p-5">
+            Dose Due
+          </div>
+
+          <div>↓</div>
+
+          <div class="rounded-2xl bg-[var(--color-background)] p-5">
+            Move to Inspection
+          </div>
+
+          <div>↓</div>
+
+          <div class="rounded-2xl bg-[var(--color-background)] p-5">
+            Capture & Verify Medication
+          </div>
+
+          <div>↓</div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="
+                rounded-2xl
+                bg-[var(--color-accent-teal)]
+                p-5
+                text-white
+              "
+            >
+              <p class="font-semibold">
+                PASS
+              </p>
+
+              <p class="mt-2 text-sm">
+                Move to hand-off
+              </p>
+            </div>
+
+            <div
+              class="
+                rounded-2xl
+                border
+                border-[var(--color-border)]
+                p-5
+              "
+            >
+              <p class="font-semibold">
+                FAIL
+              </p>
+
+              <p
+                class="
+                  mt-2
+                  text-sm
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                Block & alert
+              </p>
+            </div>
+          </div>
+
+          <div>↓</div>
+
+          <div class="rounded-2xl bg-[var(--color-background)] p-5">
+            Verify Pickup
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pickup outcomes -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Pickup Verification"
+        title="Presentation does not automatically mean collection."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-3
+        "
+      >
+        {
+          pickupResults.map((result) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-7
+              "
+            >
+              <h2 class="text-xl font-semibold">
+                {result.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {result.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Lifecycle -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Compartment Lifecycle"
+        title="Each physical compartment moves through a controlled state lifecycle."
+      />
+
+      <!-- Desktop -->
+      <div
+        class="
+          mt-12
+          hidden
+          items-center
+          gap-3
+          lg:flex
+        "
+      >
+        {
+          lifecycle.map((state, index) => (
+            <>
+              <div
+                class="
+                  flex-1
+                  rounded-2xl
+                  border
+                  border-[var(--color-border)]
+                  bg-white
+                  px-4
+                  py-5
+                  text-center
+                  text-sm
+                  font-medium
+                "
+              >
+                {state}
+              </div>
+
+              {
+                index < lifecycle.length - 1 && (
+                  <span
+                    class="
+                      text-[var(--color-accent-orange)]
+                    "
+                  >
+                    →
+                  </span>
+                )
+              }
+            </>
+          ))
+        }
+      </div>
+
+      <!-- Mobile -->
+      <div class="mt-12 space-y-3 lg:hidden">
+        {
+          lifecycle.map((state, index) => (
+            <div>
+              <div
+                class="
+                  rounded-2xl
+                  border
+                  border-[var(--color-border)]
+                  bg-white
+                  px-5
+                  py-4
+                  text-center
+                  font-medium
+                "
+              >
+                {state}
+              </div>
+
+              {
+                index < lifecycle.length - 1 && (
+                  <div
+                    class="
+                      py-2
+                      text-center
+                      text-[var(--color-accent-orange)]
+                    "
+                  >
+                    ↓
+                  </div>
+                )
+              }
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</MainLayout>
