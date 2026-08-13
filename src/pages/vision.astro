@@ -1,0 +1,357 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import VisionResultCard from "../components/vision/VisionResultCard.astro";
+
+const base = import.meta.env.BASE_URL;
+const technologyPage = `${base}/technology/`;
+const researchPage = `${base}/research/`;
+
+const pipeline = [
+  {
+    number: "01",
+    title: "Capture",
+    description:
+      "Acquire an image of the removable compartment at the fixed inspection position.",
+  },
+  {
+    number: "02",
+    title: "Identify",
+    description:
+      "Locate pill objects in the image and assign the configured pill-type label to each detection.",
+  },
+  {
+    number: "03",
+    title: "Annotate",
+    description:
+      "Return object-level geometry and confidence information that can be recorded or displayed for review.",
+  },
+  {
+    number: "04",
+    title: "Compare",
+    description:
+      "Compare detected pill types and counts with the expected medication configuration for the scheduled dose.",
+  },
+  {
+    number: "05",
+    title: "Decide",
+    description:
+      "Allow the workflow to continue when configured verification criteria pass, otherwise block hand-off and surface an exception.",
+  },
+];
+
+const results = [
+  {
+    imagePath: "/images/vision/interim-results/pill-a-01-annotated.jpg",
+    label: "Interim Result 01",
+    title: "Single-object inspection",
+    description:
+      "A single pill is identified as PILL_A and outlined in the inspection image.",
+    details: [
+      "One annotated detection is visible.",
+      "The displayed model confidence is 99%.",
+      "This image demonstrates object localization and pill-type labeling in a simple scene.",
+    ],
+  },
+  {
+    imagePath: "/images/vision/interim-results/pill-b-01-annotated.jpg",
+    label: "Interim Result 02",
+    title: "Single-object inspection — PILL_B",
+    description:
+      "A single white pill is identified as PILL_B and outlined in the inspection image.",
+    details: [
+      "One annotated detection is visible.",
+      "The displayed model confidence is 99%.",
+      "This image provides a second simple-scene example using a visually different configured pill type.",
+    ],
+  },
+  {
+    imagePath: "/images/vision/interim-results/mixed-pills-01-annotated.jpg",
+    label: "Interim Result 03",
+    title: "Mixed pill types",
+    description:
+      "Three visually different pills are annotated in the same compartment image.",
+    details: [
+      "Three detections are visible across PILL_A, PILL_B, and PILL_C labels.",
+      "Each displayed model confidence is 99%.",
+      "This image demonstrates multiple classes and different object sizes within one field of view.",
+    ],
+  },
+  {
+    imagePath: "/images/vision/interim-results/mixed-pills-02-annotated.jpg",
+    label: "Interim Result 04",
+    title: "Crowded multi-object inspection",
+    description:
+      "A more crowded image contains multiple pill types, orientations, sizes, and closely spaced objects.",
+    details: [
+      "Nine annotated detections are visible.",
+      "Displayed model confidences range from 98% to 99%.",
+      "This image is useful for evaluating behavior in a more complex scene, including close and partially touching objects.",
+    ],
+  },
+];
+---
+
+<MainLayout
+  title="Computer Vision | Medicine Dispensing Device"
+  description="Interim computer-vision results from the medicine dispensing prototype, including pill identification, object annotation, count, confidence, and the intended verification workflow."
+>
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <p
+        class="
+          text-sm
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[var(--color-accent-orange)]
+        "
+      >
+        Computer Vision
+      </p>
+
+      <h1
+        class="
+          mt-5
+          max-w-[980px]
+          text-4xl
+          font-semibold
+          leading-[1.05]
+          tracking-tight
+          lg:text-7xl
+        "
+      >
+        Visual evidence before medication hand-off.
+      </h1>
+
+      <p
+        class="
+          mt-7
+          max-w-[800px]
+          text-lg
+          leading-8
+          text-[var(--color-text-secondary)]
+          lg:text-xl
+        "
+      >
+        The Vision Service is intended to support medication identity,
+        count, confidence, geometry or annotation data, and compartment
+        presence classification. The images below are interim development
+        outputs from the current visual-inspection work.
+      </p>
+
+      <div
+        class="
+          mt-8
+          max-w-[860px]
+          rounded-2xl
+          border
+          border-[var(--color-border)]
+          bg-white
+          p-5
+        "
+      >
+        <p class="font-semibold">Evidence status: interim</p>
+        <p
+          class="
+            mt-2
+            text-sm
+            leading-6
+            text-[var(--color-text-secondary)]
+          "
+        >
+          Confidence values shown in the annotations are model-output
+          confidence values. They are not a measured system accuracy rate
+          and should not be interpreted as a completed validation result.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Inspection Pipeline"
+        title="From compartment image to workflow decision."
+        description="The application coordinates image acquisition and uses the returned visual-inspection result as one input to the scheduled-dose workflow."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-4
+          lg:grid-cols-5
+        "
+      >
+        {
+          pipeline.map((step) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-6
+              "
+            >
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {step.number}
+              </p>
+
+              <h2 class="mt-5 text-xl font-semibold">
+                {step.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  text-sm
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {step.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Interim Results"
+        title="Increasing scene complexity across four development examples."
+        description="These examples document current annotation behavior rather than a completed benchmark. Formal validation should use a controlled labeled dataset and defined acceptance metrics."
+      />
+
+      <div class="mt-12 space-y-8">
+        {
+          results.map((result) => (
+            <VisionResultCard {...result} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        gap-12
+        px-6
+        lg:grid-cols-2
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div>
+        <SectionHeader
+          label="What This Shows"
+          title="Observable development evidence."
+        />
+
+        <ul
+          class="
+            mt-8
+            space-y-4
+            leading-7
+            text-[var(--color-text-secondary)]
+          "
+        >
+          <li>• Multiple pill objects can be annotated in one inspection image.</li>
+          <li>• Different configured pill-type labels can appear in the same scene.</li>
+          <li>• Object geometry is represented by visible outlines.</li>
+          <li>• Per-object confidence information is included in the annotations.</li>
+        </ul>
+      </div>
+
+      <div>
+        <SectionHeader
+          label="What Remains To Validate"
+          title="The images are not yet an accuracy study."
+        />
+
+        <ul
+          class="
+            mt-8
+            space-y-4
+            leading-7
+            text-[var(--color-text-secondary)]
+          "
+        >
+          <li>• Detection and classification performance across a controlled labeled dataset.</li>
+          <li>• Robustness to lighting, orientation, reflections, touching pills, and occlusion.</li>
+          <li>• Count accuracy and false-positive / false-negative behavior.</li>
+          <li>• Acceptance thresholds for blocking or allowing patient hand-off.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="
+      bg-[var(--color-graphite)]
+      py-16
+      text-white
+      lg:py-24
+    "
+  >
+    <div
+      class="
+        mx-auto
+        flex
+        max-w-[1280px]
+        flex-col
+        gap-8
+        px-6
+        lg:flex-row
+        lg:items-end
+        lg:justify-between
+        lg:px-10
+      "
+    >
+      <div>
+        <p
+          class="
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-[var(--color-accent-teal)]
+          "
+        >
+          Continue Exploring
+        </p>
+
+        <h2 class="mt-4 max-w-[720px] text-3xl font-semibold lg:text-5xl">
+          See how vision fits into the system architecture and research plan.
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <Button href={technologyPage} variant="secondary">
+          Technology →
+        </Button>
+        <Button href={researchPage} variant="secondary">
+          Research →
+        </Button>
+      </div>
+    </div>
+  </section>
+</MainLayout>

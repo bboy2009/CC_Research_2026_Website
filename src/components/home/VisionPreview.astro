@@ -4,34 +4,21 @@ import Button from "../common/Button.astro";
 
 const base = import.meta.env.BASE_URL;
 
-const technologyPage =
-  `${base}/technology/`;
+const visionPage = `${base}/vision/`;
+const previewImage =
+  `${base}/images/vision/interim-results/mixed-pills-02-annotated.jpg`;
 
-const stages = [
-  "Capture",
-  "Detect",
-  "Compare",
-  "Decision",
-];
-
-const visualFeatures = [
-  "Shape",
-  "Color",
-  "Imprint",
-  "Size",
-  "Count",
+const outputs = [
+  "Pill type",
+  "Object count",
+  "Confidence",
+  "Object outline",
 ];
 ---
 
 <section
   id="technology"
-  class="
-    scroll-mt-20
-    bg-[var(--color-graphite)]
-    py-16
-    text-white
-    lg:py-28
-  "
+  class="scroll-mt-20 bg-[var(--color-graphite)] py-16 text-white lg:py-28"
 >
   <div
     class="
@@ -39,25 +26,25 @@ const visualFeatures = [
       grid
       max-w-[1280px]
       grid-cols-1
-      gap-14
+      gap-12
       px-6
       lg:grid-cols-[0.85fr_1.15fr]
       lg:items-center
-      lg:gap-24
+      lg:gap-20
       lg:px-10
     "
   >
     <div>
       <SectionHeader
         label="Computer Vision"
-        title="Verify before hand-off."
-        description="Before a scheduled compartment becomes accessible to the patient, the prototype captures an image and evaluates the detected medication against the expected dose."
+        title="Verification before patient hand-off."
+        description="The current visual-inspection prototype identifies pills, produces per-object annotations, and returns confidence information that can be compared with the expected dose before hand-off."
         light={true}
       />
 
       <div class="mt-8 flex flex-wrap gap-2">
         {
-          visualFeatures.map((feature) => (
+          outputs.map((output) => (
             <span
               class="
                 rounded-full
@@ -69,121 +56,58 @@ const visualFeatures = [
                 text-white/70
               "
             >
-              {feature}
+              {output}
             </span>
           ))
         }
       </div>
 
       <div class="mt-8">
-        <Button
-          href={technologyPage}
-          variant="secondary"
-        >
-          Explore the Technology →
+        <Button href={visionPage} variant="secondary">
+          View Interim Vision Results →
         </Button>
       </div>
     </div>
 
     <div
       class="
+        overflow-hidden
         rounded-[2rem]
         border
         border-white/10
-        bg-white/5
-        p-7
-        lg:p-10
+        bg-white
       "
     >
-      <div class="space-y-3">
-        {
-          stages.map((stage, index) => (
-            <div>
-              <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  rounded-2xl
-                  bg-white/10
-                  px-6
-                  py-5
-                "
-              >
-                <span
-                  class="
-                    text-sm
-                    text-[var(--color-accent-teal)]
-                  "
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+      <img
+        src={previewImage}
+        alt="Interim computer-vision output showing multiple annotated pill detections"
+        loading="lazy"
+        class="h-auto w-full"
+      />
 
-                <span class="text-lg font-medium">
-                  {stage}
-                </span>
-              </div>
-
-              {
-                index < stages.length - 1 && (
-                  <div
-                    class="
-                      flex
-                      h-7
-                      items-center
-                      justify-center
-                      text-white/30
-                    "
-                  >
-                    ↓
-                  </div>
-                )
-              }
-            </div>
-          ))
-        }
-      </div>
-
-      <div
-        class="
-          mt-8
-          grid
-          grid-cols-2
-          gap-3
-        "
-      >
-        <div
+      <div class="bg-white px-6 py-5 text-[var(--color-text-primary)]">
+        <p
           class="
-            rounded-2xl
-            bg-[var(--color-accent-teal)]
-            p-5
+            text-xs
+            font-semibold
+            uppercase
+            tracking-[0.14em]
+            text-[var(--color-accent-orange)]
           "
         >
-          <p class="text-sm text-white/70">
-            Match
-          </p>
+          Interim result
+        </p>
 
-          <p class="mt-2 text-xl font-semibold">
-            Present Dose
-          </p>
-        </div>
-
-        <div
+        <p
           class="
-            rounded-2xl
-            border
-            border-white/15
-            p-5
+            mt-2
+            text-sm
+            leading-6
+            text-[var(--color-text-secondary)]
           "
         >
-          <p class="text-sm text-white/50">
-            Mismatch
-          </p>
-
-          <p class="mt-2 text-xl font-semibold">
-            Block & Alert
-          </p>
-        </div>
+          Annotated detections are development evidence, not yet a formal accuracy benchmark.
+        </p>
       </div>
     </div>
   </div>

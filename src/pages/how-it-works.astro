@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
+import ResponsiveDiagram from "../components/common/ResponsiveDiagram.astro";
 
 const phases = [
   {
@@ -52,23 +53,12 @@ const pickupResults = [
       "The system cannot confidently determine presence or removal and requests user or caregiver resolution.",
   },
 ];
-
-const lifecycle = [
-  "Available Empty",
-  "Loaded",
-  "Verified",
-  "Due",
-  "Presented",
-  "Removed",
-  "Returned",
-];
 ---
 
 <MainLayout
   title="How It Works | Medicine Dispensing Device"
-  description="Follow the medication dispensing workflow from preparation and inspection through verified hand-off and pickup confirmation."
+  description="Follow the medication dispensing workflow from preparation and inspection through verified hand-off, pickup confirmation, and compartment return."
 >
-  <!-- Hero -->
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <p
@@ -114,10 +104,8 @@ const lifecycle = [
     </div>
   </section>
 
-  <!-- Five phases -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Dose Journey"
         title="Five phases organize the end-to-end experience."
@@ -174,113 +162,43 @@ const lifecycle = [
     </div>
   </section>
 
-  <!-- Decision flow -->
   <section class="py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-12
-        px-6
-        lg:grid-cols-[0.7fr_1.3fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Decision Flow"
-        title="Verification determines whether the dose can proceed."
-        description="The system blocks presentation if medication verification fails. Pickup is also not assumed merely because the compartment reaches the hand-off station."
+        label="Scheduled Presentation Workflow"
+        title="Verification determines whether the dose can proceed to hand-off."
+        description="The same removable compartment is inspected first and presented only when the configured workflow permits hand-off."
       />
 
-      <div
-        class="
-          rounded-[2rem]
-          border
-          border-[var(--color-border)]
-          bg-white
-          p-7
-          lg:p-10
-        "
-      >
-        <div class="space-y-4 text-center">
-
-          <div class="rounded-2xl bg-[var(--color-background)] p-5">
-            Dose Due
-          </div>
-
-          <div>↓</div>
-
-          <div class="rounded-2xl bg-[var(--color-background)] p-5">
-            Move to Inspection
-          </div>
-
-          <div>↓</div>
-
-          <div class="rounded-2xl bg-[var(--color-background)] p-5">
-            Capture & Verify Medication
-          </div>
-
-          <div>↓</div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div
-              class="
-                rounded-2xl
-                bg-[var(--color-accent-teal)]
-                p-5
-                text-white
-              "
-            >
-              <p class="font-semibold">
-                PASS
-              </p>
-
-              <p class="mt-2 text-sm">
-                Move to hand-off
-              </p>
-            </div>
-
-            <div
-              class="
-                rounded-2xl
-                border
-                border-[var(--color-border)]
-                p-5
-              "
-            >
-              <p class="font-semibold">
-                FAIL
-              </p>
-
-              <p
-                class="
-                  mt-2
-                  text-sm
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                Block & alert
-              </p>
-            </div>
-          </div>
-
-          <div>↓</div>
-
-          <div class="rounded-2xl bg-[var(--color-background)] p-5">
-            Verify Pickup
-          </div>
-        </div>
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/02-scheduled-presentation-workflow.svg"
+          mobilePath="/images/architecture/mobile/02-presentation-workflow-mobile.svg"
+          alt="Scheduled medication presentation workflow"
+        />
       </div>
     </div>
   </section>
 
-  <!-- Pickup outcomes -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Dose State Model"
+        title="The software records progress and exception states explicitly."
+      />
 
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/03-dose-state-machine.svg"
+          mobilePath="/images/architecture/mobile/03-dose-states-mobile.svg"
+          alt="Scheduled dose state machine"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Pickup Verification"
         title="Presentation does not automatically mean collection."
@@ -302,7 +220,7 @@ const lifecycle = [
                 rounded-3xl
                 border
                 border-[var(--color-border)]
-                bg-[var(--color-background)]
+                bg-white
                 p-7
               "
             >
@@ -326,97 +244,20 @@ const lifecycle = [
     </div>
   </section>
 
-  <!-- Lifecycle -->
-  <section class="py-16 lg:py-28">
+  <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Compartment Lifecycle"
-        title="Each physical compartment moves through a controlled state lifecycle."
+        title="Each physical compartment moves through a controlled lifecycle."
+        description="The lifecycle is distinct from the scheduled-dose state model because it represents the state of the removable physical container itself."
       />
 
-      <!-- Desktop -->
-      <div
-        class="
-          mt-12
-          hidden
-          items-center
-          gap-3
-          lg:flex
-        "
-      >
-        {
-          lifecycle.map((state, index) => (
-            <>
-              <div
-                class="
-                  flex-1
-                  rounded-2xl
-                  border
-                  border-[var(--color-border)]
-                  bg-white
-                  px-4
-                  py-5
-                  text-center
-                  text-sm
-                  font-medium
-                "
-              >
-                {state}
-              </div>
-
-              {
-                index < lifecycle.length - 1 && (
-                  <span
-                    class="
-                      text-[var(--color-accent-orange)]
-                    "
-                  >
-                    →
-                  </span>
-                )
-              }
-            </>
-          ))
-        }
-      </div>
-
-      <!-- Mobile -->
-      <div class="mt-12 space-y-3 lg:hidden">
-        {
-          lifecycle.map((state, index) => (
-            <div>
-              <div
-                class="
-                  rounded-2xl
-                  border
-                  border-[var(--color-border)]
-                  bg-white
-                  px-5
-                  py-4
-                  text-center
-                  font-medium
-                "
-              >
-                {state}
-              </div>
-
-              {
-                index < lifecycle.length - 1 && (
-                  <div
-                    class="
-                      py-2
-                      text-center
-                      text-[var(--color-accent-orange)]
-                    "
-                  >
-                    ↓
-                  </div>
-                )
-              }
-            </div>
-          ))
-        }
+      <div class="mt-12">
+        <ResponsiveDiagram
+          desktopPath="/images/architecture/desktop/05-compartment-lifecycle.svg"
+          mobilePath="/images/architecture/mobile/05-compartment-lifecycle-mobile.svg"
+          alt="Removable compartment lifecycle"
+        />
       </div>
     </div>
   </section>

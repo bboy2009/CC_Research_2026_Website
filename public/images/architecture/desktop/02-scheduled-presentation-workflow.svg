@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1060" viewBox="0 0 1800 1060" font-family="Inter, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+      <defs>
+        <marker id="d2-arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#587D7D"></path></marker>
+        <marker id="d2-arwo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77D24"></path></marker>
+      </defs>
+      <rect x="0" y="0" width="1800" height="1060" fill="#F5F2EA"></rect>
+      <text x="60" y="76" font-size="46" font-weight="600" fill="#222222">Scheduled presentation workflow</text>
+      <text x="60" y="118" font-size="21" fill="#666666">Nothing is presented before verification passes, and presentation is never treated as collection.</text>
+
+      <rect x="60" y="200" width="312" height="170" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <circle cx="100" cy="240" r="20" fill="#587D7D"></circle><text x="100" y="248" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">1</text>
+      <text x="216" y="300" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">Dose becomes due</text>
+      <text x="216" y="332" font-size="19" fill="#666666" text-anchor="middle">Scheduler flags a</text>
+      <text x="216" y="356" font-size="19" fill="#666666" text-anchor="middle">ScheduledDose</text>
+
+      <line x1="372" y1="285" x2="398" y2="285" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d2-arw)"></line>
+
+      <rect x="402" y="200" width="312" height="170" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <circle cx="442" cy="240" r="20" fill="#587D7D"></circle><text x="442" y="248" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">2</text>
+      <text x="558" y="300" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">Preconditions met</text>
+      <text x="558" y="332" font-size="19" fill="#666666" text-anchor="middle">Compartment eligible,</text>
+      <text x="558" y="356" font-size="19" fill="#666666" text-anchor="middle">device READY</text>
+
+      <line x1="714" y1="285" x2="740" y2="285" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d2-arw)"></line>
+
+      <rect x="744" y="200" width="312" height="170" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <circle cx="784" cy="240" r="20" fill="#587D7D"></circle><text x="784" y="248" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">3</text>
+      <text x="900" y="300" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">Inspect &amp; verify</text>
+      <text x="900" y="332" font-size="19" fill="#666666" text-anchor="middle">Light on, image taken,</text>
+      <text x="900" y="356" font-size="19" fill="#666666" text-anchor="middle">contents matched</text>
+
+      <line x1="1056" y1="285" x2="1082" y2="285" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d2-arw)"></line>
+      <text x="1080" y="262" font-size="18" fill="#587D7D" text-anchor="end">pass</text>
+
+      <rect x="1086" y="200" width="312" height="170" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <circle cx="1126" cy="240" r="20" fill="#587D7D"></circle><text x="1126" y="248" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">4</text>
+      <text x="1242" y="300" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">Presented</text>
+      <text x="1242" y="332" font-size="19" fill="#666666" text-anchor="middle">Motion inhibited;</text>
+      <text x="1242" y="356" font-size="19" fill="#666666" text-anchor="middle">patient notified</text>
+
+      <line x1="1398" y1="285" x2="1424" y2="285" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d2-arw)"></line>
+
+      <rect x="1428" y="200" width="312" height="170" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <circle cx="1468" cy="240" r="20" fill="#587D7D"></circle><text x="1468" y="248" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">5</text>
+      <text x="1584" y="300" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">Pickup evidence</text>
+      <text x="1584" y="332" font-size="19" fill="#666666" text-anchor="middle">Presence checked after</text>
+      <text x="1584" y="356" font-size="19" fill="#666666" text-anchor="middle">the configured interval</text>
+
+      <line x1="900" y1="370" x2="900" y2="486" stroke="#C77D24" stroke-width="1.8" marker-end="url(#d2-arwo)"></line>
+      <text x="920" y="435" font-size="18" fill="#C77D24">fail, low confidence or unsafe interlock</text>
+
+      <rect x="744" y="490" width="420" height="160" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="1.8"></rect>
+      <text x="954" y="540" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">BLOCKED</text>
+      <text x="954" y="576" font-size="19" fill="#666666" text-anchor="middle">Not presented; alert raised;</text>
+      <text x="954" y="602" font-size="19" fill="#666666" text-anchor="middle">override recorded if used</text>
+
+      <path d="M 1584 370 L 1584 400 L 1660 400 L 1660 905" fill="none" stroke="#587D7D" stroke-width="1.8"></path>
+      <path d="M 1660 545 L 1588 545" fill="none" stroke="#587D7D" stroke-width="1.8" marker-end="url(#d2-arw)"></path>
+      <path d="M 1660 725 L 1588 725" fill="none" stroke="#C77D24" stroke-width="1.8" marker-end="url(#d2-arwo)"></path>
+      <path d="M 1660 905 L 1588 905" fill="none" stroke="#C77D24" stroke-width="1.8" marker-end="url(#d2-arwo)"></path>
+
+      <rect x="1180" y="470" width="404" height="150" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="1.8"></rect>
+      <text x="1382" y="520" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">COLLECTED</text>
+      <text x="1382" y="556" font-size="19" fill="#666666" text-anchor="middle">Removal confirmed;</text>
+      <text x="1382" y="582" font-size="19" fill="#666666" text-anchor="middle">compartment marked REMOVED</text>
+
+      <rect x="1180" y="650" width="404" height="150" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="1.8"></rect>
+      <text x="1382" y="700" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">NOT_COLLECTED</text>
+      <text x="1382" y="736" font-size="19" fill="#666666" text-anchor="middle">Still installed at expiry;</text>
+      <text x="1382" y="762" font-size="19" fill="#666666" text-anchor="middle">caregiver notified</text>
+
+      <rect x="1180" y="830" width="404" height="150" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="1.8"></rect>
+      <text x="1382" y="880" font-size="25" font-weight="600" fill="#222222" text-anchor="middle">AMBIGUOUS_PICKUP</text>
+      <text x="1382" y="916" font-size="19" fill="#666666" text-anchor="middle">Exception logged; never</text>
+      <text x="1382" y="942" font-size="19" fill="#666666" text-anchor="middle">auto-converted to collected</text>
+
+      <rect x="60" y="830" width="900" height="150" rx="10" fill="#EAE5D9" stroke="rgba(0,0,0,0.08)"></rect>
+      <text x="90" y="882" font-size="22" font-weight="600" fill="#343434">Every step writes a SystemEvent</text>
+      <text x="90" y="918" font-size="19" fill="#666666">Load, inspection, presentation, pickup, timeout, override, homing and</text>
+      <text x="90" y="944" font-size="19" fill="#666666">hardware faults are all recorded in the audit history.</text>
+    </svg>

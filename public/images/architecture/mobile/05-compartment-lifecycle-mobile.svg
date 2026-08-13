@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1190" viewBox="0 0 780 1190" font-family="Inter, &#39;Segoe UI&#39;, Helvetica, Arial, sans-serif">
+      <defs>
+        <marker id="m5-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#587D7D"></path></marker>
+        <marker id="m5-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77D24"></path></marker>
+      </defs>
+      <rect x="0" y="0" width="780" height="1190" fill="#F5F2EA"></rect>
+      <text x="40" y="72" font-size="36" font-weight="600" fill="#222222">Compartment lifecycle</text>
+      <text x="40" y="108" font-size="19" fill="#666666">One of the 11 removable compartments.</text>
+
+      <rect x="40" y="150" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="188" font-size="22" font-weight="600" fill="#222222">AVAILABLE_EMPTY</text>
+      <text x="68" y="216" font-size="18" fill="#666666">Installed, ready for loading</text>
+      <line x1="390" y1="236" x2="390" y2="264" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="268" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="306" font-size="22" font-weight="600" fill="#222222">LOADED</text>
+      <text x="68" y="334" font-size="18" fill="#666666">Expected medication placed by caregiver</text>
+      <line x1="390" y1="354" x2="390" y2="382" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="386" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="424" font-size="22" font-weight="600" fill="#222222">VERIFIED</text>
+      <text x="68" y="452" font-size="18" fill="#666666">Contents passed visual verification</text>
+      <line x1="390" y1="472" x2="390" y2="500" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="504" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="542" font-size="22" font-weight="600" fill="#222222">DUE</text>
+      <text x="68" y="570" font-size="18" fill="#666666">Assigned scheduled dose is due</text>
+      <line x1="390" y1="590" x2="390" y2="618" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="622" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="660" font-size="22" font-weight="600" fill="#222222">PRESENTED</text>
+      <text x="68" y="688" font-size="18" fill="#666666">At the hand-off opening for pickup</text>
+      <line x1="390" y1="708" x2="390" y2="736" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="740" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="778" font-size="22" font-weight="600" fill="#222222">REMOVED</text>
+      <text x="68" y="806" font-size="18" fill="#666666">Collected; unavailable for assignment</text>
+      <line x1="390" y1="826" x2="390" y2="854" stroke="#587D7D" stroke-width="2" marker-end="url(#m5-a)"></line>
+
+      <rect x="40" y="858" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#587D7D" stroke-width="2"></rect>
+      <text x="68" y="896" font-size="22" font-weight="600" fill="#222222">RETURNED</text>
+      <text x="68" y="924" font-size="18" fill="#666666">Reinstalled, awaiting load — back to the top</text>
+
+      <line x1="390" y1="944" x2="390" y2="982" stroke="#C77D24" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#m5-o)"></line>
+      <text x="406" y="972" font-size="17" fill="#C77D24">from any state</text>
+
+      <rect x="40" y="986" width="700" height="86" rx="10" fill="#FFFFFF" stroke="#C77D24" stroke-width="2"></rect>
+      <text x="68" y="1024" font-size="22" font-weight="600" fill="#222222">ERROR</text>
+      <text x="68" y="1052" font-size="18" fill="#666666">Presence or identity unresolved</text>
+
+      <text x="40" y="1120" font-size="18" fill="#666666">A compartment expected to be installed but absent</text>
+      <text x="40" y="1146" font-size="18" fill="#666666">raises an alert before its dose becomes due.</text>
+    </svg>
