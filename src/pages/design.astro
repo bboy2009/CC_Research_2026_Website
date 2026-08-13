@@ -1,0 +1,456 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import ModelViewer from "../components/design/ModelViewer.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const design01 =
+  `${base}/images/product/design-01.jpg`;
+
+const design02 =
+  `${base}/images/product/design-02.jpg`;
+
+const design03 =
+  `${base}/images/product/design-03.jpg`;
+
+const design04 =
+  `${base}/images/product/design-04.jpg`;
+
+const designPrinciples = [
+  {
+    number: "01",
+    title: "Removable Compartments",
+    description:
+      "Eleven individually identifiable dose compartments are arranged around the rotating carrier.",
+  },
+  {
+    number: "02",
+    title: "Magnetic Retention",
+    description:
+      "Each removable compartment uses a metal retention feature that interfaces with a magnet mounted on the carrier.",
+  },
+  {
+    number: "03",
+    title: "Fixed Inspection",
+    description:
+      "A stationary camera and controlled lighting inspect the target compartment before patient access.",
+  },
+  {
+    number: "04",
+    title: "Controlled Hand-Off",
+    description:
+      "After successful inspection, the same compartment rotates to a fixed patient-accessible removal position.",
+  },
+];
+---
+
+<MainLayout
+  title="Industrial Design | Medicine Dispensing Device"
+  description="Explore the industrial design and interactive 3D model of the removable-compartment medicine dispensing prototype."
+>
+  <!-- Page Hero -->
+  <section class="py-16 lg:py-24">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        items-center
+        gap-12
+        px-6
+        lg:grid-cols-[0.85fr_1.15fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div>
+        <p
+          class="
+            text-sm
+            font-semibold
+            uppercase
+            tracking-[0.18em]
+            text-[var(--color-accent-orange)]
+          "
+        >
+          Industrial Design
+        </p>
+
+        <h1
+          class="
+            mt-5
+            max-w-[700px]
+            text-4xl
+            font-semibold
+            leading-[1.05]
+            tracking-tight
+            lg:text-7xl
+          "
+        >
+          Designed around the dose compartment.
+        </h1>
+
+        <p
+          class="
+            mt-7
+            max-w-[620px]
+            text-lg
+            leading-8
+            text-[var(--color-text-secondary)]
+            lg:text-xl
+          "
+        >
+          The prototype uses a rotating carrier containing
+          removable individual dose compartments. Each scheduled
+          compartment moves through inspection and controlled
+          patient hand-off while keeping the medication inside
+          its original container.
+        </p>
+
+        <a
+          href="#interactive-model"
+          class="
+            mt-8
+            inline-flex
+            min-h-12
+            items-center
+            justify-center
+            rounded-full
+            bg-[var(--color-graphite)]
+            px-7
+            font-medium
+            text-white
+            transition
+            hover:opacity-90
+          "
+        >
+          Explore the 3D Model
+        </a>
+      </div>
+
+      <div
+        class="
+          overflow-hidden
+          rounded-[2rem]
+          bg-white
+          p-6
+          lg:p-10
+        "
+      >
+        <img
+          src={design01}
+          alt="Medicine dispensing device industrial design"
+          class="mx-auto w-full"
+        />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Design Principles -->
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Mechanical Concept"
+        title="Four principles define the removable-compartment architecture."
+        description="The mechanical design coordinates storage, positioning, visual inspection, and patient access around one indexed rotating carrier."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-5
+          lg:grid-cols-4
+        "
+      >
+        {
+          designPrinciples.map((principle) => (
+            <article
+              class="
+                rounded-3xl
+                border
+                border-[var(--color-border)]
+                bg-[var(--color-background)]
+                p-7
+              "
+            >
+              <p
+                class="
+                  text-sm
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                "
+              >
+                {principle.number}
+              </p>
+
+              <h2 class="mt-5 text-xl font-semibold">
+                {principle.title}
+              </h2>
+
+              <p
+                class="
+                  mt-4
+                  leading-7
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {principle.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Interactive Model -->
+  <section
+    id="interactive-model"
+    class="scroll-mt-24 py-16 lg:py-28"
+  >
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <div
+        class="
+          grid
+          grid-cols-1
+          gap-12
+          lg:grid-cols-[0.65fr_1.35fr]
+          lg:gap-16
+        "
+      >
+        <div>
+          <SectionHeader
+            label="Interactive Model"
+            title="Explore the prototype from every angle."
+            description="Rotate and zoom the three-dimensional model to examine the carousel, removable compartments, camera structure, enclosure, and patient hand-off area."
+          />
+
+          <div
+            class="
+              mt-8
+              border-t
+              border-[var(--color-border)]
+              pt-6
+            "
+          >
+            <p
+              class="
+                text-sm
+                leading-6
+                text-[var(--color-text-secondary)]
+              "
+            >
+              The 3D model represents the current industrial-design
+              concept and may evolve as mechanical testing and
+              prototyping continue.
+            </p>
+          </div>
+        </div>
+
+        <ModelViewer />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Carousel Architecture -->
+  <section class="bg-white py-16 lg:py-28">
+    <div
+      class="
+        mx-auto
+        grid
+        max-w-[1280px]
+        grid-cols-1
+        items-center
+        gap-12
+        px-6
+        lg:grid-cols-[1.1fr_0.9fr]
+        lg:gap-20
+        lg:px-10
+      "
+    >
+      <div
+        class="
+          overflow-hidden
+          rounded-[2rem]
+          bg-[var(--color-background)]
+          p-6
+          lg:p-10
+        "
+      >
+        <img
+          src={design04}
+          alt="Top view of medicine dispenser carousel"
+          class="mx-auto w-full"
+        />
+      </div>
+
+      <div>
+        <SectionHeader
+          label="Carousel Architecture"
+          title="Eleven removable compartments. One controlled hand-off position."
+          description="The rotating carrier uses twelve indexed angular positions. Eleven support removable dose compartments, while one position is reserved for patient access and hand-off."
+        />
+
+        <div
+          class="
+            mt-10
+            grid
+            grid-cols-3
+            gap-5
+          "
+        >
+          <div
+            class="
+              border-t
+              border-[var(--color-border)]
+              pt-5
+            "
+          >
+            <p
+              class="
+                text-3xl
+                font-semibold
+                text-[var(--color-accent-orange)]
+                lg:text-4xl
+              "
+            >
+              11
+            </p>
+
+            <p
+              class="
+                mt-2
+                text-sm
+                leading-6
+                text-[var(--color-text-secondary)]
+              "
+            >
+              Dose compartments
+            </p>
+          </div>
+
+          <div
+            class="
+              border-t
+              border-[var(--color-border)]
+              pt-5
+            "
+          >
+            <p
+              class="
+                text-3xl
+                font-semibold
+                text-[var(--color-accent-orange)]
+                lg:text-4xl
+              "
+            >
+              12
+            </p>
+
+            <p
+              class="
+                mt-2
+                text-sm
+                leading-6
+                text-[var(--color-text-secondary)]
+              "
+            >
+              Indexed positions
+            </p>
+          </div>
+
+          <div
+            class="
+              border-t
+              border-[var(--color-border)]
+              pt-5
+            "
+          >
+            <p
+              class="
+                text-3xl
+                font-semibold
+                text-[var(--color-accent-orange)]
+                lg:text-4xl
+              "
+            >
+              30°
+            </p>
+
+            <p
+              class="
+                mt-2
+                text-sm
+                leading-6
+                text-[var(--color-text-secondary)]
+              "
+            >
+              Index spacing
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Additional Views -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+
+      <SectionHeader
+        label="Design Views"
+        title="The current industrial-design concept."
+      />
+
+      <div
+        class="
+          mt-12
+          grid
+          grid-cols-1
+          gap-6
+          lg:grid-cols-2
+        "
+      >
+        <figure
+          class="
+            overflow-hidden
+            rounded-[2rem]
+            bg-white
+            p-6
+          "
+        >
+          <img
+            src={design02}
+            alt="Medicine dispenser prototype design view"
+            class="w-full"
+          />
+        </figure>
+
+        <figure
+          class="
+            overflow-hidden
+            rounded-[2rem]
+            bg-white
+            p-6
+          "
+        >
+          <img
+            src={design03}
+            alt="Medicine dispenser prototype perspective view"
+            class="w-full"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+</MainLayout>

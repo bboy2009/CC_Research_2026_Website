@@ -1,0 +1,133 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import Button from "../common/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const imagePath =
+  `${base}/images/product/design-04.jpg`;
+
+const designPage =
+  `${base}/design/`;
+
+const facts = [
+  {
+    value: "11",
+    label: "Removable dose compartments",
+  },
+  {
+    value: "30°",
+    label: "Nominal indexed spacing",
+  },
+  {
+    value: "1",
+    label: "Fixed patient hand-off station",
+  },
+];
+---
+
+<section
+  id="design"
+  class="scroll-mt-20 py-16 lg:py-28"
+>
+  <div
+    class="
+      mx-auto
+      grid
+      max-w-[1280px]
+      grid-cols-1
+      items-center
+      gap-12
+      px-6
+      lg:grid-cols-[1.15fr_0.85fr]
+      lg:gap-20
+      lg:px-10
+    "
+  >
+    <div
+      class="
+        overflow-hidden
+        rounded-[2rem]
+        bg-white
+        p-6
+        lg:p-10
+      "
+    >
+      <img
+        src={imagePath}
+        alt="Top view of the medicine dispenser rotating carousel"
+        class="mx-auto w-full"
+      />
+    </div>
+
+    <div>
+      <SectionHeader
+        label="Industrial Design"
+        title="A rotating carrier built around removable dose compartments."
+        description="The first-generation concept uses individually identifiable wedge-shaped compartments arranged around an indexed carousel. Medication remains inside the compartment throughout inspection and patient hand-off."
+      />
+
+      <div
+        class="
+          mt-10
+          grid
+          grid-cols-3
+          gap-4
+        "
+      >
+        {
+          facts.map((fact) => (
+            <div
+              class="
+                border-t
+                border-[var(--color-border)]
+                pt-5
+              "
+            >
+              <p
+                class="
+                  text-3xl
+                  font-semibold
+                  text-[var(--color-accent-orange)]
+                  lg:text-4xl
+                "
+              >
+                {fact.value}
+              </p>
+
+              <p
+                class="
+                  mt-2
+                  text-sm
+                  leading-6
+                  text-[var(--color-text-secondary)]
+                "
+              >
+                {fact.label}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p
+        class="
+          mt-10
+          text-sm
+          leading-6
+          text-[var(--color-text-secondary)]
+        "
+      >
+        Magnetic retention holds each compartment against the inner
+        carrier wall during normal rotation while allowing intentional
+        removal at the hand-off station.
+      </p>
+
+      <div class="mt-8">
+        <Button href={designPage} variant="secondary">
+          Explore Interactive 3D Model →
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

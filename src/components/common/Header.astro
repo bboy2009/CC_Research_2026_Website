@@ -1,4 +1,43 @@
-<header class="border-b border-black/5">
+---
+const base = import.meta.env.BASE_URL;
+
+const home = base;
+
+const navigation = [
+  {
+    label: "Product",
+    href: `${base}/#product`,
+  },
+  {
+    label: "How It Works",
+    href: `${base}/#how-it-works`,
+  },
+  {
+    label: "Design",
+    href: `${base}/design/`,
+  },
+  {
+    label: "Technology",
+    href: `${base}/#technology`,
+  },
+  {
+    label: "Research",
+    href: `${base}/#research`,
+  },
+];
+---
+
+<header
+  class="
+    sticky
+    top-0
+    z-50
+    border-b
+    border-black/5
+    bg-[var(--color-background)]/95
+    backdrop-blur
+  "
+>
   <div
     class="
       mx-auto
@@ -11,16 +50,98 @@
       lg:px-10
     "
   >
-    <a href="/" class="font-semibold">
+    <a
+      href={home}
+      class="
+        font-semibold
+        tracking-tight
+      "
+    >
       Medication Dispenser
     </a>
 
-    <nav class="hidden lg:flex lg:gap-8">
-      <a href="/product">Product</a>
-      <a href="/how-it-works">How It Works</a>
-      <a href="/design">Design</a>
-      <a href="/technology">Technology</a>
-      <a href="/research">Research</a>
+    <!-- Desktop -->
+    <nav
+      class="
+        hidden
+        items-center
+        gap-8
+        text-sm
+        font-medium
+        lg:flex
+      "
+      aria-label="Primary navigation"
+    >
+      {
+        navigation.map((item) => (
+          <a
+            href={item.href}
+            class="
+              transition
+              hover:text-[var(--color-accent-orange)]
+            "
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </nav>
+
+    <!-- Mobile -->
+    <details class="relative lg:hidden">
+      <summary
+        class="
+          flex
+          h-11
+          w-11
+          cursor-pointer
+          list-none
+          items-center
+          justify-center
+          rounded-full
+          border
+          border-[var(--color-border)]
+          text-xl
+        "
+        aria-label="Open navigation menu"
+      >
+        ☰
+      </summary>
+
+      <nav
+        class="
+          absolute
+          right-0
+          top-14
+          w-64
+          overflow-hidden
+          rounded-2xl
+          border
+          border-[var(--color-border)]
+          bg-white
+          shadow-xl
+        "
+        aria-label="Mobile navigation"
+      >
+        {
+          navigation.map((item) => (
+            <a
+              href={item.href}
+              class="
+                block
+                border-b
+                border-black/5
+                px-6
+                py-4
+                font-medium
+                last:border-b-0
+              "
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </details>
   </div>
 </header>

@@ -1,3 +1,10 @@
+---
+import Button from "../common/Button.astro";
+
+const imagePath =
+  `${import.meta.env.BASE_URL}/images/product/design-01.jpg`;
+---
+
 <section class="overflow-hidden py-16 lg:py-24">
   <div
     class="
@@ -57,30 +64,23 @@
       </p>
 
       <div class="mt-8">
-        <a
-          href="#how-it-works"
-          class="
-            inline-flex
-            min-h-12
-            items-center
-            justify-center
-            rounded-full
-            bg-[var(--color-graphite)]
-            px-7
-            font-medium
-            text-white
-          "
-        >
+        <Button href="#how-it-works">
           Explore the Prototype
-        </a>
+        </Button>
       </div>
     </div>
 
-    <div>
+    <div class="flex items-center justify-center">
       <img
-        src={`${import.meta.env.BASE_URL}images/product/design-01.jpg`}
+        src={imagePath}
         alt="Medicine dispensing device prototype"
-        class="mx-auto w-full max-w-[720px]"
+        class="
+          block
+          h-auto
+          w-full
+          max-w-[720px]
+          object-contain
+        "
       />
     </div>
   </div>

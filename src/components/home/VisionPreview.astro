@@ -1,0 +1,175 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+
+const stages = [
+  "Capture",
+  "Detect",
+  "Compare",
+  "Decision",
+];
+
+const visualFeatures = [
+  "Shape",
+  "Color",
+  "Imprint",
+  "Size",
+  "Count",
+];
+---
+
+<section
+  id="technology"
+  class="
+    scroll-mt-20
+    bg-[var(--color-graphite)]
+    py-16
+    text-white
+    lg:py-28
+  "
+>
+  <div
+    class="
+      mx-auto
+      grid
+      max-w-[1280px]
+      grid-cols-1
+      gap-14
+      px-6
+      lg:grid-cols-[0.85fr_1.15fr]
+      lg:items-center
+      lg:gap-24
+      lg:px-10
+    "
+  >
+    <div>
+      <SectionHeader
+        label="Computer Vision"
+        title="Verify before hand-off."
+        description="Before a scheduled compartment becomes accessible to the patient, the prototype captures an image and evaluates the detected medication against the expected dose."
+        light={true}
+      />
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        {
+          visualFeatures.map((feature) => (
+            <span
+              class="
+                rounded-full
+                border
+                border-white/15
+                px-4
+                py-2
+                text-sm
+                text-white/70
+              "
+            >
+              {feature}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="
+        rounded-[2rem]
+        border
+        border-white/10
+        bg-white/5
+        p-7
+        lg:p-10
+      "
+    >
+      <div class="space-y-3">
+        {
+          stages.map((stage, index) => (
+            <div>
+              <div
+                class="
+                  flex
+                  items-center
+                  justify-between
+                  rounded-2xl
+                  bg-white/10
+                  px-6
+                  py-5
+                "
+              >
+                <span
+                  class="
+                    text-sm
+                    text-[var(--color-accent-teal)]
+                  "
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <span class="text-lg font-medium">
+                  {stage}
+                </span>
+              </div>
+
+              {
+                index < stages.length - 1 && (
+                  <div
+                    class="
+                      flex
+                      h-7
+                      items-center
+                      justify-center
+                      text-white/30
+                    "
+                  >
+                    ↓
+                  </div>
+                )
+              }
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        class="
+          mt-8
+          grid
+          grid-cols-2
+          gap-3
+        "
+      >
+        <div
+          class="
+            rounded-2xl
+            bg-[var(--color-accent-teal)]
+            p-5
+          "
+        >
+          <p class="text-sm text-white/70">
+            Match
+          </p>
+
+          <p class="mt-2 text-xl font-semibold">
+            Present Dose
+          </p>
+        </div>
+
+        <div
+          class="
+            rounded-2xl
+            border
+            border-white/15
+            p-5
+          "
+        >
+          <p class="text-sm text-white/50">
+            Mismatch
+          </p>
+
+          <p class="mt-2 text-xl font-semibold">
+            Block & Alert
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
