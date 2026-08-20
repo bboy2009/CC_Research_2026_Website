@@ -96,7 +96,7 @@ const lifecycle = [
   title="How It Works | MediSAFE: Medication Dispenser"
   description="Follow the medicine dispensing workflow from prescription and compartment preparation through verification, dispense, and separate pickup resolution."
 >
-  <section class="py-16 lg:py-24">
+  <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
         How It Works
@@ -106,13 +106,13 @@ const lifecycle = [
         From prescription to verified dispense.
       </h1>
 
-      <p class="mt-7 max-w-[800px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
+      <p class="mt-5 max-w-[800px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
         The product turns prescription information into an editable schedule, uses that schedule to guide compartment preparation, verifies the expected medication contents before dispense, and tracks pickup as a separate outcome.
       </p>
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="End-to-End Workflow"
@@ -120,7 +120,7 @@ const lifecycle = [
         description="The workflow keeps medication logic, compartment identity, carrier position, verification, physical dispense, and pickup outcome explicit rather than treating them as one combined state."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {
           workflowSteps.map((step) => (
             <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-6 lg:p-7">
@@ -140,7 +140,7 @@ const lifecycle = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Physical Sequence"
@@ -148,7 +148,7 @@ const lifecycle = [
         description="Base Slot L is the controlled location used for compartment loading and dispensing. Base Slot A is the primary scheduled medication-inspection location before dispense."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
           <video
             class="viewport-autoplay-video aspect-video w-full bg-black object-cover"
@@ -200,7 +200,7 @@ const lifecycle = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
         <SectionHeader
@@ -234,7 +234,7 @@ const lifecycle = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Pickup Outcome"
@@ -242,7 +242,7 @@ const lifecycle = [
         description="A successful dispense means the compartment has left the rotating carrier and is available through the patient-access path. Pickup is tracked separately, and neither dispense nor collection proves ingestion."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
         {
           pickupResults.map((result) => (
             <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
@@ -257,7 +257,7 @@ const lifecycle = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Compartment Lifecycle"
@@ -265,7 +265,7 @@ const lifecycle = [
         description="Compartment state is tracked independently from the medication schedule and from the rotating position where the compartment happens to be installed."
       />
 
-      <div class="mt-12 flex flex-wrap gap-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 flex flex-wrap gap-3">
         {
           lifecycle.map((state, index) => (
             <div class="flex items-center gap-3">
@@ -286,7 +286,7 @@ const lifecycle = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="rounded-[2rem] border border-[var(--color-border)] bg-white p-8 lg:p-12">
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">

@@ -10,13 +10,13 @@ const {
 } = Astro.props;
 
 const baseClasses =
-  "inline-flex min-h-12 items-center justify-center rounded-full px-7 font-medium transition";
+  "inline-flex min-h-11 items-center justify-center rounded-full px-6 text-sm font-medium transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-orange)] focus-visible:ring-offset-2 sm:min-h-12 sm:px-7 sm:text-base";
 
 const variantClasses = {
   primary:
-    "bg-[var(--color-graphite)] text-white hover:opacity-90",
+    "bg-[var(--color-graphite)] text-white hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0",
   secondary:
-    "border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] hover:bg-black/5",
+    "border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] hover:-translate-y-0.5 hover:bg-black/5 active:translate-y-0",
 };
 ---
 
