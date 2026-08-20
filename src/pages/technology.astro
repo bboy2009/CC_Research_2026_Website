@@ -83,7 +83,7 @@ const dataEntities = [
   title="Technology & Architecture | MediSAFE: Medication Dispenser"
   description="Explore the software UI, application workflows, APIs, ports and adapters, local persistence, computer vision, simulation, and embedded-control architecture of the medicine dispensing prototype."
 >
-  <section class="py-16 lg:py-24">
+  <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
         Technology & Architecture
@@ -99,7 +99,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:items-end lg:gap-16">
         <div>
@@ -177,7 +177,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="System Architecture"
@@ -197,7 +197,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Application Layer"
@@ -205,7 +205,7 @@ const dataEntities = [
         description="The application coordinates scheduling, preparation, compartment placement, verification, physical dispense, pickup resolution, alerts, and audit while keeping hardware-specific details behind ports and adapters."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {workflowServices.map((service, index) => (
           <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7">
             <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{String(index + 1).padStart(2, "0")}</p>
@@ -223,7 +223,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Ports & Adapters"
@@ -231,7 +231,7 @@ const dataEntities = [
         description="The same application workflows can run with simulated adapters during development and physical adapters during integration, reducing coupling between product logic and specific devices or providers."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {ports.map((port) => (
           <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
             <code class="text-sm font-semibold text-[var(--color-accent-orange)]">{port.name}</code>
@@ -242,7 +242,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Interface Boundaries"
@@ -261,7 +261,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20 lg:px-10">
       <div>
         <SectionHeader
@@ -286,7 +286,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Embedded Controller"
@@ -330,7 +330,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Domain Model"
@@ -355,7 +355,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Persistence"
@@ -369,7 +369,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+  <section class="bg-[var(--color-graphite)] py-14 text-white sm:py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
         <SectionHeader
@@ -393,7 +393,7 @@ const dataEntities = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-24">
+  <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="rounded-[2rem] border border-[var(--color-border)] bg-white p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
         <div>

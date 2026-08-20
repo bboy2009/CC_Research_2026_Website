@@ -147,7 +147,7 @@ const productFacts = [
   description="Explore the users, capabilities, operating model, and product principles behind the removable-compartment medicine dispensing prototype."
 >
   <!-- Hero -->
-  <section class="overflow-hidden py-16 lg:py-24">
+  <section class="overflow-hidden py-14 sm:py-16 lg:py-20">
     <div
       class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20 lg:px-10"
     >
@@ -160,7 +160,7 @@ const productFacts = [
           Medication dispensing built around verified, removable dose compartments.
         </h1>
 
-        <p class="mt-7 max-w-[680px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
+        <p class="mt-5 max-w-[680px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
           The prototype connects prescription-driven scheduling, caregiver preparation, compartment verification, indexed device movement, and controlled dispensing in one coordinated system.
         </p>
 
@@ -181,7 +181,7 @@ const productFacts = [
   </section>
 
   <!-- Problem -->
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20 lg:px-10">
       <div>
         <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
@@ -225,7 +225,7 @@ const productFacts = [
   </section>
 
   <!-- Users -->
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Users"
@@ -233,7 +233,7 @@ const productFacts = [
         description="The product experience keeps everyday patient use simple while giving caregivers the tools needed to manage medication schedules, preparation, loading, and exceptions."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
           actors.map((actor) => (
             <article class="rounded-3xl border border-[var(--color-border)] bg-white p-8 lg:p-9">
@@ -249,7 +249,7 @@ const productFacts = [
   </section>
 
   <!-- Product model -->
-  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+  <section class="bg-[var(--color-graphite)] py-14 text-white sm:py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Product Model"
@@ -258,7 +258,7 @@ const productFacts = [
         light
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl bg-white/15 md:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl bg-white/15 md:grid-cols-2 lg:grid-cols-4">
         {
           productFacts.map((fact) => (
             <article class="bg-[var(--color-graphite)] p-7 lg:p-8">
@@ -279,7 +279,7 @@ const productFacts = [
   </section>
 
   <!-- Compartment motion -->
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Physical Interaction"
@@ -287,7 +287,7 @@ const productFacts = [
         description="Removable compartments are loaded and dispensed through Base Slot L. The rotating carrier positions each compartment as required while its persistent identity remains independent of carrier position."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
           <div class="aspect-video bg-[var(--color-graphite)]">
             <video
@@ -346,7 +346,7 @@ const productFacts = [
   </section>
 
   <!-- Capabilities -->
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Product Capabilities"
@@ -354,7 +354,7 @@ const productFacts = [
         description="The device is more than a rotating dispenser: medication data, preparation planning, compartment identity, vision verification, motion, and event history all participate in the same workflow."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-border)] md:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-border)] md:grid-cols-2 lg:grid-cols-4">
         {
           capabilities.map((capability, index) => (
             <article class="bg-[var(--color-background)] p-7">
@@ -373,14 +373,14 @@ const productFacts = [
   </section>
 
   <!-- Principles -->
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Product Principles"
         title="The product is organized around verification, deterministic state, and clear responsibility boundaries."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {
           principles.map((principle) => (
             <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
@@ -399,7 +399,7 @@ const productFacts = [
   </section>
 
   <!-- Closing CTA -->
-  <section class="bg-white py-16 lg:py-24">
+  <section class="bg-white py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="rounded-[2rem] border border-[var(--color-border)] p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
         <div>

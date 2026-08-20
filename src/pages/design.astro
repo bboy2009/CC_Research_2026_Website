@@ -59,7 +59,7 @@ const facts = [
     detail: "One step per CW / CCW command",
   },
   {
-    value: "P1 @ L",
+    value: "P1 - L",
     label: "HOME reference",
     detail: "Known physical starting pose",
   },
@@ -85,7 +85,7 @@ const locations = [
   title="Industrial Design | MediSAFE: Medication Dispenser"
   description="Explore the industrial design, removable dose compartments, indexed rotating carrier, fixed base, and interactive 3D models of the medicine dispensing prototype."
 >
-  <section class="overflow-hidden py-16 lg:py-24">
+  <section class="overflow-hidden py-14 sm:py-16 lg:py-20">
     <div class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20 lg:px-10">
       <div>
         <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
@@ -96,7 +96,7 @@ const locations = [
           A rotating mechanical system built around removable dose compartments.
         </h1>
 
-        <p class="mt-7 max-w-[680px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
+        <p class="mt-5 max-w-[680px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
           The device combines a stationary base, a twelve-position indexed carrier, removable compartments, controlled medication inspection, and a dedicated load and dispense interface in one desktop prototype.
         </p>
 
@@ -116,7 +116,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Mechanical Architecture"
@@ -124,7 +124,7 @@ const locations = [
         description="The design separates the fixed base, rotating carrier positions, and removable compartment identity. This lets the system move a known physical compartment without treating its identity as the same thing as its current location."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
         {
           architecture.map((item) => (
             <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7 lg:p-8">
@@ -142,7 +142,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Indexed Carrier"
@@ -150,7 +150,7 @@ const locations = [
         description="The rotating carrier uses twelve equally indexed positions. During normal operation, at least one position remains empty so compartments can be loaded, moved, inspected, and dispensed without assigning a fixed carrier position to a particular compartment."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
         <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
           <img
             src={carrierImage}
@@ -178,7 +178,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+  <section class="bg-[var(--color-graphite)] py-14 text-white sm:py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Fixed Base Locations"
@@ -187,7 +187,7 @@ const locations = [
         light
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
           locations.map((location) => (
             <article class="rounded-[2rem] border border-white/15 bg-white/5 p-8 lg:p-10">
@@ -213,7 +213,7 @@ const locations = [
     </div>
   </section>
 
-  <section id="interactive-model" class="scroll-mt-24 py-16 lg:py-28">
+  <section id="interactive-model" class="scroll-mt-24 py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
         <div>
@@ -241,7 +241,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Component Models"
@@ -249,7 +249,7 @@ const locations = [
         description="Separate models make it easier to understand how the assembly is constructed and how the rotating carrier and removable compartment relate to the complete device."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <ModelViewer
           modelPath={explodedModel}
           posterPath={explodedImage}
@@ -300,7 +300,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-28">
+  <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Removable Compartment"
@@ -308,7 +308,7 @@ const locations = [
         description="A compartment keeps its C-ID when it is inserted, moved to another carrier position, dispensed, returned, or prepared again. Retention features secure it during normal carousel movement while still allowing deliberate loading and ejection."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
           <img
             src={compartmentImage}
@@ -343,14 +343,14 @@ const locations = [
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
+  <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Design Views"
         title="Current prototype geometry from assembly to access details."
       />
 
-      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
           <img
             src={accessImage}
@@ -387,7 +387,7 @@ const locations = [
     </div>
   </section>
 
-  <section class="py-16 lg:py-24">
+  <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="rounded-[2rem] border border-[var(--color-border)] bg-white p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
         <div>

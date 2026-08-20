@@ -25,14 +25,14 @@ const capabilities = [
 ];
 ---
 
-<section class="py-16 lg:py-28">
+<section class="py-14 sm:py-14 sm:py-16 lg:py-20">
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
     <SectionHeader
       label="Core Capabilities"
       title="A connected workflow from prescription to dispense."
     />
 
-    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-4">
+    <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 lg:grid-cols-4">
       {capabilities.map((item) => (
         <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7 transition lg:hover:-translate-y-1 lg:hover:shadow-lg">
           <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{item.number}</p>
