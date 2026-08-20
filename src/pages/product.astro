@@ -1,151 +1,179 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
 
 const base = import.meta.env.BASE_URL;
 
-const imagePath =
-  `${base}/images/product/design-03.jpg`;
+const imagePath = `${base}/images/product/product-overview.jpg`;
+const loadingVideo = `${base}/media/loading_sequence.mp4`;
+const dispensingVideo = `${base}/media/dispensing_sequence.mp4`;
+const workflowPage = `${base}/how-it-works/`;
+const designPage = `${base}/design/`;
 
 const actors = [
   {
     title: "Patient",
     description:
-      "Receives the scheduled dose by removing the complete presented compartment and receives local alerts when appropriate.",
+      "Views the next scheduled dose and readiness state, receives the dispensed compartment, and can review permitted alerts and history.",
   },
   {
     title: "Caregiver",
     description:
-      "Defines medication schedules, loads and reinstalls removable compartments, reviews history, and resolves alerts or exceptions.",
+      "Defines medications and prescriptions, reviews generated schedules, prepares and loads compartments, and resolves verification, dispense, or pickup exceptions.",
   },
 ];
 
 const capabilities = [
-  "Medication and schedule management",
-  "Guided compartment loading and refill",
-  "Scheduled carousel positioning",
-  "Pre-hand-off medication inspection",
-  "Controlled compartment presentation",
-  "Pickup and adherence verification",
+  {
+    title: "Prescription-driven scheduling",
+    description:
+      "Medication and prescription information generates an editable schedule instead of requiring every occurrence to be entered manually.",
+  },
+  {
+    title: "Combined dispense events",
+    description:
+      "Medication occurrences due at the same exact time are grouped into one physical dispense event and one expected compartment-content set.",
+  },
+  {
+    title: "Schedule-driven preparation",
+    description:
+      "Future dispense events determine what caregivers need to prepare and identify which events are already loaded or still need a compartment.",
+  },
+  {
+    title: "Removable compartment tracking",
+    description:
+      "Each compartment keeps a persistent C-ID that remains independent of the rotating carrier position and fixed Base Slot.",
+  },
+  {
+    title: "Medication verification",
+    description:
+      "Expected medication type and quantity are checked before scheduled dispensing, with failed verification blocking the affected event.",
+  },
+  {
+    title: "Deterministic carousel movement",
+    description:
+      "Twelve indexed carrier positions move relative to fixed Base Slots, with HOME providing a known physical reference for automatic motion.",
+  },
+  {
+    title: "Controlled dispensing",
+    description:
+      "After successful inspection, the same physical compartment moves to Base Slot L and is dispensed or ejected from the rotating carrier.",
+  },
+  {
+    title: "Separate pickup outcome",
+    description:
+      "Dispensing and patient pickup are tracked independently so compartment movement is never treated as proof that medication was consumed.",
+  },
 ];
 
 const principles = [
   {
     number: "01",
-    title: "Verify before hand-off",
+    title: "Prescription drives schedule",
     description:
-      "A compartment is not presented until its contents pass configured inspection criteria or an authorized override is recorded.",
+      "Medication and prescription definitions produce the medication schedule, which can then be reviewed and edited.",
   },
   {
     number: "02",
-    title: "Present the complete dose container",
+    title: "Device schedule drives preparation",
     description:
-      "Medication remains inside its removable compartment during patient hand-off.",
+      "Medication occurrences sharing the same dispense time define one device event and the combined contents required in its compartment.",
   },
   {
     number: "03",
-    title: "Deterministic positioning",
+    title: "Verify before dispense",
     description:
-      "The system establishes a known carousel reference before automatic operation.",
+      "A compartment is not released for patient access until the expected contents satisfy configured verification criteria or an authorized override is recorded.",
   },
   {
     number: "04",
-    title: "Positive compartment state",
+    title: "Separate identity from position",
     description:
-      "Each compartment is tracked through installed, loaded, presented, removed, returned, and exception states.",
+      "Compartment identity, rotating carrier position, and fixed Base Slot are maintained as separate concepts throughout the system.",
   },
   {
     number: "05",
-    title: "Controlled patient access",
+    title: "Deterministic HOME",
     description:
-      "Normal patient interaction occurs at a defined hand-off opening rather than through access to the moving carousel.",
+      "Automatic movement begins from a known physical reference: P1 aligned with Base Slot L.",
   },
   {
     number: "06",
+    title: "Dispense is not ingestion",
+    description:
+      "A compartment leaving the carrier or later being collected does not prove that the medication was consumed.",
+  },
+  {
+    number: "07",
+    title: "Fail locally and continue where safe",
+    description:
+      "A failed compartment can remain installed and error-marked while unrelated eligible dispense events continue when mechanical state permits.",
+  },
+  {
+    number: "08",
     title: "Application-layer orchestration",
     description:
-      "Scheduling, vision, device control, persistence, and notifications remain separate responsibilities coordinated by workflows.",
+      "Scheduling, preparation, device motion, vision, persistence, alerts, and audit remain coordinated through application workflows and explicit interfaces.",
+  },
+];
+
+const productFacts = [
+  {
+    value: "12",
+    title: "Carrier positions",
+    description: "P1 through P12 at nominal 30-degree spacing.",
+  },
+  {
+    value: "11",
+    title: "Installed compartments",
+    description: "Maximum operational capacity at one time, leaving at least one rotating position empty.",
+  },
+  {
+    value: "A",
+    title: "Inspection slot",
+    description: "Base Slot A is the primary scheduled medication-inspection location.",
+  },
+  {
+    value: "L",
+    title: "Load / dispense slot",
+    description: "Base Slot L is the primary load, eject, and patient-access location.",
   },
 ];
 ---
 
 <MainLayout
   title="Product | Medicine Dispensing Device"
-  description="Explore the product concept, users, capabilities, and design principles of the removable-compartment medicine dispensing prototype."
+  description="Explore the users, capabilities, operating model, and product principles behind the removable-compartment medicine dispensing prototype."
 >
   <!-- Hero -->
-  <section class="py-16 lg:py-24">
+  <section class="overflow-hidden py-16 lg:py-24">
     <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        items-center
-        gap-12
-        px-6
-        lg:grid-cols-[0.9fr_1.1fr]
-        lg:gap-20
-        lg:px-10
-      "
+      class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20 lg:px-10"
     >
       <div>
-        <p
-          class="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-[var(--color-accent-orange)]
-          "
-        >
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
           Product
         </p>
 
-        <h1
-          class="
-            mt-5
-            max-w-[760px]
-            text-4xl
-            font-semibold
-            leading-[1.05]
-            tracking-tight
-            lg:text-7xl
-          "
-        >
-          Medication management designed around prepared,
-          removable doses.
+        <h1 class="mt-5 max-w-[760px] text-4xl font-semibold leading-[1.05] tracking-tight lg:text-7xl">
+          Medication dispensing built around verified, removable dose compartments.
         </h1>
 
-        <p
-          class="
-            mt-7
-            max-w-[650px]
-            text-lg
-            leading-8
-            text-[var(--color-text-secondary)]
-            lg:text-xl
-          "
-        >
-          The first-generation prototype stores medication in
-          eleven removable individual dose compartments and
-          coordinates scheduling, inspection, patient hand-off,
-          and pickup verification.
+        <p class="mt-7 max-w-[680px] text-lg leading-8 text-[var(--color-text-secondary)] lg:text-xl">
+          The prototype connects prescription-driven scheduling, caregiver preparation, compartment verification, indexed device movement, and controlled dispensing in one coordinated system.
         </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href={workflowPage}>See How It Works</Button>
+          <Button href={designPage} variant="secondary">Explore the Device</Button>
+        </div>
       </div>
 
-      <div
-        class="
-          overflow-hidden
-          rounded-[2rem]
-          bg-white
-          p-6
-          lg:p-10
-        "
-      >
+      <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
         <img
           src={imagePath}
-          alt="Medicine dispensing device product concept"
+          alt="Medicine dispensing device prototype with rotating carrier and removable dose compartment"
           class="mx-auto w-full"
         />
       </div>
@@ -154,61 +182,44 @@ const principles = [
 
   <!-- Problem -->
   <section class="bg-white py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-12
-        px-6
-        lg:grid-cols-[0.65fr_1.35fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
+    <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20 lg:px-10">
       <div>
-        <p
-          class="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-[var(--color-accent-orange)]
-          "
-        >
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
           The Problem
         </p>
       </div>
 
       <div>
-        <h2
-          class="
-            max-w-[850px]
-            text-3xl
-            font-semibold
-            leading-tight
-            lg:text-5xl
-          "
-        >
-          Medication routines can become difficult to manage
-          consistently.
+        <h2 class="max-w-[900px] text-3xl font-semibold leading-tight lg:text-5xl">
+          Medication routines become harder when schedules, preparation, and verification are disconnected.
         </h2>
 
-        <p
-          class="
-            mt-6
-            max-w-[760px]
-            text-lg
-            leading-8
-            text-[var(--color-text-secondary)]
-          "
-        >
-          The prototype is intended to reduce missed doses and
-          incorrect medication use while reducing caregiver burden.
-          Instead of dispensing loose pills, the system presents a
-          prepared, removable dose compartment.
+        <p class="mt-6 max-w-[780px] text-lg leading-8 text-[var(--color-text-secondary)]">
+          The product is intended to reduce missed and incorrect doses, reduce caregiver effort when managing multi-medication schedules, guide preparation of removable compartments, and verify expected contents before dispensing.
         </p>
+
+        <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div class="rounded-3xl border border-[var(--color-border)] p-6">
+            <p class="text-lg font-semibold">Reduce dose errors</p>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              Verification is part of the dispense workflow rather than a separate manual check.
+            </p>
+          </div>
+
+          <div class="rounded-3xl border border-[var(--color-border)] p-6">
+            <p class="text-lg font-semibold">Reduce preparation effort</p>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The device schedule determines what each upcoming compartment needs to contain.
+            </p>
+          </div>
+
+          <div class="rounded-3xl border border-[var(--color-border)] p-6">
+            <p class="text-lg font-semibold">Make state visible</p>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              Dispense, pickup, placement, preparation, and exceptions are represented separately.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -216,45 +227,18 @@ const principles = [
   <!-- Users -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Users"
-        title="Designed around the patient and caregiver."
+        title="Designed around patients and caregivers."
+        description="The product experience keeps everyday patient use simple while giving caregivers the tools needed to manage medication schedules, preparation, loading, and exceptions."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-6
-          lg:grid-cols-2
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
           actors.map((actor) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-white
-                p-8
-                lg:p-10
-              "
-            >
-              <h2 class="text-2xl font-semibold">
-                {actor.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  max-w-[560px]
-                  leading-8
-                  text-[var(--color-text-secondary)]
-                "
-              >
+            <article class="rounded-3xl border border-[var(--color-border)] bg-white p-8 lg:p-9">
+              <h2 class="text-2xl font-semibold">{actor.title}</h2>
+              <p class="mt-4 leading-8 text-[var(--color-text-secondary)]">
                 {actor.description}
               </p>
             </article>
@@ -264,46 +248,120 @@ const principles = [
     </div>
   </section>
 
+  <!-- Product model -->
+  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Product Model"
+        title="Identity, position, and physical access remain separate."
+        description="A removable compartment keeps its own persistent identity while the rotating carrier moves through fixed Base Slots. This allows the software to track what a compartment is, where it is, and what operation is occurring without conflating those concepts."
+        light
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl bg-white/15 md:grid-cols-2 lg:grid-cols-4">
+        {
+          productFacts.map((fact) => (
+            <article class="bg-[var(--color-graphite)] p-7 lg:p-8">
+              <p class="text-4xl font-semibold text-[var(--color-accent-teal)] lg:text-5xl">
+                {fact.value}
+              </p>
+              <h2 class="mt-5 text-lg font-semibold">{fact.title}</h2>
+              <p class="mt-3 leading-7 text-white/65">{fact.description}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-8 max-w-[820px] text-base leading-7 text-white/65">
+        HOME is defined as P1 aligned with Base Slot L. Capacity is better understood as up to eleven prepared dispense events rather than a fixed number of days, because one compartment may contain multiple medications scheduled for the same exact dispense time.
+      </p>
+    </div>
+  </section>
+
+  <!-- Compartment motion -->
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Physical Interaction"
+        title="See the compartments in motion."
+        description="Removable compartments are loaded and dispensed through Base Slot L. The rotating carrier positions each compartment as required while its persistent identity remains independent of carrier position."
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
+          <div class="aspect-video bg-[var(--color-graphite)]">
+            <video
+              class="h-full w-full object-cover"
+              controls
+              playsinline
+              preload="metadata"
+              aria-label="Video showing a removable medication compartment being loaded into the device"
+            >
+              <source src={loadingVideo} type="video/mp4" />
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="p-7 lg:p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">
+              Loading
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold">Loading a compartment</h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+              A prepared, identified compartment is inserted through Base Slot L and placed into an available carrier position for storage and later dispensing.
+            </p>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
+          <div class="aspect-video bg-[var(--color-graphite)]">
+            <video
+              class="h-full w-full object-cover"
+              controls
+              playsinline
+              preload="metadata"
+              aria-label="Video showing a removable medication compartment being dispensed from the device"
+            >
+              <source src={dispensingVideo} type="video/mp4" />
+              Your browser does not support HTML video.
+            </video>
+          </div>
+
+          <div class="p-7 lg:p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">
+              Dispensing
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold">Dispensing a compartment</h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+              After required verification, the scheduled compartment moves to Base Slot L and is ejected from the rotating carrier for patient access.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- Capabilities -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
         label="Product Capabilities"
-        title="One coordinated system from preparation through pickup."
+        title="One coordinated workflow from prescription to dispensing and pickup resolution."
+        description="The device is more than a rotating dispenser: medication data, preparation planning, compartment identity, vision verification, motion, and event history all participate in the same workflow."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-px
-          overflow-hidden
-          rounded-3xl
-          border
-          border-[var(--color-border)]
-          bg-[var(--color-border)]
-          lg:grid-cols-3
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-border)] md:grid-cols-2 lg:grid-cols-4">
         {
           capabilities.map((capability, index) => (
-            <div class="bg-[var(--color-background)] p-7">
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
+            <article class="bg-[var(--color-background)] p-7">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">
                 {String(index + 1).padStart(2, "0")}
               </p>
-
-              <p class="mt-4 text-lg font-medium">
-                {capability}
+              <h2 class="mt-4 text-lg font-semibold">{capability.title}</h2>
+              <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+                {capability.description}
               </p>
-            </div>
+            </article>
           ))
         }
       </div>
@@ -313,58 +371,48 @@ const principles = [
   <!-- Principles -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
-        label="Design Principles"
-        title="Product decisions are organized around verification, state, and controlled access."
+        label="Product Principles"
+        title="The product is organized around verification, deterministic state, and clear responsibility boundaries."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-3
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {
           principles.map((principle) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-white
-                p-7
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
+            <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">
                 {principle.number}
               </p>
-
-              <h2 class="mt-5 text-xl font-semibold">
-                {principle.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
+              <h2 class="mt-5 text-xl font-semibold">{principle.title}</h2>
+              <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
                 {principle.description}
               </p>
             </article>
           ))
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="rounded-[2rem] border border-[var(--color-border)] p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
+            Next
+          </p>
+          <h2 class="mt-4 max-w-[760px] text-3xl font-semibold leading-tight lg:text-5xl">
+            Follow the complete medication and device workflow.
+          </h2>
+          <p class="mt-5 max-w-[720px] text-lg leading-8 text-[var(--color-text-secondary)]">
+            See how prescriptions become scheduled dispense events, how compartments are prepared and verified, and how the device moves from inspection to controlled dispensing.
+          </p>
+        </div>
+
+        <div class="mt-8 shrink-0 lg:mt-0">
+          <Button href={workflowPage}>How It Works →</Button>
+        </div>
       </div>
     </div>
   </section>
