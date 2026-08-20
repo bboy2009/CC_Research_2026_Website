@@ -7,37 +7,88 @@ import VisionResultCard from "../components/vision/VisionResultCard.astro";
 const base = import.meta.env.BASE_URL;
 const technologyPage = `${base}/technology/`;
 const researchPage = `${base}/research/`;
+const workflowPage = `${base}/how-it-works/`;
+
+const inspectionLocations = [
+  {
+    location: "Base Slot L",
+    purpose: "Loading / refill verification",
+    description:
+      "During preparation and loading, the observed compartment contents can be compared with the CompartmentPreparationPlan before placement is accepted.",
+  },
+  {
+    location: "Base Slot A",
+    purpose: "Scheduled pre-dispense verification",
+    description:
+      "When a dispense event becomes due, the assigned compartment is positioned at Base Slot A and its complete expected medication-type and quantity set is checked before dispensing.",
+  },
+];
 
 const pipeline = [
   {
     number: "01",
-    title: "Capture",
+    title: "Provide expected contents",
     description:
-      "Acquire an image of the removable compartment at the fixed inspection position.",
+      "The application supplies the inspection purpose, location, and complete expected medication-and-quantity set for the compartment.",
   },
   {
     number: "02",
-    title: "Identify",
+    title: "Capture",
     description:
-      "Locate pill objects in the image and assign the configured pill-type label to each detection.",
+      "A camera acquires a repeatable image of the compartment under controlled inspection conditions.",
   },
   {
     number: "03",
-    title: "Annotate",
+    title: "Observe",
     description:
-      "Return object-level geometry and confidence information that can be recorded or displayed for review.",
+      "The vision implementation identifies visible medication objects, types, counts, and supporting evidence such as geometry or confidence where available.",
   },
   {
     number: "04",
     title: "Compare",
     description:
-      "Compare detected pill types and counts with the expected medication configuration for the scheduled dose.",
+      "Observed medication type and count are compared with the full expected combined-content set for that preparation or dispense event.",
   },
   {
     number: "05",
-    title: "Decide",
+    title: "Return an explicit outcome",
     description:
-      "Allow the workflow to continue when configured verification criteria pass, otherwise block hand-off and surface an exception.",
+      "Vision returns a distinct result to the application workflow. The workflow—not the vision provider—decides what product action follows.",
+  },
+];
+
+const outcomes = [
+  {
+    name: "MATCH",
+    meaning: "Observed contents satisfy the expected combined medication set.",
+  },
+  {
+    name: "MISMATCH",
+    meaning: "Observed medication type or count does not match the expected set.",
+  },
+  {
+    name: "UNKNOWN",
+    meaning: "The observation cannot be classified with sufficient confidence.",
+  },
+  {
+    name: "AMBIGUOUS",
+    meaning: "Available evidence supports more than one plausible interpretation.",
+  },
+  {
+    name: "VISION_UNAVAILABLE",
+    meaning: "The configured vision capability is unavailable for the requested inspection.",
+  },
+  {
+    name: "TIMEOUT",
+    meaning: "The inspection did not complete within the allowed workflow interval.",
+  },
+  {
+    name: "PROVIDER_ERROR",
+    meaning: "The vision implementation or provider returned an execution failure.",
+  },
+  {
+    name: "PROTOCOL_ERROR",
+    meaning: "The application could not interpret the returned vision response as a valid inspection result.",
   },
 ];
 
@@ -94,76 +145,27 @@ const results = [
 ---
 
 <MainLayout
-  title="Computer Vision | Medicine Dispensing Device"
-  description="Interim computer-vision results from the medicine dispensing prototype, including pill identification, object annotation, count, confidence, and the intended verification workflow."
+  title="Computer Vision | MediSAFE: Medication Dispenser"
+  description="Explore how MediSAFE uses computer vision to compare expected and observed compartment contents during loading and before medication dispensing."
 >
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <p
-        class="
-          text-sm
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-          text-[var(--color-accent-orange)]
-        "
-      >
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
         Computer Vision
       </p>
 
-      <h1
-        class="
-          mt-5
-          max-w-[980px]
-          text-4xl
-          font-semibold
-          leading-[1.05]
-          tracking-tight
-          lg:text-7xl
-        "
-      >
-        Visual evidence before medication hand-off.
+      <h1 class="mt-5 max-w-[1000px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl">
+        Visual verification before medication dispensing.
       </h1>
 
-      <p
-        class="
-          mt-7
-          max-w-[800px]
-          text-lg
-          leading-8
-          text-[var(--color-text-secondary)]
-          lg:text-xl
-        "
-      >
-        The Vision Service is intended to support medication identity,
-        count, confidence, geometry or annotation data, and compartment
-        presence classification. The images below are interim development
-        outputs from the current visual-inspection work.
+      <p class="mt-7 max-w-[840px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
+        Computer vision provides evidence about the medication contents of a removable compartment. The application compares the observed medication type and count with the complete expected set and uses the result as a verification gate in the loading and scheduled-dispense workflows.
       </p>
 
-      <div
-        class="
-          mt-8
-          max-w-[860px]
-          rounded-2xl
-          border
-          border-[var(--color-border)]
-          bg-white
-          p-5
-        "
-      >
-        <p class="font-semibold">Evidence status: interim</p>
-        <p
-          class="
-            mt-2
-            text-sm
-            leading-6
-            text-[var(--color-text-secondary)]
-          "
-        >
-          Confidence values shown in the annotations are model-output
-          confidence values. They are not a measured system accuracy rate
-          and should not be interpreted as a completed validation result.
+      <div class="mt-8 max-w-[900px] rounded-2xl border border-[var(--color-border)] bg-white p-5">
+        <p class="font-semibold">Development evidence, not clinical validation</p>
+        <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+          The annotated images on this page are interim development outputs. Displayed confidence values are model-output confidence values, not measured end-to-end system accuracy or a completed validation result.
         </p>
       </div>
     </div>
@@ -172,54 +174,21 @@ const results = [
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Inspection Pipeline"
-        title="From compartment image to workflow decision."
-        description="The application coordinates image acquisition and uses the returned visual-inspection result as one input to the scheduled-dose workflow."
+        label="Role in the Product"
+        title="Vision checks contents at two points in the compartment workflow."
+        description="The same expected-vs-observed concept supports preparation verification during loading and a final scheduled inspection before dispensing."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-4
-          lg:grid-cols-5
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {
-          pipeline.map((step) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {step.number}
+          inspectionLocations.map((item) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-8">
+              <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+                {item.location}
               </p>
-
-              <h2 class="mt-5 text-xl font-semibold">
-                {step.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  text-sm
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                {step.description}
+              <h2 class="mt-3 text-2xl font-semibold">{item.purpose}</h2>
+              <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+                {item.description}
               </p>
             </article>
           ))
@@ -231,126 +200,147 @@ const results = [
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Interim Results"
-        title="Increasing scene complexity across four development examples."
-        description="These examples document current annotation behavior rather than a completed benchmark. Formal validation should use a controlled labeled dataset and defined acceptance metrics."
+        label="Inspection Pipeline"
+        title="Expected contents become an explicit verification outcome."
+        description="The application coordinates inspection through the camera and vision boundaries. Vision returns evidence and an outcome; application workflows retain responsibility for medication and dispense decisions."
       />
 
-      <div class="mt-12 space-y-8">
+      <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
         {
-          results.map((result) => (
-            <VisionResultCard {...result} />
+          pipeline.map((step) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-white p-6">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{step.number}</p>
+              <h2 class="mt-5 text-xl font-semibold">{step.title}</h2>
+              <p class="mt-4 text-sm leading-7 text-[var(--color-text-secondary)]">
+                {step.description}
+              </p>
+            </article>
           ))
         }
       </div>
     </div>
   </section>
 
-  <section class="bg-white py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-12
-        px-6
-        lg:grid-cols-2
-        lg:gap-20
-        lg:px-10
-      "
-    >
-      <div>
+  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Explicit Outcomes"
+        title="Verification results remain distinct instead of collapsing every failure into one state."
+        description="Keeping inspection outcomes explicit allows the application to distinguish a true content mismatch from uncertainty, availability, timeout, provider, or protocol failures."
+        light={true}
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          outcomes.map((outcome) => (
+            <article class="rounded-3xl bg-white/10 p-6">
+              <code class="text-sm font-semibold text-[var(--color-accent-teal)]">{outcome.name}</code>
+              <p class="mt-3 text-sm leading-6 text-white/70">{outcome.meaning}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
         <SectionHeader
-          label="What This Shows"
-          title="Observable development evidence."
+          label="Workflow Decision"
+          title="Verification can allow or block a dispense event."
+          description="A successful pre-dispense inspection allows the same compartment to proceed to Base Slot L. A failed verification blocks the affected event and marks the compartment as an exception while unrelated safe operations may continue."
         />
 
-        <ul
-          class="
-            mt-8
-            space-y-4
-            leading-7
-            text-[var(--color-text-secondary)]
-          "
-        >
-          <li>• Multiple pill objects can be annotated in one inspection image.</li>
+        <div class="grid gap-5">
+          <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">MATCH</p>
+            <h2 class="mt-3 text-xl font-semibold">Continue the scheduled workflow.</h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The verified compartment can move from Base Slot A to Base Slot L for controlled dispensing.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">Non-match / unresolved result</p>
+            <h2 class="mt-3 text-xl font-semibold">Do not automatically dispense the affected compartment.</h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The event is blocked or routed to the appropriate exception policy. Vision failure is localized to the affected workflow rather than automatically disabling every unrelated safe event.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Current Development Evidence"
+        title="Increasing scene complexity across four inspection examples."
+        description="These images document current annotation behavior rather than a completed benchmark. Formal validation requires a controlled labeled dataset, defined acceptance metrics, and repeatable test conditions."
+      />
+
+      <div class="mt-12 space-y-8">
+        {results.map((result) => <VisionResultCard {...result} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 lg:grid-cols-2 lg:gap-20 lg:px-10">
+      <div>
+        <SectionHeader label="What This Demonstrates" title="Observable development evidence." />
+        <ul class="mt-8 space-y-4 leading-7 text-[var(--color-text-secondary)]">
+          <li>• Multiple medication objects can be annotated in one compartment image.</li>
           <li>• Different configured pill-type labels can appear in the same scene.</li>
-          <li>• Object geometry is represented by visible outlines.</li>
-          <li>• Per-object confidence information is included in the annotations.</li>
+          <li>• Object geometry can be represented by visible outlines.</li>
+          <li>• Per-object model confidence can be included with annotations.</li>
         </ul>
       </div>
 
       <div>
-        <SectionHeader
-          label="What Remains To Validate"
-          title="The images are not yet an accuracy study."
-        />
-
-        <ul
-          class="
-            mt-8
-            space-y-4
-            leading-7
-            text-[var(--color-text-secondary)]
-          "
-        >
+        <SectionHeader label="What Remains To Validate" title="A production verification policy needs measured evidence." />
+        <ul class="mt-8 space-y-4 leading-7 text-[var(--color-text-secondary)]">
           <li>• Detection and classification performance across a controlled labeled dataset.</li>
           <li>• Robustness to lighting, orientation, reflections, touching pills, and occlusion.</li>
           <li>• Count accuracy and false-positive / false-negative behavior.</li>
-          <li>• Acceptance thresholds for blocking or allowing patient hand-off.</li>
+          <li>• Acceptance thresholds and override behavior for unresolved inspection outcomes.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section
-    class="
-      bg-[var(--color-graphite)]
-      py-16
-      text-white
-      lg:py-24
-    "
-  >
-    <div
-      class="
-        mx-auto
-        flex
-        max-w-[1280px]
-        flex-col
-        gap-8
-        px-6
-        lg:flex-row
-        lg:items-end
-        lg:justify-between
-        lg:px-10
-      "
-    >
-      <div>
-        <p
-          class="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-[var(--color-accent-teal)]
-          "
-        >
-          Continue Exploring
-        </p>
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-background)] p-8 lg:p-12">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">Safety Boundary</p>
+            <h2 class="mt-4 text-2xl font-semibold tracking-tight lg:text-3xl">Vision verifies medication contents; it does not own time-critical motion safety.</h2>
+          </div>
 
-        <h2 class="mt-4 max-w-[720px] text-3xl font-semibold lg:text-5xl">
-          See how vision fits into the system architecture and research plan.
+          <p class="leading-8 text-[var(--color-text-secondary)]">
+            Local hardware interlocks, physical pose, and unsafe motion or ejection conditions remain responsibilities of the embedded device layer. A cloud-dependent vision provider must not be used as the mechanism enforcing time-critical local motion safety.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-24">
+    <div class="mx-auto flex max-w-[1280px] flex-col gap-8 px-6 lg:flex-row lg:items-end lg:justify-between lg:px-10">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-teal)]">Continue Exploring</p>
+        <h2 class="mt-4 max-w-[760px] text-2xl font-semibold sm:text-3xl lg:text-4xl">
+          See vision in the complete workflow, architecture, and research program.
         </h2>
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <Button href={technologyPage} variant="secondary">
-          Technology →
-        </Button>
-        <Button href={researchPage} variant="secondary">
-          Research →
-        </Button>
+        <Button href={workflowPage} variant="secondary">How It Works →</Button>
+        <Button href={technologyPage} variant="secondary">Technology →</Button>
+        <Button href={researchPage} variant="secondary">Research →</Button>
       </div>
     </div>
   </section>
