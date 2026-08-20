@@ -4,62 +4,62 @@ import StatusBadge from "./StatusBadge.astro";
 const stages = [
   {
     number: "01",
-    title: "Product Definition",
-    status: "VALIDATED RESULT" as const,
+    title: "Requirements Baseline",
+    status: "DOCUMENTED BASELINE" as const,
     description:
-      "Product and system requirements established the removable-compartment dispensing concept, user workflows, system boundaries, and first-generation engineering goals.",
+      "Product and system requirements define the removable-compartment concept, prescription-driven scheduling, grouped dispense events, safety boundaries, and target operational workflows.",
     artifact:
-      "PRD, SRD, product architecture, and workflow definitions",
+      "Product Requirements v1.6 and System Requirements v1.3",
   },
   {
     number: "02",
-    title: "Computer Vision Exploration",
-    status: "INTERIM RESULT" as const,
-    description:
-      "Development work explored pill localization, classification, annotation, counting, and visual verification under increasingly complex scenes.",
-    artifact:
-      "Annotated single-pill and mixed-pill inspection examples",
-  },
-  {
-    number: "03",
-    title: "Software Architecture",
-    status: "INTERIM RESULT" as const,
-    description:
-      "The prototype software evolved toward clear application, repository, vision, persistence, and device-control boundaries.",
-    artifact:
-      "Python prototype implementation and responsive architecture diagrams",
-  },
-  {
-    number: "04",
     title: "Industrial Design",
     status: "INTERIM RESULT" as const,
     description:
-      "The carousel, removable dose compartments, magnetic retention concept, inspection position, and patient hand-off geometry were developed as an integrated product concept.",
+      "The rotating carrier, removable compartments, fixed inspection and access locations, retention concept, and physical interaction sequence have been developed as an integrated design direction.",
     artifact:
-      "Industrial design renders and interactive 3D model",
+      "Industrial design renders, interaction videos, and interactive 3D models",
+  },
+  {
+    number: "03",
+    title: "Software & System Architecture",
+    status: "INTERIM RESULT" as const,
+    description:
+      "The software architecture separates application workflows, persistence, vision, device control, and embedded-controller responsibilities while preserving explicit compartment identity and placement state.",
+    artifact:
+      "Python prototype implementation and system architecture diagrams",
+  },
+  {
+    number: "04",
+    title: "Computer Vision Exploration",
+    status: "INTERIM RESULT" as const,
+    description:
+      "Development work explores pill localization, classification, counting, annotation, and structured verification outcomes under single-pill and mixed-pill scenes.",
+    artifact:
+      "Annotated inspection examples and vision workflow implementation",
   },
   {
     number: "05",
-    title: "Technical Showcase",
+    title: "Integrated Product Showcase",
     status: "INTERIM RESULT" as const,
     description:
-      "The research website now consolidates product definition, architecture, workflow diagrams, design artifacts, and current vision evidence.",
+      "The current website brings the product concept, user workflow, industrial design, software architecture, and implementation evidence into one coherent engineering narrative.",
     artifact:
-      "Responsive website through Milestone 4",
+      "Responsive MediSAFE prototype website through Milestone 12",
   },
   {
     number: "06",
     title: "Integrated Prototype Validation",
     status: "PLANNED VALIDATION" as const,
     description:
-      "Future work will combine mechanical, sensing, embedded-control, computer-vision, and workflow testing against defined acceptance evidence.",
+      "Next-stage work will combine mechanical, sensing, embedded-control, computer-vision, scheduling, recovery, and end-to-end workflow testing against defined acceptance evidence.",
     artifact:
-      "Planned integrated test program",
+      "Planned integrated verification and acceptance program",
   },
 ];
 ---
 
-<div class="mt-12 space-y-4">
+<div class="mt-10 space-y-4 lg:mt-12">
   {
     stages.map((stage, index) => (
       <article
@@ -115,7 +115,7 @@ const stages = [
 
         <div>
           <div class="flex flex-wrap items-center gap-3">
-            <h3 class="text-xl font-semibold lg:text-2xl">
+            <h3 class="text-lg font-semibold sm:text-xl lg:text-2xl">
               {stage.title}
             </h3>
 
@@ -128,8 +128,11 @@ const stages = [
             class="
               mt-3
               max-w-[780px]
-              leading-7
+              text-sm
+              leading-6
               text-[var(--color-text-secondary)]
+              sm:text-base
+              sm:leading-7
             "
           >
             {stage.description}

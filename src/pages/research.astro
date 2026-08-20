@@ -7,217 +7,245 @@ import DevelopmentTimeline from "../components/research/DevelopmentTimeline.astr
 
 const base = import.meta.env.BASE_URL;
 const visionPage = `${base}/vision/`;
+const technologyPage = `${base}/technology/`;
 
-const researchAreas = [
+const evidenceAreas = [
   {
-    title: "Mechanical Design",
+    title: "Product Definition",
+    status: "DOCUMENTED BASELINE" as const,
     description:
-      "Retention force, carrier geometry, compartment alignment, manual removal, and indexed movement.",
+      "Current product and system requirements define actors, schedule generation, compartment preparation, grouped dispense events, pickup outcomes, recovery behavior, and first integrated acceptance objectives.",
   },
   {
-    title: "Computer Vision",
+    title: "Industrial Design",
+    status: "INTERIM RESULT" as const,
     description:
-      "Medication verification, image repeatability, detection confidence, and compartment presence classification.",
-  },
-  {
-    title: "Motion Control",
-    description:
-      "Homing, positioning repeatability, motor profiles, backlash, and safe movement.",
-  },
-  {
-    title: "Safety & Interlocks",
-    description:
-      "Partial-removal detection, hand-off safety, fault states, and recovery behavior.",
+      "The current design establishes a 12-position indexed carrier, fixed Base Slots A-L, removable compartments, Slot A inspection, and Slot L loading, dispensing, and external access behavior.",
   },
   {
     title: "Software Architecture",
+    status: "INTERIM RESULT" as const,
     description:
-      "Workflow orchestration, persistence, state management, simulation, and hardware integration.",
+      "The prototype separates application workflows from device, camera, vision, persistence, notification, and embedded-control boundaries to support simulation and incremental hardware integration.",
   },
   {
+    title: "Computer Vision",
+    status: "INTERIM RESULT" as const,
+    description:
+      "Annotated development examples demonstrate pill localization, classification, counting, and structured inspection outcomes, while formal performance validation remains open.",
+  },
+];
+
+const researchAreas = [
+  {
+    number: "01",
+    title: "Mechanical Design",
+    description:
+      "Carrier geometry, retention, compartment insertion and removal, indexed alignment, ejection behavior, and post-dispense access.",
+  },
+  {
+    number: "02",
+    title: "Computer Vision",
+    description:
+      "Medication verification, image repeatability, pill classification, confidence behavior, failure outcomes, and camera geometry.",
+  },
+  {
+    number: "03",
+    title: "Motion & Embedded Control",
+    description:
+      "Homing, one-index motion, positioning repeatability, interlocks, actuator behavior, fault handling, and controller state transitions.",
+  },
+  {
+    number: "04",
+    title: "Safety & Recovery",
+    description:
+      "Unsafe-state inhibition, inspection failure handling, startup reconciliation, power-loss recovery, and exception resolution before automatic operation resumes.",
+  },
+  {
+    number: "05",
+    title: "Software & Data",
+    description:
+      "Prescription-driven scheduling, same-time event grouping, compartment identity and placement, transactional persistence, simulation, audit history, and workflow orchestration.",
+  },
+  {
+    number: "06",
     title: "Human Interaction",
     description:
-      "Loading, compartment return, refill, patient pickup, caregiver resolution, and alert workflows.",
+      "Caregiver loading and refill, direct controls, patient pickup, timeout and ambiguity resolution, understandable state presentation, and accessible daily-use workflows.",
+  },
+];
+
+const acceptancePlan = [
+  {
+    area: "HOME reference",
+    method: "Repeated HOME and index test",
+    evidence: "P1 repeatedly aligns with Base Slot L.",
+  },
+  {
+    area: "Indexed motion",
+    method: "CW / CCW command and reversal test",
+    evidence: "Each command changes pose by one 30-degree index and reversing returns the prior pose.",
+  },
+  {
+    area: "Dynamic placement",
+    method: "Load, refill, and reinsertion scenarios",
+    evidence: "Compartment C-ID remains associated with its actual current carrier P-position.",
+  },
+  {
+    area: "Schedule grouping",
+    method: "Scheduling integration test",
+    evidence: "Medication occurrences due at the exact same time become one physical dispense event with combined expected contents.",
+  },
+  {
+    area: "Slot A inspection",
+    method: "Positioning and inspection workflow test",
+    evidence: "Every eligible prepared compartment can be positioned at Slot A and evaluated against its expected contents.",
+  },
+  {
+    area: "Failed inspection",
+    method: "Workflow and fault test",
+    evidence: "The affected event is blocked, the compartment remains installed in an error state, and unrelated safe events can remain serviceable.",
+  },
+  {
+    area: "Successful dispense",
+    method: "Integrated dispense test",
+    evidence: "The verified compartment reaches Slot L, leaves the carrier, its P-position becomes empty, and DISPENSED is recorded.",
+  },
+  {
+    area: "Schedule preparation",
+    method: "API / UI integration test",
+    evidence: "Future device events accurately distinguish already-loaded from not-yet-loaded preparation state.",
+  },
+  {
+    area: "Recovery",
+    method: "Restart and contradiction scenarios",
+    evidence: "Motion remains inhibited until HOME, pose, compartment placement, and external access state are reconciled.",
   },
 ];
 
 const openQuestions = [
-  "Magnet type and retention force",
-  "Compartment identity sensing",
-  "Hand-off presence sensing",
-  "Partial-removal interlock mechanism",
-  "Camera field of view",
-  "Carrier bearing and drive geometry",
-  "Return and reinstall workflow",
-];
-
-const validation = [
   {
-    area: "Magnetic retention",
-    method: "Repeated loaded rotation testing",
-    evidence:
-      "No unintended displacement or ejection of installed compartments.",
+    title: "Post-dispense access",
+    description:
+      "Define the final tray, hatch, receptacle, or other controlled access geometry and how collected, timed-out, or ambiguous outcomes are sensed.",
   },
   {
-    area: "Manual removal",
-    method: "Human-factor bench testing",
-    evidence:
-      "Presented compartment can be removed without tools or disturbing adjacent compartments.",
+    title: "Ejection behavior",
+    description:
+      "Determine whether EJECT is fully motorized, mechanically assisted, or application-guided, including the associated safety behavior.",
   },
   {
-    area: "Indexing",
-    method: "Repeated homing and positioning",
-    evidence:
-      "Every compartment repeatedly reaches inspection and hand-off alignment.",
+    title: "Twelfth compartment role",
+    description:
+      "Confirm whether the twelfth registered compartment is spare, staging, or normal inventory while maximum installed capacity remains eleven.",
   },
   {
-    area: "Inspection framing",
-    method: "Image repeatability testing",
-    evidence:
-      "Each compartment is consistently framed for medication analysis.",
+    title: "Compartment identification",
+    description:
+      "Select the machine-readable technology used to establish persistent C-ID independently from carrier position.",
   },
   {
-    area: "Pickup detection",
-    method: "Presence / absence testing",
-    evidence:
-      "System reliably distinguishes installed versus removed compartments.",
+    title: "Slot L safety sensing",
+    description:
+      "Define the interlock and ejection-path sensing architecture required to prevent unsafe motion or dispense behavior.",
   },
   {
-    area: "Partial-removal safety",
-    method: "Fault-injection testing",
-    evidence:
-      "Motion is rejected when the hand-off condition is unsafe.",
+    title: "Camera and sensor geometry",
+    description:
+      "Resolve one-camera versus multi-camera or mixed-sensor coverage for loading, inspection, identity, and access workflows.",
   },
   {
-    area: "Power-loss recovery",
-    method: "Power interruption testing",
-    evidence:
-      "System re-homes and reconciles compartment state before automatic operation resumes.",
+    title: "Vision-unavailable policy",
+    description:
+      "Define safe behavior, recovery, and any allowed override when the vision service is unavailable or returns an unresolved result.",
   },
   {
-    area: "End-to-end workflow",
-    method: "Integrated scenario testing",
-    evidence:
-      "Due → inspect → verify → hand-off → pickup verification → software update completes deterministically.",
+    title: "Clinical guardrails",
+    description:
+      "Define how prescription and maximum-consumption rules are validated without overstating the prototype as a clinical decision system.",
+  },
+  {
+    title: "Concurrent due events",
+    description:
+      "Define prioritization when multiple due device events compete for a hardware or patient-access resource.",
+  },
+  {
+    title: "Security and regulatory posture",
+    description:
+      "Define remote connectivity, data retention, security controls, privacy expectations, and the regulatory path for any future productization.",
   },
 ];
 ---
 
 <MainLayout
   title="Research & Development | MediSAFE: Medication Dispenser"
-  description="Follow the current evidence, open engineering decisions, planned validation work, and development progression of the medicine dispensing prototype."
+  description="Explore the documented baseline, current engineering evidence, open decisions, and planned verification work behind the MediSAFE medication dispensing prototype."
 >
   <!-- Hero -->
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="flex flex-wrap items-center gap-3">
         <p
-          class="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-[var(--color-accent-orange)]
-          "
+          class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]"
         >
           Research & Development
         </p>
-
         <StatusBadge status="INTERIM RESULT" />
       </div>
 
       <h1
-        class="
-          mt-5
-          max-w-[980px]
-          text-3xl
-          font-semibold
-          leading-[1.08]
-          tracking-tight
-          sm:text-4xl
-          lg:text-6xl
-        "
+        class="mt-5 max-w-[960px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl"
       >
-        A prototype shaped by evidence, open questions, and planned validation.
+        Turning a dispensing concept into testable engineering evidence.
       </h1>
 
       <p
-        class="
-          mt-7
-          max-w-[820px]
-          text-base
-          leading-7
-          text-[var(--color-text-secondary)]
-          lg:text-lg
-          lg:leading-8
-        "
+        class="mt-7 max-w-[830px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8"
       >
-        The project remains an integrated engineering prototype.
-        Current artifacts document product definition, industrial design,
-        system architecture, and interim computer-vision behavior. Several
-        mechanical, sensing, motion-control, safety, and human-factor
-        questions remain intentionally unresolved until test evidence is available.
+        MediSAFE remains an engineering prototype. The current requirements,
+        industrial design, architecture, and computer-vision work establish a
+        documented direction; integrated mechanical, sensing, safety, and
+        end-to-end validation is still planned rather than assumed.
       </p>
     </div>
   </section>
 
-  <!-- Status guide -->
+  <!-- Evidence language -->
   <section class="bg-white py-12 lg:py-16">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <div
-        class="
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-[0.8fr_1.2fr]
-          lg:items-start
-          lg:gap-16
-        "
-      >
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
         <div>
-          <p
-            class="
-              text-sm
-              font-semibold
-              uppercase
-              tracking-[0.18em]
-              text-[var(--color-accent-orange)]
-            "
-          >
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
             Evidence Language
           </p>
-
-          <h2 class="mt-4 text-2xl font-semibold lg:text-3xl">
-            Status labels distinguish evidence from intent.
+          <h2 class="mt-4 max-w-[520px] text-2xl font-semibold sm:text-3xl lg:text-4xl">
+            The site separates what is defined, observed, undecided, and still to be tested.
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <StatusBadge status="DOCUMENTED BASELINE" />
+            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+              A current requirement, architecture, or design baseline exists and is used to guide implementation.
+            </p>
+          </div>
           <div>
             <StatusBadge status="INTERIM RESULT" />
             <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
-              Development evidence exists, but formal validation is incomplete.
+              Implementation or development evidence exists, but formal acceptance testing is incomplete.
             </p>
           </div>
-
           <div>
             <StatusBadge status="OPEN DECISION" />
             <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
-              An engineering choice remains unresolved pending evidence.
+              An engineering or product decision remains unresolved pending evidence or design work.
             </p>
           </div>
-
           <div>
             <StatusBadge status="PLANNED VALIDATION" />
             <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
-              A validation method is defined, but the result is not yet available.
-            </p>
-          </div>
-
-          <div>
-            <StatusBadge status="VALIDATED RESULT" />
-            <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
-              Reserved for conclusions supported by defined evidence and acceptance criteria.
+              A verification objective is defined, but passing evidence has not yet been established.
             </p>
           </div>
         </div>
@@ -225,115 +253,52 @@ const validation = [
     </div>
   </section>
 
-  <!-- Current evidence -->
-  <section class="py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-10
-        px-6
-        lg:grid-cols-[0.8fr_1.2fr]
-        lg:items-start
-        lg:gap-20
-        lg:px-10
-      "
-    >
+  <!-- Current engineering baseline -->
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Current Evidence"
-        title="The computer-vision work is the first documented implementation evidence."
-        description="Four current inspection images demonstrate object annotation, pill-type labeling, and model-output confidence under single-object and increasingly complex mixed-object scenes."
+        label="Current Engineering Baseline"
+        title="Four bodies of work currently anchor the prototype."
+        description="Together they define what the product is intended to do, how the physical system is organized, how software responsibilities are separated, and what implementation evidence currently exists."
       />
 
-      <article
-        class="
-          rounded-[2rem]
-          border
-          border-[var(--color-border)]
-          bg-white
-          p-7
-          lg:p-9
-        "
-      >
-        <StatusBadge status="INTERIM RESULT" />
+      <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+        {
+          evidenceAreas.map((area) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7 lg:p-8">
+              <StatusBadge status={area.status} />
+              <h2 class="mt-5 text-xl font-semibold lg:text-2xl">{area.title}</h2>
+              <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)] sm:text-base sm:leading-7">
+                {area.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
 
-        <h2 class="mt-5 text-2xl font-semibold">
-          Visual Inspection Interim Results
-        </h2>
-
-        <p
-          class="
-            mt-4
-            leading-7
-            text-[var(--color-text-secondary)]
-          "
-        >
-          Current annotated images show PILL_A, PILL_B, mixed pill
-          types, and a crowded multi-object scene. The displayed
-          confidence values are model outputs and are not presented
-          as a measured system accuracy rate.
-        </p>
-
-        <div class="mt-7">
-          <Button href={visionPage} variant="secondary">
-            View Vision Evidence →
-          </Button>
-        </div>
-      </article>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <Button href={technologyPage} variant="secondary">Explore Architecture →</Button>
+        <Button href={visionPage} variant="secondary">View Vision Evidence →</Button>
+      </div>
     </div>
   </section>
 
-  <!-- Research areas -->
-  <section class="bg-white py-16 lg:py-28">
+  <!-- Research workstreams -->
+  <section class="bg-white py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Research Areas"
-        title="Six disciplines converge in the current prototype."
+        label="Engineering Workstreams"
+        title="Six disciplines converge in the integrated prototype."
+        description="Progress in one area changes constraints in the others, so the research program is intentionally system-oriented rather than a collection of isolated experiments."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-3
-        "
-      >
+      <div class="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {
-          researchAreas.map((area, index) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-7
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {String(index + 1).padStart(2, "0")}
-              </p>
-
-              <h2 class="mt-5 text-xl font-semibold">
-                {area.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
+          researchAreas.map((area) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{area.number}</p>
+              <h2 class="mt-4 text-xl font-semibold">{area.title}</h2>
+              <p class="mt-3 text-sm leading-6 text-[var(--color-text-secondary)] sm:text-base sm:leading-7">
                 {area.description}
               </p>
             </article>
@@ -343,179 +308,35 @@ const validation = [
     </div>
   </section>
 
-  <!-- Open engineering decisions -->
-  <section class="py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        gap-12
-        px-6
-        lg:grid-cols-[0.75fr_1.25fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
-      <div>
-        <SectionHeader
-          label="Open Engineering Decisions"
-          title="Several design choices remain intentionally unresolved."
-          description="These questions require mechanical testing, sensing experiments, image evaluation, or human-factor validation before the product architecture is finalized."
-        />
-
-        <div class="mt-6">
-          <StatusBadge status="OPEN DECISION" />
-        </div>
-      </div>
-
-      <div
-        class="
-          overflow-hidden
-          rounded-3xl
-          border
-          border-[var(--color-border)]
-          bg-white
-        "
-      >
-        {
-          openQuestions.map((question, index) => (
-            <div
-              class="
-                flex
-                gap-5
-                border-b
-                border-[var(--color-border)]
-                px-6
-                py-5
-                last:border-b-0
-              "
-            >
-              <span
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
-
-              <span>
-                {question}
-              </span>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Planned validation -->
-  <section class="bg-white py-16 lg:py-28">
+  <!-- Planned verification -->
+  <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <div
-        class="
-          flex
-          flex-col
-          gap-5
-          lg:flex-row
-          lg:items-end
-          lg:justify-between
-        "
-      >
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeader
-          label="Planned Validation"
-          title="Prototype requirements are paired with observable test evidence."
-          description="These methods define how future integrated testing can establish whether the prototype meets its intended mechanical, sensing, safety, and workflow behavior."
+          label="Verification & Acceptance"
+          title="Requirements are being translated into observable pass evidence."
+          description="The current PRD and SRD define first integrated prototype objectives that can be exercised through repeatable motion, workflow, integration, browser, and recovery tests."
         />
-
         <div class="shrink-0">
           <StatusBadge status="PLANNED VALIDATION" />
         </div>
       </div>
 
-      <div class="mt-12 space-y-4">
+      <div class="mt-10 overflow-hidden rounded-3xl border border-[var(--color-border)] bg-white">
         {
-          validation.map((item) => (
-            <article
-              class="
-                grid
-                grid-cols-1
-                gap-5
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-                lg:grid-cols-[0.6fr_0.8fr_1.6fr]
-                lg:items-start
-              "
-            >
+          acceptancePlan.map((item, index) => (
+            <article class="grid grid-cols-1 gap-4 border-b border-[var(--color-border)] px-6 py-6 last:border-b-0 lg:grid-cols-[0.65fr_0.95fr_1.4fr] lg:gap-8 lg:px-8">
               <div>
-                <p
-                  class="
-                    text-xs
-                    font-semibold
-                    uppercase
-                    tracking-[0.12em]
-                    text-[var(--color-accent-orange)]
-                  "
-                >
-                  Area
-                </p>
-
-                <p class="mt-2 font-semibold">
-                  {item.area}
-                </p>
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-accent-orange)]">{String(index + 1).padStart(2, "0")}</p>
+                <p class="mt-2 font-semibold">{item.area}</p>
               </div>
-
               <div>
-                <p
-                  class="
-                    text-xs
-                    font-semibold
-                    uppercase
-                    tracking-[0.12em]
-                    text-[var(--color-accent-orange)]
-                  "
-                >
-                  Method
-                </p>
-
-                <p
-                  class="
-                    mt-2
-                    text-[var(--color-text-secondary)]
-                  "
-                >
-                  {item.method}
-                </p>
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text-secondary)]">Method</p>
+                <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)] sm:text-base">{item.method}</p>
               </div>
-
               <div>
-                <p
-                  class="
-                    text-xs
-                    font-semibold
-                    uppercase
-                    tracking-[0.12em]
-                    text-[var(--color-accent-orange)]
-                  "
-                >
-                  Intended Evidence
-                </p>
-
-                <p
-                  class="
-                    mt-2
-                    leading-7
-                    text-[var(--color-text-secondary)]
-                  "
-                >
-                  {item.evidence}
-                </p>
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text-secondary)]">Pass evidence</p>
+                <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)] sm:text-base">{item.evidence}</p>
               </div>
             </article>
           ))
@@ -524,35 +345,72 @@ const validation = [
     </div>
   </section>
 
+  <!-- Open decisions -->
+  <section class="bg-white py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <div>
+          <SectionHeader
+            label="Open Engineering Decisions"
+            title="The unresolved questions are explicit rather than hidden."
+            description="These items remain open because they affect safety, sensing, mechanical behavior, clinical guardrails, or future productization and require evidence before the architecture is finalized."
+          />
+          <div class="mt-6"><StatusBadge status="OPEN DECISION" /></div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            openQuestions.map((question, index) => (
+              <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-6">
+                <div class="flex items-start gap-4">
+                  <span class="shrink-0 text-sm font-semibold text-[var(--color-accent-orange)]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 class="font-semibold">{question.title}</h3>
+                    <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                      {question.description}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Development timeline -->
-  <section class="py-16 lg:py-28">
+  <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Development Timeline"
-        title="The prototype has progressed from requirements to implementation evidence."
-        description="The timeline summarizes the current engineering progression without implying that planned integrated validation has already been completed."
+        label="Development Progression"
+        title="The project is moving from definition toward integrated verification."
+        description="The sequence below summarizes the current engineering progression without presenting planned validation as completed evidence."
       />
-
       <DevelopmentTimeline />
     </div>
   </section>
 
-  <!-- Prototype status -->
-  <section
-    class="
-      bg-[var(--color-graphite)]
-      py-16
-      text-white
-      lg:py-28
-    "
-  >
+  <!-- Current status -->
+  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <SectionHeader
-        label="Prototype Status"
-        title="The current design remains intentionally iterative."
-        description="Mechanical architecture, sensing choices, vision performance, motion repeatability, safety behavior, and caregiver ergonomics will continue to evolve as integrated prototype testing produces evidence."
-        light={true}
-      />
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-16">
+        <SectionHeader
+          label="Prototype Status"
+          title="The next milestone is evidence from the integrated system."
+          description="Mechanical retention and ejection, sensing, indexed motion, vision behavior, workflow recovery, schedule-driven preparation, and end-to-end dispense scenarios still require systematic integrated testing before stronger product claims are appropriate."
+          light={true}
+        />
+
+        <div class="rounded-3xl border border-white/15 bg-white/5 p-7">
+          <p class="text-sm font-semibold uppercase tracking-[0.14em] text-white/65">Research principle</p>
+          <p class="mt-4 text-lg font-medium leading-8">
+            Treat requirements as hypotheses to verify, implementation artifacts as interim evidence, and safety-critical uncertainty as an explicit engineering decision.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </MainLayout>

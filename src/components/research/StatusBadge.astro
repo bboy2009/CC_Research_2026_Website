@@ -1,6 +1,7 @@
 ---
 interface Props {
   status:
+    | "DOCUMENTED BASELINE"
     | "INTERIM RESULT"
     | "ACTIVE EXPERIMENT"
     | "OPEN DECISION"
@@ -11,6 +12,8 @@ interface Props {
 const { status } = Astro.props;
 
 const styles = {
+  "DOCUMENTED BASELINE":
+    "border-[var(--color-accent-teal)]/35 bg-[var(--color-accent-teal)]/10 text-[var(--color-accent-teal)]",
   "INTERIM RESULT":
     "border-[var(--color-accent-teal)]/35 bg-[var(--color-accent-teal)]/10 text-[var(--color-accent-teal)]",
   "ACTIVE EXPERIMENT":
