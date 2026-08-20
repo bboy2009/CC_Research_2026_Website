@@ -1,97 +1,67 @@
 ---
-const base = import.meta.env.BASE_URL;
+interface Props {
+  modelPath: string;
+  posterPath?: string;
+  title?: string;
+  description?: string;
+  alt?: string;
+  viewerId?: string;
+  loading?: "eager" | "lazy";
+  heightClass?: string;
+}
 
-const modelPath =
-  `${base}/models/medicine-dispenser.glb`;
-
-const posterPath =
-  `${base}/images/product/design-01.jpg`;
+const {
+  modelPath,
+  posterPath,
+  title = "Interactive Device Model",
+  description = "Drag to rotate. Scroll or pinch to zoom.",
+  alt = "Interactive 3D model of the medicine dispensing device prototype",
+  viewerId = "medicine-model",
+  loading = "lazy",
+  heightClass = "device-model",
+} = Astro.props;
 ---
 
 <div
-  class="
-    overflow-hidden
-    rounded-[2rem]
-    border
-    border-[var(--color-border)]
-    bg-white
-  "
+  class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white"
 >
   <div
-    class="
-      flex
-      items-center
-      justify-between
-      border-b
-      border-[var(--color-border)]
-      px-6
-      py-4
-    "
+    class="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-4"
   >
     <div>
-      <p class="font-medium">
-        Interactive Device Model
-      </p>
+      <p class="font-medium">{title}</p>
 
-      <p
-        class="
-          mt-1
-          text-sm
-          text-[var(--color-text-secondary)]
-        "
-      >
-        Drag to rotate. Scroll or pinch to zoom.
+      <p class="mt-1 text-sm text-[var(--color-text-secondary)]">
+        {description}
       </p>
     </div>
 
     <span
-      class="
-        hidden
-        rounded-full
-        bg-[var(--color-background)]
-        px-4
-        py-2
-        text-xs
-        font-semibold
-        uppercase
-        tracking-[0.12em]
-        text-[var(--color-text-secondary)]
-        lg:inline-flex
-      "
+      class="hidden rounded-full bg-[var(--color-background)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-text-secondary)] lg:inline-flex"
     >
       Interactive 3D
     </span>
   </div>
 
   <model-viewer
-    id="medicine-model"
-
+    id={viewerId}
     src={modelPath}
     poster={posterPath}
-
-    alt="Interactive 3D model of the medicine dispensing device prototype"
-
+    alt={alt}
     camera-controls
     touch-action="pan-y"
-
     auto-rotate
     auto-rotate-delay="1500"
     rotation-per-second="12deg"
-
     shadow-intensity="1"
     shadow-softness="1"
-
     exposure="1"
-
     interaction-prompt="auto"
-
-    loading="eager"
+    loading={loading}
     reveal="auto"
-
     min-camera-orbit="auto auto 30%"
     max-camera-orbit="auto auto 250%"
-
-    class="device-model"
+    class={heightClass}
   >
   </model-viewer>
 </div>
@@ -99,54 +69,55 @@ const posterPath =
 <script>
   import "@google/model-viewer";
 
-  customElements
-    .whenDefined("model-viewer")
-    .then(() => {
-      const viewer =
-        document.querySelector("#medicine-model");
-
-      if (!viewer) {
+  customElements.whenDefined("model-viewer").then(() => {
+    document.querySelectorAll("model-viewer").forEach((viewer) => {
+      if (viewer.dataset.errorListenerAttached === "true") {
         return;
       }
 
-      viewer.addEventListener(
-        "error",
-        (event) => {
-          console.error(
-            "[ModelViewer] model loading error:",
-            event
-          );
-        }
-      );
+      viewer.dataset.errorListenerAttached = "true";
+      viewer.addEventListener("error", (event) => {
+        console.error("[ModelViewer] model loading error:", event);
+      });
     });
+  });
 </script>
 
 <style>
-  .device-model {
+  .device-model,
+  .device-model-compact {
     display: block;
-
     width: 100%;
-    height: 430px;
-
     cursor: grab;
-
     background:
       radial-gradient(
         circle at center,
         #ffffff 0%,
         #f5f2ea 100%
       );
-
     --poster-color: transparent;
   }
 
-  .device-model:active {
+  .device-model {
+    height: 430px;
+  }
+
+  .device-model-compact {
+    height: 360px;
+  }
+
+  .device-model:active,
+  .device-model-compact:active {
     cursor: grabbing;
   }
 
   @media (min-width: 1024px) {
     .device-model {
       height: 680px;
+    }
+
+    .device-model-compact {
+      height: 460px;
     }
   }
 </style>
