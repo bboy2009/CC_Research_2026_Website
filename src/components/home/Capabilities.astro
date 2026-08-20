@@ -4,88 +4,42 @@ import SectionHeader from "../common/SectionHeader.astro";
 const capabilities = [
   {
     number: "01",
-    title: "Scheduled Dosing",
-    description:
-      "Medication schedules determine which prepared dose compartment becomes due and when.",
+    title: "Prescription-Driven Scheduling",
+    description: "Prescription details generate an editable medication schedule instead of requiring every dose occurrence to be entered manually.",
   },
   {
     number: "02",
-    title: "Removable Compartments",
-    description:
-      "Medication remains contained inside an individual compartment through patient hand-off.",
+    title: "Schedule-Driven Preparation",
+    description: "Medication occurrences due at the same instant are grouped into one dispense event and one expected compartment-content set.",
   },
   {
     number: "03",
     title: "Visual Verification",
-    description:
-      "The system inspects expected medication contents before the dose is presented.",
+    description: "The system inspects the full expected medication type-and-count combination at Base Slot A before dispensing.",
   },
   {
     number: "04",
-    title: "Pickup Tracking",
-    description:
-      "The device later determines whether the presented compartment was removed.",
+    title: "Controlled Dispense & Pickup",
+    description: "A verified compartment is dispensed at Base Slot L, while collection and adherence remain separate tracked outcomes.",
   },
 ];
 ---
 
 <section class="py-16 lg:py-28">
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
     <SectionHeader
       label="Core Capabilities"
-      title="A connected workflow from preparation to pickup."
+      title="A connected workflow from prescription to dispense."
     />
 
-    <div
-      class="
-        mt-12
-        grid
-        grid-cols-1
-        gap-5
-        lg:grid-cols-4
-      "
-    >
-      {
-        capabilities.map((item) => (
-          <article
-            class="
-              rounded-3xl
-              border
-              border-[var(--color-border)]
-              bg-white
-              p-7
-              transition
-              lg:hover:-translate-y-1
-              lg:hover:shadow-lg
-            "
-          >
-            <p
-              class="
-                text-sm
-                font-semibold
-                text-[var(--color-accent-orange)]
-              "
-            >
-              {item.number}
-            </p>
-
-            <h3 class="mt-6 text-2xl font-semibold">
-              {item.title}
-            </h3>
-
-            <p
-              class="
-                mt-4
-                leading-7
-                text-[var(--color-text-secondary)]
-              "
-            >
-              {item.description}
-            </p>
-          </article>
-        ))
-      }
+    <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-4">
+      {capabilities.map((item) => (
+        <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7 transition lg:hover:-translate-y-1 lg:hover:shadow-lg">
+          <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{item.number}</p>
+          <h3 class="mt-6 text-2xl font-semibold">{item.title}</h3>
+          <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">{item.description}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>

@@ -2,6 +2,8 @@
 import MainLayout from "../layouts/MainLayout.astro";
 
 import Hero from "../components/home/Hero.astro";
+import DispensingInAction from "../components/home/DispensingInAction.astro";
+import SoftwareExperience from "../components/home/SoftwareExperience.astro";
 import ProblemSection from "../components/home/ProblemSection.astro";
 import Capabilities from "../components/home/Capabilities.astro";
 import HowItWorksPreview from "../components/home/HowItWorksPreview.astro";
@@ -12,9 +14,11 @@ import ResearchPreview from "../components/home/ResearchPreview.astro";
 
 <MainLayout
   title="Medicine Dispensing Device | Engineering Prototype"
-  description="A desktop medication dispensing prototype combining removable dose compartments, automated scheduling, computer vision verification, controlled hand-off, and pickup tracking."
+  description="A desktop medication dispensing prototype combining prescription-driven scheduling, removable dose compartments, computer vision verification, controlled dispensing, and separate pickup tracking."
 >
   <Hero />
+  <DispensingInAction />
+  <SoftwareExperience />
   <ProblemSection />
   <Capabilities />
   <HowItWorksPreview />

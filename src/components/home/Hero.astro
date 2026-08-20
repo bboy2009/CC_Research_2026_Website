@@ -2,90 +2,35 @@
 import Button from "../common/Button.astro";
 
 const base = import.meta.env.BASE_URL;
-
-const imagePath =
-  `${base}/images/product/design-01.jpg`;
-
-const workflowPage =
-  `${base}/how-it-works/`;
+const imagePath = `${base}/images/product/design-v4b-hero.jpg`;
+const workflowPage = `${base}/how-it-works/`;
 ---
 
 <section class="overflow-hidden py-16 lg:py-24">
-  <div
-    class="
-      mx-auto
-      grid
-      max-w-[1280px]
-      grid-cols-1
-      items-center
-      gap-12
-      px-6
-      lg:grid-cols-[0.85fr_1.15fr]
-      lg:gap-16
-      lg:px-10
-    "
-  >
+  <div class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-10">
     <div>
-      <p
-        class="
-          mb-5
-          text-sm
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-          text-[var(--color-accent-orange)]
-        "
-      >
-        Engineering Prototype
+      <p class="mb-5 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
+        Engineering Prototype · Medication Dispensing System
       </p>
 
-      <h1
-        class="
-          max-w-[700px]
-          text-4xl
-          font-semibold
-          leading-[1.05]
-          tracking-tight
-          lg:text-7xl
-        "
-      >
-        Personal medication management,
-        verified before hand-off.
+      <h1 class="max-w-[700px] text-4xl font-semibold leading-[1.05] tracking-tight lg:text-7xl">
+        Personal medication dispensing, verified before release.
       </h1>
 
-      <p
-        class="
-          mt-7
-          max-w-[600px]
-          text-lg
-          leading-8
-          text-[var(--color-text-secondary)]
-          lg:text-xl
-        "
-      >
-        A desktop medication dispensing prototype combining
-        automated scheduling, removable dose compartments,
-        computer vision verification, and pickup tracking.
+      <p class="mt-7 max-w-[620px] text-lg leading-8 text-[var(--color-text-secondary)] lg:text-xl">
+        A desktop medication dispensing prototype that turns prescription schedules into prepared dose events, verifies compartment contents before dispensing, and tracks patient pickup separately.
       </p>
 
       <div class="mt-8">
-        <Button href={workflowPage}>
-          Explore the Prototype
-        </Button>
+        <Button href={workflowPage}>Explore the Prototype</Button>
       </div>
     </div>
 
     <div class="flex items-center justify-center">
       <img
         src={imagePath}
-        alt="Medicine dispensing device prototype"
-        class="
-          block
-          h-auto
-          w-full
-          max-w-[720px]
-          object-contain
-        "
+        alt="Medicine dispensing device prototype with removable dose compartment"
+        class="block h-auto w-full max-w-[720px] object-contain"
       />
     </div>
   </div>

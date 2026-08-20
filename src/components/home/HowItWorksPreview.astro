@@ -2,194 +2,53 @@
 import SectionHeader from "../common/SectionHeader.astro";
 
 const steps = [
-  {
-    number: "01",
-    title: "Schedule",
-    description:
-      "A medication dose is scheduled and associated with a prepared removable compartment.",
-  },
-  {
-    number: "02",
-    title: "Position",
-    description:
-      "The carousel moves the assigned compartment to the inspection station.",
-  },
-  {
-    number: "03",
-    title: "Inspect",
-    description:
-      "Controlled lighting and a fixed camera capture the medication contents.",
-  },
-  {
-    number: "04",
-    title: "Verify",
-    description:
-      "The detected medication is compared with the expected dose before patient access.",
-  },
-  {
-    number: "05",
-    title: "Present",
-    description:
-      "After successful verification, the same compartment moves to the hand-off opening.",
-  },
-  {
-    number: "06",
-    title: "Confirm Pickup",
-    description:
-      "The system later determines whether the presented compartment was removed.",
-  },
+  { number: "01", title: "Prescription", description: "Medication and dosing instructions generate an editable schedule." },
+  { number: "02", title: "Prepare", description: "Same-time medication occurrences become one dispense event with one combined content requirement." },
+  { number: "03", title: "Load", description: "The caregiver prepares the identified compartment and loads it through Base Slot L." },
+  { number: "04", title: "Inspect", description: "When due, the assigned compartment moves to Base Slot A and its complete expected contents are verified." },
+  { number: "05", title: "Dispense", description: "After verification passes, the same compartment moves to Base Slot L and leaves the rotating carrier." },
+  { number: "06", title: "Resolve Pickup", description: "Collection is tracked separately as collected, timed out, ambiguous, or manually resolved." },
 ];
 ---
 
-<section
-  id="how-it-works"
-  class="scroll-mt-20 bg-white py-16 lg:py-28"
->
+<section id="how-it-works" class="scroll-mt-20 bg-white py-16 lg:py-28">
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
     <SectionHeader
       label="How It Works"
-      title="Inspect first. Present only after verification."
-      description="The product workflow coordinates scheduling, carousel positioning, visual inspection, controlled patient access, and pickup confirmation."
+      title="From prescription to verified dispense."
+      description="The system coordinates medication scheduling, compartment preparation, loading, physical positioning, visual verification, dispensing, and later pickup resolution."
     />
 
-    <!-- Desktop -->
-    <div
-      class="
-        mt-14
-        hidden
-        grid-cols-6
-        gap-3
-        lg:grid
-      "
-    >
-      {
-        steps.map((step, index) => (
-          <div class="relative">
-            <article
-              class="
-                relative
-                z-10
-                min-h-[260px]
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {step.number}
-              </p>
-
-              <h3 class="mt-5 text-xl font-semibold">
-                {step.title}
-              </h3>
-
-              <p
-                class="
-                  mt-4
-                  text-sm
-                  leading-6
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                {step.description}
-              </p>
-            </article>
-
-            {
-              index < steps.length - 1 && (
-                <span
-                  class="
-                    absolute
-                    -right-3
-                    top-1/2
-                    z-20
-                    -translate-y-1/2
-                    text-xl
-                    text-[var(--color-accent-orange)]
-                  "
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              )
-            }
-          </div>
-        ))
-      }
+    <div class="mt-14 hidden grid-cols-6 gap-3 lg:grid">
+      {steps.map((step, index) => (
+        <div class="relative">
+          <article class="relative z-10 min-h-[270px] rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-6">
+            <p class="text-sm font-semibold text-[var(--color-accent-orange)]">{step.number}</p>
+            <h3 class="mt-5 text-xl font-semibold">{step.title}</h3>
+            <p class="mt-4 text-sm leading-6 text-[var(--color-text-secondary)]">{step.description}</p>
+          </article>
+          {index < steps.length - 1 && (
+            <span class="absolute -right-3 top-1/2 z-20 -translate-y-1/2 text-xl text-[var(--color-accent-orange)]" aria-hidden="true">→</span>
+          )}
+        </div>
+      ))}
     </div>
 
-    <!-- Mobile -->
     <div class="mt-12 space-y-3 lg:hidden">
-      {
-        steps.map((step, index) => (
-          <div>
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-              "
-            >
-              <div class="flex gap-5">
-                <span
-                  class="
-                    text-sm
-                    font-semibold
-                    text-[var(--color-accent-orange)]
-                  "
-                >
-                  {step.number}
-                </span>
-
-                <div>
-                  <h3 class="text-xl font-semibold">
-                    {step.title}
-                  </h3>
-
-                  <p
-                    class="
-                      mt-2
-                      leading-7
-                      text-[var(--color-text-secondary)]
-                    "
-                  >
-                    {step.description}
-                  </p>
-                </div>
+      {steps.map((step, index) => (
+        <div>
+          <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-6">
+            <div class="flex gap-5">
+              <span class="text-sm font-semibold text-[var(--color-accent-orange)]">{step.number}</span>
+              <div>
+                <h3 class="text-xl font-semibold">{step.title}</h3>
+                <p class="mt-2 leading-7 text-[var(--color-text-secondary)]">{step.description}</p>
               </div>
-            </article>
-
-            {
-              index < steps.length - 1 && (
-                <div
-                  class="
-                    flex
-                    h-8
-                    items-center
-                    justify-center
-                    text-[var(--color-accent-orange)]
-                  "
-                  aria-hidden="true"
-                >
-                  ↓
-                </div>
-              )
-            }
-          </div>
-        ))
-      }
+            </div>
+          </article>
+          {index < steps.length - 1 && <div class="flex h-8 items-center justify-center text-[var(--color-accent-orange)]" aria-hidden="true">↓</div>}
+        </div>
+      ))}
     </div>
-
   </div>
 </section>
