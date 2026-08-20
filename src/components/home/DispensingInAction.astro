@@ -27,9 +27,11 @@ const videoPath = `${base}/media/dispensing_sequence.mp4`;
 
     <div class="mt-10 overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-black shadow-[0_24px_70px_rgba(34,34,34,0.12)] lg:mt-14">
       <video
-        class="block aspect-video h-auto w-full object-contain"
+        class="viewport-autoplay-video block aspect-video h-auto w-full object-contain"
         controls
+        muted
         playsinline
+        loop
         preload="metadata"
         aria-label="Prototype medicine dispenser dispensing sequence"
       >
@@ -43,3 +45,31 @@ const videoPath = `${base}/media/dispensing_sequence.mp4`;
     </p>
   </div>
 </section>
+
+<script>
+  const videos = document.querySelectorAll(".viewport-autoplay-video");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const video = entry.target;
+
+          if (!(video instanceof HTMLVideoElement)) continue;
+
+          if (entry.isIntersecting) {
+            video.play().catch(() => {
+              // Manual playback remains available if autoplay is blocked.
+            });
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    videos.forEach((video) => observer.observe(video));
+  }
+</script>
