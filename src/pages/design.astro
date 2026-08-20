@@ -2,205 +2,138 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import ModelViewer from "../components/design/ModelViewer.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
 
 const base = import.meta.env.BASE_URL;
 
-const design01 =
-  `${base}/images/product/design-01.jpg`;
+const heroImage = `${base}/images/product/design-overview.jpg`;
+const topImage = `${base}/images/product/design-top.jpg`;
+const accessImage = `${base}/images/product/design-access.jpg`;
+const explodedImage = `${base}/images/product/design-exploded.jpg`;
+const carrierImage = `${base}/images/product/design-carrier.jpg`;
+const compartmentImage = `${base}/images/product/design-compartment.jpg`;
 
-const design02 =
-  `${base}/images/product/design-02.jpg`;
+const fullModel = `${base}/models/medicine-dispenser.glb`;
+const explodedModel = `${base}/models/medicine-dispenser-exploded.glb`;
+const carrierModel = `${base}/models/medicine-dispenser-carrier.glb`;
+const compartmentModel = `${base}/models/medicine-dispenser-compartment.glb`;
 
-const design03 =
-  `${base}/images/product/design-03.jpg`;
+const workflowPage = `${base}/how-it-works/`;
+const technologyPage = `${base}/technology/`;
 
-const design04 =
-  `${base}/images/product/design-04.jpg`;
-
-const designPrinciples = [
+const architecture = [
   {
     number: "01",
-    title: "Removable Compartments",
+    title: "Stationary base",
     description:
-      "Eleven individually identifiable dose compartments are arranged around the rotating carrier.",
+      "The fixed base defines Base Slots A through L and provides the physical reference, camera and lighting geometry, and controlled access points used by the system.",
   },
   {
     number: "02",
-    title: "Magnetic Retention",
+    title: "Indexed rotating carrier",
     description:
-      "Each removable compartment uses a metal retention feature that interfaces with a magnet mounted on the carrier.",
+      "Twelve carrier positions P1 through P12 move in nominal 30-degree increments. The carrier retains installed compartments and aligns any required position with the fixed base.",
   },
   {
     number: "03",
-    title: "Fixed Inspection",
+    title: "Removable compartments",
     description:
-      "A stationary camera and controlled lighting inspect the target compartment before patient access.",
+      "Each dose compartment has a persistent C-ID, remains identifiable independently of carrier position, and is retained securely during normal carousel movement.",
+  },
+];
+
+const facts = [
+  {
+    value: "12",
+    label: "Carrier positions",
+    detail: "P1 through P12",
   },
   {
-    number: "04",
-    title: "Controlled Hand-Off",
+    value: "11",
+    label: "Maximum installed compartments",
+    detail: "At least one position remains empty",
+  },
+  {
+    value: "30°",
+    label: "Nominal index movement",
+    detail: "One step per CW / CCW command",
+  },
+  {
+    value: "P1 @ L",
+    label: "HOME reference",
+    detail: "Known physical starting pose",
+  },
+];
+
+const locations = [
+  {
+    slot: "A",
+    title: "Medication inspection",
     description:
-      "After successful inspection, the same compartment rotates to a fixed patient-accessible removal position.",
+      "Base Slot A provides the repeatable camera framing and controlled lighting used for scheduled pre-dispense verification.",
+  },
+  {
+    slot: "L",
+    title: "Load, eject, and access",
+    description:
+      "Base Slot L is the controlled location for inserting prepared compartments, ejecting a selected compartment, and providing patient or caregiver access.",
   },
 ];
 ---
 
 <MainLayout
   title="Industrial Design | Medicine Dispensing Device"
-  description="Explore the industrial design and interactive 3D model of the removable-compartment medicine dispensing prototype."
+  description="Explore the industrial design, removable dose compartments, indexed rotating carrier, fixed base, and interactive 3D models of the medicine dispensing prototype."
 >
-  <!-- Page Hero -->
-  <section class="py-16 lg:py-24">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        items-center
-        gap-12
-        px-6
-        lg:grid-cols-[0.85fr_1.15fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
+  <section class="overflow-hidden py-16 lg:py-24">
+    <div class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20 lg:px-10">
       <div>
-        <p
-          class="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[0.18em]
-            text-[var(--color-accent-orange)]
-          "
-        >
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
           Industrial Design
         </p>
 
-        <h1
-          class="
-            mt-5
-            max-w-[700px]
-            text-4xl
-            font-semibold
-            leading-[1.05]
-            tracking-tight
-            lg:text-7xl
-          "
-        >
-          Designed around the dose compartment.
+        <h1 class="mt-5 max-w-[760px] text-4xl font-semibold leading-[1.05] tracking-tight lg:text-7xl">
+          A rotating mechanical system built around removable dose compartments.
         </h1>
 
-        <p
-          class="
-            mt-7
-            max-w-[620px]
-            text-lg
-            leading-8
-            text-[var(--color-text-secondary)]
-            lg:text-xl
-          "
-        >
-          The prototype uses a rotating carrier containing
-          removable individual dose compartments. Each scheduled
-          compartment moves through inspection and controlled
-          patient hand-off while keeping the medication inside
-          its original container.
+        <p class="mt-7 max-w-[680px] text-lg leading-8 text-[var(--color-text-secondary)] lg:text-xl">
+          The device combines a stationary base, a twelve-position indexed carrier, removable compartments, controlled medication inspection, and a dedicated load and dispense interface in one desktop prototype.
         </p>
 
-        <a
-          href="#interactive-model"
-          class="
-            mt-8
-            inline-flex
-            min-h-12
-            items-center
-            justify-center
-            rounded-full
-            bg-[var(--color-graphite)]
-            px-7
-            font-medium
-            text-white
-            transition
-            hover:opacity-90
-          "
-        >
-          Explore the 3D Model
-        </a>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="#interactive-model">Explore the 3D Model</Button>
+          <Button href={workflowPage} variant="secondary">See the Workflow</Button>
+        </div>
       </div>
 
-      <div
-        class="
-          overflow-hidden
-          rounded-[2rem]
-          bg-white
-          p-6
-          lg:p-10
-        "
-      >
+      <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
         <img
-          src={design01}
-          alt="Medicine dispensing device industrial design"
+          src={heroImage}
+          alt="Medicine dispensing device showing rotating carrier, removable compartments, camera structure, and access interface"
           class="mx-auto w-full"
         />
       </div>
     </div>
   </section>
 
-
-  <!-- Design Principles -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
-        label="Mechanical Concept"
-        title="Four principles define the removable-compartment architecture."
-        description="The mechanical design coordinates storage, positioning, visual inspection, and patient access around one indexed rotating carrier."
+        label="Mechanical Architecture"
+        title="Three physical layers keep identity, movement, and access distinct."
+        description="The design separates the fixed base, rotating carrier positions, and removable compartment identity. This lets the system move a known physical compartment without treating its identity as the same thing as its current location."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-4
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
         {
-          designPrinciples.map((principle) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-7
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {principle.number}
+          architecture.map((item) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7 lg:p-8">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">
+                {item.number}
               </p>
-
-              <h2 class="mt-5 text-xl font-semibold">
-                {principle.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                {principle.description}
+              <h2 class="mt-5 text-2xl font-semibold">{item.title}</h2>
+              <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+                {item.description}
               </p>
             </article>
           ))
@@ -209,247 +142,269 @@ const designPrinciples = [
     </div>
   </section>
 
-
-  <!-- Interactive Model -->
-  <section
-    id="interactive-model"
-    class="scroll-mt-24 py-16 lg:py-28"
-  >
+  <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Indexed Carrier"
+        title="Twelve positions, up to eleven installed compartments."
+        description="The rotating carrier uses twelve equally indexed positions. During normal operation, at least one position remains empty so compartments can be loaded, moved, inspected, and dispensed without assigning a fixed carrier position to a particular compartment."
+      />
 
-      <div
-        class="
-          grid
-          grid-cols-1
-          gap-12
-          lg:grid-cols-[0.65fr_1.35fr]
-          lg:gap-16
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
+        <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
+          <img
+            src={carrierImage}
+            alt="Rotating carrier with removable dose compartments arranged around twelve indexed positions"
+            class="mx-auto w-full"
+          />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          {
+            facts.map((fact) => (
+              <article class="rounded-3xl border border-[var(--color-border)] bg-white p-6">
+                <p class="text-3xl font-semibold text-[var(--color-accent-orange)] lg:text-4xl">
+                  {fact.value}
+                </p>
+                <h2 class="mt-4 font-semibold">{fact.label}</h2>
+                <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
+                  {fact.detail}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Fixed Base Locations"
+        title="Inspection and loading happen at dedicated physical locations."
+        description="Base Slot identity is fixed while the carrier rotates beneath it. The application moves the required carrier position to the appropriate base location for each operation."
+        light
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {
+          locations.map((location) => (
+            <article class="rounded-[2rem] border border-white/15 bg-white/5 p-8 lg:p-10">
+              <div class="flex items-start gap-6">
+                <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--color-accent-teal)] text-2xl font-semibold text-[var(--color-graphite)]">
+                  {location.slot}
+                </div>
+                <div>
+                  <h2 class="text-2xl font-semibold">{location.title}</h2>
+                  <p class="mt-4 leading-7 text-white/65">
+                    {location.description}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mt-8 max-w-[900px] text-sm leading-7 text-white/60">
+        HOME establishes the device reference by aligning P1 with Base Slot L. From that known pose, the controller can maintain deterministic indexed movement to the required inspection or access location.
+      </p>
+    </div>
+  </section>
+
+  <section id="interactive-model" class="scroll-mt-24 py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
         <div>
           <SectionHeader
             label="Interactive Model"
-            title="Explore the prototype from every angle."
-            description="Rotate and zoom the three-dimensional model to examine the carousel, removable compartments, camera structure, enclosure, and patient hand-off area."
+            title="Explore the assembled prototype from every angle."
+            description="Rotate and zoom the model to examine the base, indexed carrier, removable compartments, enclosure, camera structure, and access geometry."
           />
 
-          <div
-            class="
-              mt-8
-              border-t
-              border-[var(--color-border)]
-              pt-6
-            "
-          >
-            <p
-              class="
-                text-sm
-                leading-6
-                text-[var(--color-text-secondary)]
-              "
-            >
-              The 3D model represents the current industrial-design
-              concept and may evolve as mechanical testing and
-              prototyping continue.
-            </p>
-          </div>
+          <p class="mt-8 border-t border-[var(--color-border)] pt-6 text-sm leading-7 text-[var(--color-text-secondary)]">
+            The interactive model represents the current prototype geometry. Mechanical details may continue to evolve as retention, ejection, sensing, and patient-access mechanisms are tested.
+          </p>
         </div>
 
-        <ModelViewer />
+        <ModelViewer
+          modelPath={fullModel}
+          posterPath={heroImage}
+          title="Complete Device"
+          description="Drag to rotate. Scroll or pinch to zoom."
+          alt="Interactive 3D model of the complete medicine dispensing device"
+          viewerId="complete-device-model"
+          loading="eager"
+        />
       </div>
     </div>
   </section>
 
-
-  <!-- Carousel Architecture -->
   <section class="bg-white py-16 lg:py-28">
-    <div
-      class="
-        mx-auto
-        grid
-        max-w-[1280px]
-        grid-cols-1
-        items-center
-        gap-12
-        px-6
-        lg:grid-cols-[1.1fr_0.9fr]
-        lg:gap-20
-        lg:px-10
-      "
-    >
-      <div
-        class="
-          overflow-hidden
-          rounded-[2rem]
-          bg-[var(--color-background)]
-          p-6
-          lg:p-10
-        "
-      >
-        <img
-          src={design04}
-          alt="Top view of medicine dispenser carousel"
-          class="mx-auto w-full"
-        />
-      </div>
-
-      <div>
-        <SectionHeader
-          label="Carousel Architecture"
-          title="Eleven removable compartments. One controlled hand-off position."
-          description="The rotating carrier uses twelve indexed angular positions. Eleven support removable dose compartments, while one position is reserved for patient access and hand-off."
-        />
-
-        <div
-          class="
-            mt-10
-            grid
-            grid-cols-3
-            gap-5
-          "
-        >
-          <div
-            class="
-              border-t
-              border-[var(--color-border)]
-              pt-5
-            "
-          >
-            <p
-              class="
-                text-3xl
-                font-semibold
-                text-[var(--color-accent-orange)]
-                lg:text-4xl
-              "
-            >
-              11
-            </p>
-
-            <p
-              class="
-                mt-2
-                text-sm
-                leading-6
-                text-[var(--color-text-secondary)]
-              "
-            >
-              Dose compartments
-            </p>
-          </div>
-
-          <div
-            class="
-              border-t
-              border-[var(--color-border)]
-              pt-5
-            "
-          >
-            <p
-              class="
-                text-3xl
-                font-semibold
-                text-[var(--color-accent-orange)]
-                lg:text-4xl
-              "
-            >
-              12
-            </p>
-
-            <p
-              class="
-                mt-2
-                text-sm
-                leading-6
-                text-[var(--color-text-secondary)]
-              "
-            >
-              Indexed positions
-            </p>
-          </div>
-
-          <div
-            class="
-              border-t
-              border-[var(--color-border)]
-              pt-5
-            "
-          >
-            <p
-              class="
-                text-3xl
-                font-semibold
-                text-[var(--color-accent-orange)]
-                lg:text-4xl
-              "
-            >
-              30°
-            </p>
-
-            <p
-              class="
-                mt-2
-                text-sm
-                leading-6
-                text-[var(--color-text-secondary)]
-              "
-            >
-              Index spacing
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Additional Views -->
-  <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-
       <SectionHeader
-        label="Design Views"
-        title="The current industrial-design concept."
+        label="Component Models"
+        title="Inspect the mechanical system at multiple levels."
+        description="Separate models make it easier to understand how the assembly is constructed and how the rotating carrier and removable compartment relate to the complete device."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-6
-          lg:grid-cols-2
-        "
-      >
-        <figure
-          class="
-            overflow-hidden
-            rounded-[2rem]
-            bg-white
-            p-6
-          "
-        >
+      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <ModelViewer
+          modelPath={explodedModel}
+          posterPath={explodedImage}
+          title="Exploded Assembly"
+          description="Explore the major mechanical layers and their relationship."
+          alt="Interactive exploded 3D model of the medicine dispensing device"
+          viewerId="exploded-device-model"
+          heightClass="device-model-compact"
+        />
+
+        <ModelViewer
+          modelPath={carrierModel}
+          posterPath={carrierImage}
+          title="Rotating Carrier"
+          description="Examine the indexed carrier and compartment arrangement."
+          alt="Interactive 3D model of the medicine dispenser rotating carrier"
+          viewerId="carrier-model"
+          heightClass="device-model-compact"
+        />
+
+        <ModelViewer
+          modelPath={compartmentModel}
+          posterPath={compartmentImage}
+          title="Removable Compartment"
+          description="Inspect the individual dose-compartment geometry and retention features."
+          alt="Interactive 3D model of a removable medicine dose compartment"
+          viewerId="compartment-model"
+          heightClass="device-model-compact"
+        />
+
+        <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-background)]">
           <img
-            src={design02}
-            alt="Medicine dispenser prototype design view"
-            class="w-full"
+            src={topImage}
+            alt="Top view of the medicine dispensing device and indexed rotating carrier"
+            class="aspect-[4/3] w-full object-cover"
           />
+          <div class="p-7">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+              Top View
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold">Fixed slots around a rotating carrier.</h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+              The top view makes the distinction between the circular carrier and the fixed inspection and access geometry easier to see.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Removable Compartment"
+        title="The compartment is the persistent physical unit of each prepared dispense event."
+        description="A compartment keeps its C-ID when it is inserted, moved to another carrier position, dispensed, returned, or prepared again. Retention features secure it during normal carousel movement while still allowing deliberate loading and ejection."
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
+          <img
+            src={compartmentImage}
+            alt="Removable dose compartment showing its individual enclosure and handle geometry"
+            class="mx-auto w-full"
+          />
+        </div>
+
+        <div class="grid gap-5">
+          <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+            <h2 class="text-xl font-semibold">Persistent identity</h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              C-ID identifies the physical compartment independently from whichever P-position currently stores it.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+            <h2 class="text-xl font-semibold">Secure during motion</h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The retention interface is designed to prevent unintended compartment displacement while the carrier indexes between locations.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+            <h2 class="text-xl font-semibold">Deliberately removable</h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The compartment can be intentionally inserted, ejected, returned, and prepared again without making its identity dependent on its previous location.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <SectionHeader
+        label="Design Views"
+        title="Current prototype geometry from assembly to access details."
+      />
+
+      <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
+          <img
+            src={accessImage}
+            alt="Side perspective of medicine dispenser showing compartment access area"
+            class="w-full rounded-[1.5rem]"
+          />
+          <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
+            Access-side perspective showing the relationship between the rotating assembly and the compartment ejection path.
+          </figcaption>
         </figure>
 
-        <figure
-          class="
-            overflow-hidden
-            rounded-[2rem]
-            bg-white
-            p-6
-          "
-        >
+        <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
           <img
-            src={design03}
-            alt="Medicine dispenser prototype perspective view"
-            class="w-full"
+            src={explodedImage}
+            alt="Exploded view of the medicine dispensing device mechanical assembly"
+            class="w-full rounded-[1.5rem]"
           />
+          <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
+            Exploded assembly illustrating the major mechanical layers and camera structure.
+          </figcaption>
         </figure>
+
+        <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
+          <img
+            src={topImage}
+            alt="Top perspective of medicine dispensing device rotating carrier"
+            class="w-full rounded-[1.5rem]"
+          />
+          <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
+            Top perspective emphasizing the twelve-position circular carrier and fixed surrounding structure.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="rounded-[2rem] border border-[var(--color-border)] bg-white p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
+            Next
+          </p>
+          <h2 class="mt-4 max-w-[760px] text-3xl font-semibold leading-tight lg:text-5xl">
+            See how the mechanical system connects to software and control.
+          </h2>
+          <p class="mt-5 max-w-[760px] text-lg leading-8 text-[var(--color-text-secondary)]">
+            Continue to Technology for the application architecture, embedded controller responsibilities, ports and adapters, persistence, and system interfaces behind the physical device.
+          </p>
+        </div>
+
+        <div class="mt-8 shrink-0 lg:mt-0">
+          <Button href={technologyPage}>Technology →</Button>
+        </div>
       </div>
     </div>
   </section>
