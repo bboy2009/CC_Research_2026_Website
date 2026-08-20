@@ -1,4 +1,4 @@
-# CC Research 2026 — Medicine Dispensing Device
+# CC Research 2026 — MediSAFE: Medication Dispenser
 
 Research and engineering website documenting the development
 of a personalized in-home medication dispensing prototype.
