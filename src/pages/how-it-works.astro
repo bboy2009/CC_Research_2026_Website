@@ -1,38 +1,62 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import SectionHeader from "../components/common/SectionHeader.astro";
-import ResponsiveDiagram from "../components/common/ResponsiveDiagram.astro";
+import Button from "../components/common/Button.astro";
 
-const phases = [
+const base = import.meta.env.BASE_URL;
+const loadingVideo = `${base}/media/loading_sequence.mp4`;
+const dispensingVideo = `${base}/media/dispensing_sequence.mp4`;
+const productPage = `${base}/product/`;
+const designPage = `${base}/design/`;
+
+const workflowSteps = [
   {
     number: "01",
-    title: "Prepare",
+    title: "Define the prescription",
     description:
-      "The caregiver loads an identified removable compartment with the expected medication and returns it to the carrier.",
+      "The caregiver defines the medication, dosing instructions, recurrence, timing, and applicable safety limits.",
   },
   {
     number: "02",
-    title: "Inspect",
+    title: "Generate the schedule",
     description:
-      "When the dose becomes due, the carousel moves the assigned compartment to the fixed camera inspection station.",
+      "The system generates an editable medication schedule. Medication occurrences due at the exact same time are grouped into one physical dispense event.",
   },
   {
     number: "03",
-    title: "Verify",
+    title: "Prepare the compartment",
     description:
-      "The captured medication image is compared with the expected contents before patient access is allowed.",
+      "The combined medication and quantity requirements for that dispense event define exactly what should be placed in one removable compartment.",
   },
   {
     number: "04",
-    title: "Present",
+    title: "Load through Base Slot L",
     description:
-      "If verification passes, the same compartment rotates to the patient-accessible hand-off opening.",
+      "The prepared compartment is identified by its persistent C-ID, inserted through Base Slot L, verified where supported, and stored in an available carrier position.",
   },
   {
     number: "05",
-    title: "Confirm",
+    title: "Resolve the compartment when due",
     description:
-      "After the pickup interval, the system determines whether the presented compartment was removed.",
+      "When the dispense event becomes due, the application resolves the assigned C-ID to its current rotating carrier position.",
+  },
+  {
+    number: "06",
+    title: "Inspect at Base Slot A",
+    description:
+      "The target carrier position moves to Base Slot A, where controlled imaging compares the observed medication type and count with the complete expected contents.",
+  },
+  {
+    number: "07",
+    title: "Dispense at Base Slot L",
+    description:
+      "If verification passes, the same physical compartment moves to Base Slot L and is dispensed or ejected from the rotating carrier. Its carrier position then becomes empty.",
+  },
+  {
+    number: "08",
+    title: "Resolve pickup separately",
+    description:
+      "Dispensing records that the compartment has left the carrier. Collection is resolved afterward and is never treated as proof that the medication was ingested.",
   },
 ];
 
@@ -40,66 +64,50 @@ const pickupResults = [
   {
     title: "Collected",
     description:
-      "Removal is positively confirmed and the compartment becomes unavailable until returned and reloaded.",
+      "Available evidence indicates that the dispensed compartment was collected through the patient-access path.",
   },
   {
-    title: "Not Collected",
+    title: "Not Collected / Timed Out",
     description:
-      "The pickup interval expires while the compartment remains present.",
+      "The configured access interval expires without sufficient evidence of collection.",
   },
   {
-    title: "Ambiguous",
+    title: "Ambiguous Pickup",
     description:
-      "The system cannot confidently determine presence or removal and requests user or caregiver resolution.",
+      "Available evidence is insufficient to classify the outcome confidently and requires explicit resolution.",
   },
+];
+
+const lifecycle = [
+  "Available Empty",
+  "Loaded",
+  "Verified",
+  "Due",
+  "Positioning",
+  "Inspecting",
+  "Ready to Dispense",
+  "Dispensed / Removed from Carrier",
+  "Returned",
+  "Error",
 ];
 ---
 
 <MainLayout
   title="How It Works | Medicine Dispensing Device"
-  description="Follow the medication dispensing workflow from preparation and inspection through verified hand-off, pickup confirmation, and compartment return."
+  description="Follow the medicine dispensing workflow from prescription and compartment preparation through verification, dispense, and separate pickup resolution."
 >
   <section class="py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <p
-        class="
-          text-sm
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-          text-[var(--color-accent-orange)]
-        "
-      >
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
         How It Works
       </p>
 
-      <h1
-        class="
-          mt-5
-          max-w-[950px]
-          text-4xl
-          font-semibold
-          leading-[1.05]
-          tracking-tight
-          lg:text-7xl
-        "
-      >
-        From scheduled dose to verified pickup.
+      <h1 class="mt-5 max-w-[1000px] text-4xl font-semibold leading-[1.05] tracking-tight lg:text-7xl">
+        From prescription to verified dispense.
       </h1>
 
-      <p
-        class="
-          mt-7
-          max-w-[760px]
-          text-lg
-          leading-8
-          text-[var(--color-text-secondary)]
-          lg:text-xl
-        "
-      >
-        Application workflows coordinate scheduling, compartment
-        state, carousel movement, medication verification,
-        patient hand-off, and pickup confirmation.
+      <p class="mt-7 max-w-[800px] text-lg leading-8 text-[var(--color-text-secondary)] lg:text-xl">
+        The product turns prescription information into an editable schedule, uses that schedule to guide compartment preparation, verifies the expected medication contents before dispense, and tracks pickup as a separate outcome.
       </p>
     </div>
   </section>
@@ -107,53 +115,23 @@ const pickupResults = [
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Dose Journey"
-        title="Five phases organize the end-to-end experience."
+        label="End-to-End Workflow"
+        title="Eight steps connect medication planning to physical dispensing."
+        description="The workflow keeps medication logic, compartment identity, carrier position, verification, physical dispense, and pickup outcome explicit rather than treating them as one combined state."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-4
-          lg:grid-cols-5
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
         {
-          phases.map((phase) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-[var(--color-background)]
-                p-6
-              "
-            >
-              <p
-                class="
-                  text-sm
-                  font-semibold
-                  text-[var(--color-accent-orange)]
-                "
-              >
-                {phase.number}
+          workflowSteps.map((step) => (
+            <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-6 lg:p-7">
+              <p class="text-sm font-semibold text-[var(--color-accent-orange)]">
+                {step.number}
               </p>
-
-              <h2 class="mt-5 text-xl font-semibold">
-                {phase.title}
+              <h2 class="mt-5 text-xl font-semibold leading-tight">
+                {step.title}
               </h2>
-
-              <p
-                class="
-                  mt-4
-                  text-sm
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
-                {phase.description}
+              <p class="mt-4 text-sm leading-7 text-[var(--color-text-secondary)]">
+                {step.description}
               </p>
             </article>
           ))
@@ -165,34 +143,101 @@ const pickupResults = [
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Scheduled Presentation Workflow"
-        title="Verification determines whether the dose can proceed to hand-off."
-        description="The same removable compartment is inspected first and presented only when the configured workflow permits hand-off."
+        label="Physical Sequence"
+        title="See loading and dispensing in motion."
+        description="Base Slot L is the controlled location used for compartment loading and dispensing. Base Slot A is the primary scheduled medication-inspection location before dispense."
       />
 
-      <div class="mt-12">
-        <ResponsiveDiagram
-          desktopPath="/images/architecture/desktop/02-scheduled-presentation-workflow.svg"
-          mobilePath="/images/architecture/mobile/02-presentation-workflow-mobile.svg"
-          alt="Scheduled medication presentation workflow"
-        />
+      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
+          <video
+            class="viewport-autoplay-video aspect-video w-full bg-black object-cover"
+            controls
+            muted
+            playsinline
+            loop
+            preload="metadata"
+          >
+            <source src={loadingVideo} type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+
+          <div class="p-7 lg:p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+              Loading
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold">
+              Insert and store a prepared compartment.
+            </h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+              The caregiver inserts the identified compartment through Base Slot L. Once the required checks pass, the system persists its identity and current carrier placement and rotates it into storage.
+            </p>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
+          <video
+            class="viewport-autoplay-video aspect-video w-full bg-black object-cover"
+            controls
+            muted
+            playsinline
+            loop
+            preload="metadata"
+          >
+            <source src={dispensingVideo} type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+
+          <div class="p-7 lg:p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+              Dispensing
+            </p>
+            <h2 class="mt-3 text-2xl font-semibold">
+              Release the verified compartment from the carrier.
+            </h2>
+            <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
+              After successful inspection at Base Slot A, the same carrier position moves to Base Slot L. The compartment is dispensed or ejected and that rotating carrier position becomes empty.
+            </p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
-      <SectionHeader
-        label="Dose State Model"
-        title="The software records progress and exception states explicitly."
-      />
-
-      <div class="mt-12">
-        <ResponsiveDiagram
-          desktopPath="/images/architecture/desktop/03-dose-state-machine.svg"
-          mobilePath="/images/architecture/mobile/03-dose-states-mobile.svg"
-          alt="Scheduled dose state machine"
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
+        <SectionHeader
+          label="Verification Gate"
+          title="A failed inspection blocks that dispense — not the entire device."
+          description="Before dispensing, the system compares the complete expected medication-type and quantity set with what is observed in the compartment."
         />
+
+        <div class="grid gap-5">
+          <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+              Verification passes
+            </p>
+            <h2 class="mt-3 text-xl font-semibold">
+              Continue to Base Slot L.
+            </h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The same physical compartment moves from the inspection location to the dispense location and proceeds to ejection.
+            </p>
+          </article>
+
+          <article class="rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7">
+            <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
+              Verification fails
+            </p>
+            <h2 class="mt-3 text-xl font-semibold">
+              Block the affected event and retain the compartment.
+            </h2>
+            <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
+              The affected compartment can remain installed in an error state while unrelated eligible dispense events may continue when the mechanical state is safe.
+            </p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
@@ -200,41 +245,17 @@ const pickupResults = [
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Pickup Verification"
-        title="Presentation does not automatically mean collection."
+        label="Pickup Outcome"
+        title="Dispensed does not mean medication was consumed."
+        description="A successful dispense means the compartment has left the rotating carrier and is available through the patient-access path. Pickup is tracked separately, and neither dispense nor collection proves ingestion."
       />
 
-      <div
-        class="
-          mt-12
-          grid
-          grid-cols-1
-          gap-5
-          lg:grid-cols-3
-        "
-      >
+      <div class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
         {
           pickupResults.map((result) => (
-            <article
-              class="
-                rounded-3xl
-                border
-                border-[var(--color-border)]
-                bg-white
-                p-7
-              "
-            >
-              <h2 class="text-xl font-semibold">
-                {result.title}
-              </h2>
-
-              <p
-                class="
-                  mt-4
-                  leading-7
-                  text-[var(--color-text-secondary)]
-                "
-              >
+            <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
+              <h2 class="text-xl font-semibold">{result.title}</h2>
+              <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
                 {result.description}
               </p>
             </article>
@@ -248,17 +269,91 @@ const pickupResults = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Compartment Lifecycle"
-        title="Each physical compartment moves through a controlled lifecycle."
-        description="The lifecycle is distinct from the scheduled-dose state model because it represents the state of the removable physical container itself."
+        title="The removable compartment has its own lifecycle."
+        description="Compartment state is tracked independently from the medication schedule and from the rotating position where the compartment happens to be installed."
       />
 
-      <div class="mt-12">
-        <ResponsiveDiagram
-          desktopPath="/images/architecture/desktop/05-compartment-lifecycle.svg"
-          mobilePath="/images/architecture/mobile/05-compartment-lifecycle-mobile.svg"
-          alt="Removable compartment lifecycle"
-        />
+      <div class="mt-12 flex flex-wrap gap-3">
+        {
+          lifecycle.map((state, index) => (
+            <div class="flex items-center gap-3">
+              <span class="rounded-full border border-[var(--color-border)] bg-[var(--color-background)] px-4 py-2 text-sm font-medium">
+                {state}
+              </span>
+
+              {index < lifecycle.length - 1 && (
+                <span class="hidden text-[var(--color-text-secondary)] sm:inline">
+                  →
+                </span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="mt-8 max-w-[820px] text-sm leading-7 text-[var(--color-text-secondary)]">
+        Error is an exception state rather than a mandatory linear step. A returned compartment can later be prepared and loaded again while retaining its persistent C-ID.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 lg:py-28">
+    <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+      <div class="rounded-[2rem] border border-[var(--color-border)] bg-white p-8 lg:p-12">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
+              Explore Further
+            </p>
+
+            <h2 class="mt-4 max-w-[780px] text-3xl font-semibold tracking-tight lg:text-5xl">
+              See how the workflow maps to the physical device.
+            </h2>
+
+            <p class="mt-5 max-w-[760px] leading-7 text-[var(--color-text-secondary)]">
+              Explore the Product page for the overall product model, or continue to Industrial Design for the carrier, removable compartments, inspection location, and dispensing interface.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <Button href={productPage} variant="secondary">
+              Product
+            </Button>
+
+            <Button href={designPage}>
+              Industrial Design
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </MainLayout>
+
+<script>
+  const videos = document.querySelectorAll(".viewport-autoplay-video");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const video = entry.target;
+
+          if (!(video instanceof HTMLVideoElement)) continue;
+
+          if (entry.isIntersecting) {
+            video.play().catch(() => {
+              // Manual playback remains available if autoplay is blocked.
+            });
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    videos.forEach((video) => observer.observe(video));
+  }
+</script>

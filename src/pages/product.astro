@@ -146,7 +146,6 @@ const productFacts = [
   title="Product | Medicine Dispensing Device"
   description="Explore the users, capabilities, operating model, and product principles behind the removable-compartment medicine dispensing prototype."
 >
-  <!-- Hero -->
   <section class="overflow-hidden py-16 lg:py-24">
     <div
       class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20 lg:px-10"
@@ -180,7 +179,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Problem -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20 lg:px-10">
       <div>
@@ -224,7 +222,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Users -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
@@ -248,7 +245,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Product model -->
   <section class="bg-[var(--color-graphite)] py-16 text-white lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
@@ -278,7 +274,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Compartment motion -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
@@ -291,9 +286,11 @@ const productFacts = [
         <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
           <div class="aspect-video bg-[var(--color-graphite)]">
             <video
-              class="h-full w-full object-cover"
+              class="viewport-autoplay-video h-full w-full object-cover"
               controls
+              muted
               playsinline
+              loop
               preload="metadata"
               aria-label="Video showing a removable medication compartment being loaded into the device"
             >
@@ -316,9 +313,11 @@ const productFacts = [
         <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white">
           <div class="aspect-video bg-[var(--color-graphite)]">
             <video
-              class="h-full w-full object-cover"
+              class="viewport-autoplay-video h-full w-full object-cover"
               controls
+              muted
               playsinline
+              loop
               preload="metadata"
               aria-label="Video showing a removable medication compartment being dispensed from the device"
             >
@@ -341,7 +340,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Capabilities -->
   <section class="bg-white py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
@@ -368,7 +366,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Principles -->
   <section class="py-16 lg:py-28">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
@@ -394,7 +391,6 @@ const productFacts = [
     </div>
   </section>
 
-  <!-- Closing CTA -->
   <section class="bg-white py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <div class="rounded-[2rem] border border-[var(--color-border)] p-8 lg:flex lg:items-end lg:justify-between lg:gap-12 lg:p-12">
@@ -417,3 +413,31 @@ const productFacts = [
     </div>
   </section>
 </MainLayout>
+
+<script>
+  const videos = document.querySelectorAll(".viewport-autoplay-video");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const video = entry.target;
+
+          if (!(video instanceof HTMLVideoElement)) continue;
+
+          if (entry.isIntersecting) {
+            video.play().catch(() => {
+              // Manual playback remains available if autoplay is blocked.
+            });
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.6 }
+    );
+
+    videos.forEach((video) => observer.observe(video));
+  }
+</script>
