@@ -5,24 +5,15 @@ import Button from "../common/Button.astro";
 const base = import.meta.env.BASE_URL;
 
 const imagePath =
-  `${base}/images/product/design-04.jpg`;
+  `${base}/images/product/design-v4b-industrial.jpg`;
 
 const designPage =
   `${base}/design/`;
 
 const facts = [
-  {
-    value: "11",
-    label: "Removable dose compartments",
-  },
-  {
-    value: "30°",
-    label: "Nominal indexed spacing",
-  },
-  {
-    value: "1",
-    label: "Fixed patient hand-off station",
-  },
+  { value: "12", label: "Indexed carrier positions" },
+  { value: "11", label: "Maximum installed compartments" },
+  { value: "30°", label: "Movement per CW / CCW index" },
 ];
 ---
 
@@ -64,7 +55,7 @@ const facts = [
       <SectionHeader
         label="Industrial Design"
         title="A rotating carrier built around removable dose compartments."
-        description="The first-generation concept uses individually identifiable wedge-shaped compartments arranged around an indexed carousel. Medication remains inside the compartment throughout inspection and patient hand-off."
+        description="The system uses persistent C-ID compartments placed independently within twelve indexed carrier positions. The same physical compartment can be moved to Base Slot A for inspection and Base Slot L for loading or dispensing."
       />
 
       <div
@@ -119,9 +110,7 @@ const facts = [
           text-[var(--color-text-secondary)]
         "
       >
-        Magnetic retention holds each compartment against the inner
-        carrier wall during normal rotation while allowing intentional
-        removal at the hand-off station.
+        The carrier maintains deterministic indexed positioning relative to HOME, defined as P1 aligned with Base Slot L. At least one rotating position remains empty during normal operation with eleven installed compartments.
       </p>
 
       <div class="mt-8">

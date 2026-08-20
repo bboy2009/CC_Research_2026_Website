@@ -1,0 +1,45 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+
+const base = import.meta.env.BASE_URL;
+const videoPath = `${base}/media/dispensing_sequence.mp4`;
+---
+
+<section class="bg-white py-16 lg:py-28">
+  <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
+      <SectionHeader
+        label="Dispensing in Action"
+        title="Verified first. Dispensed only after the check passes."
+        description="The scheduled compartment is positioned for inspection at Base Slot A. After its expected contents are verified, the same compartment moves to Base Slot L and is dispensed from the rotating carrier."
+      />
+
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-[var(--color-text-secondary)] lg:justify-end">
+        <span>Inspect at Slot A</span>
+        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+        <span>Verify contents</span>
+        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+        <span>Move to Slot L</span>
+        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+        <span>Dispense / eject</span>
+      </div>
+    </div>
+
+    <div class="mt-10 overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-black shadow-[0_24px_70px_rgba(34,34,34,0.12)] lg:mt-14">
+      <video
+        class="block aspect-video h-auto w-full object-contain"
+        controls
+        playsinline
+        preload="metadata"
+        aria-label="Prototype medicine dispenser dispensing sequence"
+      >
+        <source src={videoPath} type="video/mp4" />
+        Your browser does not support embedded video.
+      </video>
+    </div>
+
+    <p class="mt-5 max-w-[900px] text-sm leading-6 text-[var(--color-text-secondary)]">
+      Dispensing records the physical release of the compartment from the carrier. Patient pickup is tracked as a separate outcome and does not imply medication ingestion.
+    </p>
+  </div>
+</section>

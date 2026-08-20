@@ -1,0 +1,67 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import Button from "../common/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+const desktopLight = `${base}/images/software/design_m4_01.jpg`;
+const desktopDark = `${base}/images/software/design_m4_02.jpg`;
+const mobileLight = `${base}/images/software/design_m4_03.jpg`;
+const technologyPage = `${base}/technology/`;
+---
+
+<section class="py-16 lg:py-28">
+  <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
+      <div>
+        <SectionHeader
+          label="Software Experience"
+          title="One interface for schedule, preparation, device status, and dispensing."
+          description="The software brings the rotating carrier, upcoming dose events, alerts, prescriptions, preparation status, and direct device controls into a summary-first interface."
+        />
+
+        <div class="mt-7">
+          <Button href={technologyPage} variant="secondary">
+            Explore the Software Architecture →
+          </Button>
+        </div>
+      </div>
+
+      <p class="max-w-[560px] text-base leading-7 text-[var(--color-text-secondary)] lg:justify-self-end">
+        The responsive UI preserves the same medication workflow on smaller screens while the desktop layout exposes more system detail at once. Light and dark appearance modes provide flexibility across different viewing environments.
+      </p>
+    </div>
+
+    <div class="relative mt-12 pb-24 sm:pb-32 lg:mt-16 lg:pb-40">
+      <div class="overflow-hidden rounded-[1.75rem] border border-[var(--color-border)] bg-white p-2 shadow-[0_24px_80px_rgba(34,34,34,0.12)] lg:rounded-[2rem] lg:p-3">
+        <div class="mb-2 flex items-center gap-2 px-3 py-2 lg:mb-3">
+          <span class="h-2.5 w-2.5 rounded-full bg-[var(--color-border)]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[var(--color-border)]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[var(--color-border)]"></span>
+          <span class="ml-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--color-text-secondary)]">
+            Desktop · Light mode
+          </span>
+        </div>
+
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset={desktopDark} />
+
+          <img
+            src={desktopLight}
+            alt="Desktop medicine dispenser software interface showing carousel status, scheduled dose, alerts, prescriptions, calendar, and device controls"
+            loading="lazy"
+            class="w-full rounded-[1.25rem]"
+          />
+        </picture>
+      </div>
+
+      <div class="absolute bottom-0 right-3 w-[38%] min-w-[150px] max-w-[330px] overflow-hidden rounded-[1.75rem] border-[6px] border-white bg-white shadow-[0_20px_60px_rgba(34,34,34,0.22)] sm:right-8 lg:right-12 lg:border-[8px]">
+        <img
+          src={mobileLight}
+          alt="Responsive mobile version of the medicine dispenser software interface"
+          loading="lazy"
+          class="w-full"
+        />
+      </div>
+    </div>
+  </div>
+</section>
