@@ -11,9 +11,9 @@ const designPage =
   `${base}/design/`;
 
 const facts = [
-  { value: "12", label: "Indexed carrier positions" },
-  { value: "11", label: "Maximum installed compartments" },
-  { value: "30°", label: "Movement per CW / CCW index" },
+  { value: "12", label: "Carrier positions" },
+  { value: "11", label: "Maximum containers" },
+  { value: "30°", label: "Rotation per step, either direction" },
 ];
 ---
 
@@ -54,8 +54,8 @@ const facts = [
     <div>
       <SectionHeader
         label="Industrial Design"
-        title="A rotating carrier built around removable dose compartments."
-        description="The system uses persistent C-ID compartments placed independently within twelve indexed carrier positions. The same physical compartment can be moved to Base Slot A for inspection and Base Slot L for loading or dispensing."
+        title="A carousel to manage the positions of removable medication containers."
+        description="Each container has its own ID and is loaded through Slot L, where the carousel maintains an empty position ready. The carousel then rotates the container to Slot A for inspection and back to Slot L for pickup."
       />
 
       <div
@@ -110,7 +110,7 @@ const facts = [
           text-[var(--color-text-secondary)]
         "
       >
-        The carrier maintains deterministic indexed positioning relative to HOME, defined as P1 aligned with Base Slot L. At least one rotating position remains empty during normal operation with eleven installed compartments.
+        The dispenser tracks the carousel's home position (P1) and which container is in each position, so it always knows where every container is. One position is always kept empty, so a container can only be reached at Slot L during loading or pickup.
       </p>
 
       <div class="mt-8">

@@ -2,12 +2,12 @@
 import SectionHeader from "../common/SectionHeader.astro";
 
 const steps = [
-  { number: "01", title: "Prescription", description: "Medication and dosing instructions generate an editable schedule." },
-  { number: "02", title: "Prepare", description: "Same-time medication occurrences become one dispense event with one combined content requirement." },
-  { number: "03", title: "Load", description: "The caregiver prepares the identified compartment and loads it through Base Slot L." },
-  { number: "04", title: "Inspect", description: "When due, the assigned compartment moves to Base Slot A and its complete expected contents are verified." },
-  { number: "05", title: "Dispense", description: "After verification passes, the same compartment moves to Base Slot L and leaves the rotating carrier." },
-  { number: "06", title: "Resolve Pickup", description: "Collection is tracked separately as collected, timed out, ambiguous, or manually resolved." },
+  { number: "01", title: "Prescription", description: "All prescriptions are converted into a combined dispensing schedule." },
+  { number: "02", title: "Prepare", description: "The app shows the caregiver which pills belong to the same dose." },
+  { number: "03", title: "Load", description: "The caregiver fills the container and loads it at Slot L." },
+  { number: "04", title: "Inspect", description: "At dose time, the carousel rotates the container to Slot A, and AI verifies its contents against the scheduled dose." },
+  { number: "05", title: "Dispense", description: "If the contents are verified, the carousel rotates the container to Slot L for pickup by the patient." },
+  { number: "06", title: "Track Pickup", description: "At the next scheduled dose, AI checks that the container is empty and alerts the caregiver if it is not." },
 ];
 ---
 
@@ -15,8 +15,8 @@ const steps = [
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
     <SectionHeader
       label="How It Works"
-      title="From prescription to verified dispense."
-      description="The system coordinates medication scheduling, compartment preparation, loading, physical positioning, visual verification, dispensing, and later pickup resolution."
+      title="From multiple prescriptions to one verified dose."
+      description="Six steps to turn doctors' instructions into verified doses for the patient."
     />
 
     <div class="mt-10 sm:mt-9 sm:mt-10 lg:mt-12 lg:mt-14 hidden grid-cols-6 gap-3 lg:grid">

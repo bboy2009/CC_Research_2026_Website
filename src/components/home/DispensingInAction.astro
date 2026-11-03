@@ -8,20 +8,24 @@ const videoPath = `${base}/media/dispensing_sequence.mp4`;
 <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end lg:gap-16">
-      <SectionHeader
-        label="Dispensing in Action"
-        title="Verified first. Dispensed only after the check passes."
-        description="The scheduled compartment is positioned for inspection at Base Slot A. After its expected contents are verified, the same compartment moves to Base Slot L and is dispensed from the rotating carrier."
-      />
+      <div class="lg:col-span-2">
+        <SectionHeader
+          label="Dispensing in Action"
+          title="Inspection, release, and pickup."
+          description="When a dose is due, the carousel rotates its container to Slot A, where AI inspects and verifies the pills. The carousel then rotates the same container to Slot L, where it is dispensed, and AI tracks whether it's picked up."
+        />
 
-      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-[var(--color-text-secondary)] lg:justify-end">
-        <span>Inspect at Slot A</span>
-        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
-        <span>Verify contents</span>
-        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
-        <span>Move to Slot L</span>
-        <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
-        <span>Dispense / eject</span>
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-[var(--color-text-secondary)]">
+          <span>AI inspects at Slot A</span>
+          <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+          <span>AI verifies contents</span>
+          <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+          <span>Rotate to Slot L</span>
+          <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+          <span>Dispense</span>
+          <span aria-hidden="true" class="text-[var(--color-accent-orange)]">→</span>
+          <span>AI tracks pickup</span>
+        </div>
       </div>
     </div>
 
@@ -41,7 +45,7 @@ const videoPath = `${base}/media/dispensing_sequence.mp4`;
     </div>
 
     <p class="mt-5 max-w-[900px] text-sm leading-6 text-[var(--color-text-secondary)]">
-      Dispensing records the physical release of the compartment from the carrier. Patient pickup is tracked as a separate outcome and does not imply medication ingestion.
+      Dispensing means the container is presented at Slot L, ready for the patient to pick up. A recorded pickup doesn't confirm the pills have been consumed.
     </p>
   </div>
 </section>

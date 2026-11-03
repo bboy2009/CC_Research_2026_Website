@@ -5,22 +5,22 @@ const capabilities = [
   {
     number: "01",
     title: "Prescription-Driven Scheduling",
-    description: "Prescription details generate an editable medication schedule instead of requiring every dose occurrence to be entered manually.",
+    description: "Every prescription is automatically translated into one combined, editable schedule, so no dose needs to be entered individually.",
   },
   {
     number: "02",
     title: "Schedule-Driven Preparation",
-    description: "Medication occurrences due at the same instant are grouped into one dispense event and one expected compartment-content set.",
+    description: "The caregiver can check the app to see which pills belong to the same dose and go into the same container.",
   },
   {
     number: "03",
-    title: "Visual Verification",
-    description: "The system inspects the full expected medication type-and-count combination at Base Slot A before dispensing.",
+    title: "AI Verification",
+    description: "Before the container is released for pickup by the patient, a camera photographs it. An AI model then confirms that its contents match the scheduled dose.",
   },
   {
     number: "04",
-    title: "Controlled Dispense & Pickup",
-    description: "A verified compartment is dispensed at Base Slot L, while collection and adherence remain separate tracked outcomes.",
+    title: "Controlled Release & Pickup",
+    description: "Once the check passes, the carousel rotates the container to Slot L. At the next scheduled dose, AI confirms pickup by checking that it is now empty.",
   },
 ];
 ---
@@ -29,7 +29,7 @@ const capabilities = [
   <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
     <SectionHeader
       label="Core Capabilities"
-      title="A connected workflow from prescription to dispense."
+      title="A connected workflow from prescription to pickup."
     />
 
     <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 lg:grid-cols-4">

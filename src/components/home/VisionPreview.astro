@@ -9,10 +9,10 @@ const previewImage =
   `${base}/images/vision/interim-results/mixed-pills-02-annotated.jpg`;
 
 const outputs = [
+  "Pill outline",
   "Pill type",
-  "Object count",
   "Confidence",
-  "Object outline",
+  "Pill count",
 ];
 ---
 
@@ -37,8 +37,8 @@ const outputs = [
     <div>
       <SectionHeader
         label="Computer Vision"
-        title="Verification before dispensing."
-        description="The current visual-inspection prototype identifies pills, produces per-object annotations, and returns confidence information that can be compared with the expected dose before the compartment is allowed to dispense."
+        title="Verification before positioning for pickup."
+        description="OpenCV optimizes each image, then OpenAI models outline each pill, identify it with a confidence score, and count the total. The result is compared with the scheduled dose, and the container is moved to Slot L for pickup only if it matches."
         light={true}
       />
 
@@ -80,7 +80,7 @@ const outputs = [
     >
       <img
         src={previewImage}
-        alt="Interim computer-vision output showing multiple annotated pill detections"
+        alt="Interim AI output showing outlined and identified pills"
         loading="lazy"
         class="h-auto w-full"
       />
@@ -106,7 +106,7 @@ const outputs = [
             text-[var(--color-text-secondary)]
           "
         >
-          Annotated detections are development evidence, not yet a formal accuracy benchmark.
+          Depicted above is an annotated sample from development.
         </p>
       </div>
     </div>

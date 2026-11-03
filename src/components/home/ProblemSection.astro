@@ -6,18 +6,19 @@ import SectionHeader from "../common/SectionHeader.astro";
   <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-6 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20 lg:px-10">
     <div>
       <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">
-        The Concept
+         
       </p>
     </div>
 
     <div>
       <SectionHeader
-        title="A removable compartment becomes the unit of each scheduled dispense event."
-        description="Medication occurrences due at the same exact time are grouped into one device dispense event. Their combined medication-and-quantity set defines what the caregiver prepares in one removable compartment."
+        label="The Concept"
+        title="One removable container for each combined dose."
+        description="All medications due at the same time are grouped into one dose. The caregiver then fills one removable container with exactly those pills."
       />
 
       <p class="mt-5 max-w-[800px] sm:mt-6 text-lg leading-8 text-[var(--color-text-secondary)]">
-        Up to eleven operational compartments can be installed across twelve rotating carrier positions. When an event becomes due, the assigned compartment moves to Base Slot A for verification. Only after the expected contents pass inspection does the same physical compartment move to Base Slot L for dispensing.
+        The carousel holds up to eleven containers in twelve positions. Slot L is used only for loading and unloading containers. When a dose is due, its container moves to Slot A for AI verification. Only after the pills pass inspection does it move to Slot L for pickup by the patient. At the next scheduled dose, AI confirms pickup by checking that the container is now empty.
       </p>
     </div>
   </div>
