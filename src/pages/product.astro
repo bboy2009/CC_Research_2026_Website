@@ -15,12 +15,12 @@ const actors = [
   {
     title: "Patient",
     description:
-      "Views the next scheduled dose and readiness state, receives the dispensed compartment, and can review permitted alerts and history.",
+      "In the app, checks the next scheduled dose and whether it's ready, and reviews dose history against the prescriptions. At the dispenser, picks up each filled pill container.",
   },
   {
     title: "Caregiver",
     description:
-      "Defines medications and prescriptions, reviews generated schedules, prepares and loads compartments, and resolves verification, dispense, or pickup exceptions.",
+      "In the app, enters prescriptions, reviews the combined schedule, and resolves any verification, dispensing, or pickup alerts. At the dispenser, stores the filled pill containers.",
   },
 ];
 
@@ -28,93 +28,93 @@ const capabilities = [
   {
     title: "Prescription-driven scheduling",
     description:
-      "Medication and prescription information generates an editable schedule instead of requiring every occurrence to be entered manually.",
+      "All prescriptions become one combined, editable schedule.",
   },
   {
-    title: "Combined dispense events",
+    title: "Combined dose",
     description:
-      "Medication occurrences due at the same exact time are grouped into one physical dispense event and one expected compartment-content set.",
+      "Medications due at the same time share one dose and one pill container.",
   },
   {
     title: "Schedule-driven preparation",
     description:
-      "Future dispense events determine what caregivers need to prepare and identify which events are already loaded or still need a compartment.",
+      "The schedule shows which doses still need a filled container.",
   },
   {
-    title: "Removable compartment tracking",
+    title: "Container identification",
     description:
-      "Each compartment keeps a persistent C-ID that remains independent of the rotating carrier position and fixed Base Slot.",
+      "Each container gets a unique ID at loading, so doses can be loaded in any order.",
   },
   {
-    title: "Medication verification",
+    title: "Controlled carousel motion",
     description:
-      "Expected medication type and quantity are checked before scheduled dispensing, with failed verification blocking the affected event.",
+      "The system always know the carousel's position, and exposes a container at Slot L only during loading or pickup.",
   },
   {
-    title: "Deterministic carousel movement",
+    title: "AI verification",
     description:
-      "Twelve indexed carrier positions move relative to fixed Base Slots, with HOME providing a known physical reference for automatic motion.",
+      "AI checks every container before release and alerts on any mismatch.",
   },
   {
-    title: "Controlled dispensing",
+    title: "Safe dispensing",
     description:
-      "After successful inspection, the same physical compartment moves to Base Slot L and is dispensed or ejected from the rotating carrier.",
+      "Only verified containers are made available at Slot L for pickup by the patient.",
   },
   {
-    title: "Separate pickup outcome",
+    title: "Pickup tracking",
     description:
-      "Dispensing and patient pickup are tracked independently so compartment movement is never treated as proof that medication was consumed.",
+      "AI confirms each pickup at the next scheduled dose.",
   },
 ];
 
 const principles = [
   {
     number: "01",
-    title: "Prescription drives schedule",
+    title: "Prescriptions define every dose",
     description:
-      "Medication and prescription definitions produce the medication schedule, which can then be reviewed and edited.",
+      "Each dose's medication types and dispensing time come only from the prescriptions.",
   },
   {
     number: "02",
-    title: "Device schedule drives preparation",
+    title: "One time, one dose, one container",
     description:
-      "Medication occurrences sharing the same dispense time define one device event and the combined contents required in its compartment.",
+      "Medications due at the same time always share one dose and one pill container.",
   },
   {
     number: "03",
-    title: "Verify before dispense",
+    title: "No dispensing without verification",
     description:
-      "A compartment is not released for patient access until the expected contents satisfy configured verification criteria or an authorized override is recorded.",
+      "Every container's contents are verified before it is made available for pickup.",
   },
   {
     number: "04",
-    title: "Separate identity from position",
+    title: "Three IDs define location",
     description:
-      "Compartment identity, rotating carrier position, and fixed Base Slot are maintained as separate concepts throughout the system.",
+      "Each container, each carousel position, and the carousel's position in the dispenser has its own ID. A container's location is determined by combining all three.",
   },
   {
     number: "05",
-    title: "Deterministic HOME",
+    title: "Know where home is",
     description:
-      "Automatic movement begins from a known physical reference: P1 aligned with Base Slot L.",
+      "The system knows its home position, P1 at Slot L. All carousel locations are measured relative to it.",
   },
   {
     number: "06",
-    title: "Dispense is not ingestion",
+    title: "Pickup is not consumption",
     description:
-      "A compartment leaving the carrier or later being collected does not prove that the medication was consumed.",
+      "A pickup is never treated as proof the pills have been consumed by the patient.",
   },
   {
     number: "07",
-    title: "Fail locally and continue where safe",
+    title: "Isolate failure, continue safely",
     description:
-      "A failed compartment can remain installed and error-marked while unrelated eligible dispense events continue when mechanical state permits.",
+      "One failed container never stops other doses, as long as it is mechanically safe to continue.",
   },
   {
     number: "08",
-    title: "Application-layer orchestration",
+    title: "Coordination by software",
     description:
-      "Scheduling, preparation, device motion, vision, persistence, alerts, and audit remain coordinated through application workflows and explicit interfaces.",
+      "Every part of the system, from scheduling to alerts, is defined in the product workflows, then implemented and run in software.",
   },
 ];
 
@@ -122,29 +122,29 @@ const productFacts = [
   {
     value: "12",
     title: "Carrier positions",
-    description: "P1 through P12 at nominal 30-degree spacing.",
+    description: "P1 through P12, spaced 30 degrees apart.",
   },
   {
     value: "11",
-    title: "Installed compartments",
-    description: "Maximum operational capacity at one time, leaving at least one rotating position empty.",
+    title: "Pill containers",
+    description: "The maximum at one time, so one position always stays empty.",
   },
   {
     value: "A",
     title: "Inspection slot",
-    description: "Base Slot A is the primary scheduled medication-inspection location.",
+    description: "Slot A is where AI verifies each container's contents.",
   },
   {
     value: "L",
-    title: "Load / dispense slot",
-    description: "Base Slot L is the primary load, eject, and patient-access location.",
+    title: "Load / pickup slot",
+    description: "Slot L is used only for loading and pickup by the patient.",
   },
 ];
 ---
 
 <MainLayout
   title="Product | MediSAFE: Medication Dispenser"
-  description="Explore the users, capabilities, operating model, and product principles behind the removable-compartment medicine dispensing prototype."
+  description="Explore the users, capabilities, operating model, and product principles behind the medication dispensing prototype with removable containers."
 >
   <!-- Hero -->
   <section class="overflow-hidden py-14 sm:py-16 lg:py-20">
@@ -157,11 +157,11 @@ const productFacts = [
         </p>
 
         <h1 class="mt-5 max-w-[760px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl">
-          Medication dispensing built around verified, removable dose compartments.
+          A medication dispenser with removable pill containers, built for storage and automated dose verification.
         </h1>
 
         <p class="mt-5 max-w-[680px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
-          The prototype connects prescription-driven scheduling, caregiver preparation, compartment verification, indexed device movement, and controlled dispensing in one coordinated system.
+          The prototype system integrates prescription-based scheduling, dose preparation by a caregiver, AI pill verification, and controlled carousel positioning to provide safe medication dispensing for patients.
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -173,7 +173,7 @@ const productFacts = [
       <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
         <img
           src={imagePath}
-          alt="Medicine dispensing device prototype with rotating carrier and removable dose compartment"
+          alt="Medication dispensing device prototype with carousel and removable dose container"
           class="mx-auto w-full"
         />
       </div>
@@ -191,32 +191,32 @@ const productFacts = [
 
       <div>
         <h2 class="max-w-[900px] text-2xl font-semibold leading-tight sm:text-3xl lg:text-4xl">
-          Medication routines become harder when schedules, preparation, and verification are disconnected.
+          Managing a complex medication regimen is difficult when scheduling, preparation, and verification are done manually.
         </h2>
 
         <p class="mt-6 max-w-[780px] text-lg leading-8 text-[var(--color-text-secondary)]">
-          The product is intended to reduce missed and incorrect doses, reduce caregiver effort when managing multi-medication schedules, guide preparation of removable compartments, and verify expected contents before dispensing.
+          The product aims to reduce missed and incorrect doses, lessen the caregiver's effort in managing multi-medication schedules, guide the filling of removable containers, and verify their contents.
         </p>
 
         <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
           <div class="rounded-3xl border border-[var(--color-border)] p-6">
-            <p class="text-lg font-semibold">Reduce dose errors</p>
+            <p class="text-lg font-semibold">Reduce the risk of dose errors</p>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              Verification is part of the dispense workflow rather than a separate manual check.
+              AI verification is built into the dispensing process; all containers are automatically checked.
             </p>
           </div>
 
           <div class="rounded-3xl border border-[var(--color-border)] p-6">
             <p class="text-lg font-semibold">Reduce preparation effort</p>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              The device schedule determines what each upcoming compartment needs to contain.
+              Prescriptions are automatically combined into one schedule that guides the caregiver in filling each pill container.
             </p>
           </div>
 
           <div class="rounded-3xl border border-[var(--color-border)] p-6">
-            <p class="text-lg font-semibold">Make state visible</p>
+            <p class="text-lg font-semibold">Provide early warnings</p>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              Dispense, pickup, placement, preparation, and exceptions are represented separately.
+              The system automatically tracks preparation readiness, pickup by the patient, and exceptions, alerting the caregiver early.
             </p>
           </div>
         </div>
@@ -229,8 +229,8 @@ const productFacts = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Users"
-        title="Designed around patients and caregivers."
-        description="The product experience keeps everyday patient use simple while giving caregivers the tools needed to manage medication schedules, preparation, loading, and exceptions."
+        title="Designed around patients and their caregivers."
+        description="The product makes it simple for patients to follow their medication regimen, and for their caregivers to manage it, from scheduling to filling each dose."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -253,8 +253,8 @@ const productFacts = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Product Model"
-        title="Identity, position, and physical access remain separate."
-        description="A removable compartment keeps its own persistent identity while the rotating carrier moves through fixed Base Slots. This allows the software to track what a compartment is, where it is, and what operation is occurring without conflating those concepts."
+        title="Each container’s identity, position, and access are tracked."
+        description="Each removable pill container keeps its own ID, so the caregiver can place it in any available carousel position, and the carousel can move it between Slot A and Slot L. This lets the software track each container's position and what is happening to it."
         light
       />
 
@@ -273,7 +273,7 @@ const productFacts = [
       </div>
 
       <p class="mt-8 max-w-[820px] text-base leading-7 text-white/65">
-        HOME is defined as P1 aligned with Base Slot L. Capacity is better understood as up to eleven prepared dispense events rather than a fixed number of days, because one compartment may contain multiple medications scheduled for the same exact dispense time.
+        The carousel is in its home position when P1 is at Slot L. Capacity is measured in doses, not days: the dispenser holds up to eleven prepared doses, and each pill container can hold several medications due at the same time.
       </p>
     </div>
   </section>
@@ -283,8 +283,8 @@ const productFacts = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Physical Interaction"
-        title="See the compartments in motion."
-        description="Removable compartments are loaded and dispensed through Base Slot L. The rotating carrier positions each compartment as required while its persistent identity remains independent of carrier position."
+        title="See the pill containers in motion."
+        description="Pill containers are loaded and picked up only at Slot L. Each container's ID is assigned at loading and stays with it while it's inside the dispenser."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -297,7 +297,7 @@ const productFacts = [
               playsinline
               loop
               preload="metadata"
-              aria-label="Video showing a removable medication compartment being loaded into the device"
+              aria-label="Video showing the loading process of pill containers into the dispenser"
             >
               <source src={loadingVideo} type="video/mp4" />
               Your browser does not support HTML video.
@@ -308,9 +308,9 @@ const productFacts = [
             <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">
               Loading
             </p>
-            <h2 class="mt-3 text-2xl font-semibold">Loading a compartment</h2>
+            <h2 class="mt-3 text-2xl font-semibold">Loading pill containers</h2>
             <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
-              A prepared, identified compartment is inserted through Base Slot L and placed into an available carrier position for storage and later dispensing.
+              The caregiver inserts a filled pill container through Slot L, and the carousel stores it in an available position until its scheduled dose.
             </p>
           </div>
         </article>
@@ -324,7 +324,7 @@ const productFacts = [
               playsinline
               loop
               preload="metadata"
-              aria-label="Video showing a removable medication compartment being dispensed from the device"
+              aria-label="Video showing the dispensing process of pill containers for pickup"
             >
               <source src={dispensingVideo} type="video/mp4" />
               Your browser does not support HTML video.
@@ -335,9 +335,9 @@ const productFacts = [
             <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">
               Dispensing
             </p>
-            <h2 class="mt-3 text-2xl font-semibold">Dispensing a compartment</h2>
+            <h2 class="mt-3 text-2xl font-semibold">Dispensing pill containers</h2>
             <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
-              After required verification, the scheduled compartment moves to Base Slot L and is ejected from the rotating carrier for patient access.
+              Once AI verifies a container's contents, the carousel positions the container at Slot L, where it is made available for pickup by the patient.
             </p>
           </div>
         </article>
@@ -349,9 +349,9 @@ const productFacts = [
   <section class="bg-white py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Product Capabilities"
-        title="One coordinated workflow from prescription to dispensing and pickup resolution."
-        description="The device is more than a rotating dispenser: medication data, preparation planning, compartment identity, vision verification, motion, and event history all participate in the same workflow."
+        label="Product Flow"
+        title="A coordinated workflow from doctors' prescriptions to pill pickup by patients."
+        description="The dispensing system is more than just a rotating carousel: prescription data, dose scheduling, container preparation, container identification, controlled motion, AI verification, and dose history tracking all work together to manage complex medication regimens."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-border)] md:grid-cols-2 lg:grid-cols-4">
@@ -377,7 +377,7 @@ const productFacts = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Product Principles"
-        title="The product is organized around verification, deterministic state, and clear responsibility boundaries."
+        title="Eight guiding principles behind every design decision."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -410,7 +410,7 @@ const productFacts = [
             Follow the complete medication and device workflow.
           </h2>
           <p class="mt-5 max-w-[720px] text-lg leading-8 text-[var(--color-text-secondary)]">
-            See how prescriptions become scheduled dispense events, how compartments are prepared and verified, and how the device moves from inspection to controlled dispensing.
+            See how prescriptions become scheduled doses, how pill containers are filled and verified, and how the carousel moves them from inspection to pickup.
           </p>
         </div>
 
