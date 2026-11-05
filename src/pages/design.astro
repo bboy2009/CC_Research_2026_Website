@@ -24,21 +24,21 @@ const technologyPage = `${base}/technology/`;
 const architecture = [
   {
     number: "01",
-    title: "Stationary base",
+    title: "Fixed base",
     description:
-      "The fixed base defines Base Slots A through L and provides the physical reference, camera and lighting geometry, and controlled access points used by the system.",
+      "The fixed base defines twelve slots, A through L. It provides the physical reference, a single camera and lighting setup whose image covers both Slot A and Slot L, and controlled access at Slot L.",
   },
   {
     number: "02",
-    title: "Indexed rotating carrier",
+    title: "Carousel",
     description:
-      "Twelve carrier positions P1 through P12 move in nominal 30-degree increments. The carrier retains installed compartments and aligns any required position with the fixed base.",
+      "The carousel is a rotating component with twelve identical positions, P1 through P12, that can hold pill containers. It rotates in 30-degree steps to align each position with a base slot.",
   },
   {
     number: "03",
-    title: "Removable compartments",
+    title: "Removable pill containers",
     description:
-      "Each dose compartment has a persistent C-ID, remains identifiable independently of carrier position, and is retained securely during normal carousel movement.",
+      "Each pill container is given a unique ID at loading and keeps it while inside the dispenser. It is placed securely in one of the carousel's twelve positions and rotates with the carousel.",
   },
 ];
 
@@ -50,17 +50,17 @@ const facts = [
   },
   {
     value: "11",
-    label: "Maximum installed compartments",
+    label: "Maximum pill containers",
     detail: "At least one position remains empty",
   },
   {
     value: "30°",
-    label: "Nominal index movement",
+    label: "Rotation per step",
     detail: "One step per CW / CCW command",
   },
   {
-    value: "P1 - L",
-    label: "HOME reference",
+    value: "P1 at Slot L",
+    label: "Home position",
     detail: "Known physical starting pose",
   },
 ];
@@ -68,22 +68,22 @@ const facts = [
 const locations = [
   {
     slot: "A",
-    title: "Medication inspection",
+    title: "AI verification",
     description:
-      "Base Slot A provides the repeatable camera framing and controlled lighting used for scheduled pre-dispense verification.",
+      "Each pill container is placed at Slot A for AI verification of its contents, both at loading and before making it available for the patient to pick up. The camera always photographs the container at this slot to ensure consistent image quality.",
   },
   {
     slot: "L",
-    title: "Load, eject, and access",
+    title: "Loading and pickup",
     description:
-      "Base Slot L is the controlled location for inserting prepared compartments, ejecting a selected compartment, and providing patient or caregiver access.",
+      "Slot L is where the caregiver loads filled pill containers and the patient picks up each verified dose. Using images from the same camera, AI confirms pickup from Slot L.",
   },
 ];
 ---
 
 <MainLayout
   title="Industrial Design | MediSAFE: Medication Dispenser"
-  description="Explore the industrial design, removable dose compartments, indexed rotating carrier, fixed base, and interactive 3D models of the medicine dispensing prototype."
+  description="Explore the industrial design, removable pill containers, carousel, fixed base, and interactive 3D models of the medication dispensing prototype."
 >
   <section class="overflow-hidden py-14 sm:py-16 lg:py-20">
     <div class="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20 lg:px-10">
@@ -93,11 +93,11 @@ const locations = [
         </p>
 
         <h1 class="mt-5 max-w-[760px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl">
-          A rotating mechanical system built around removable dose compartments.
+          A desktop dispenser built around a carousel of removable pill containers.
         </h1>
 
         <p class="mt-5 max-w-[680px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
-          The device combines a stationary base, a twelve-position indexed carrier, removable compartments, controlled medication inspection, and a dedicated load and dispense interface in one desktop prototype.
+          The dispenser combines a fixed base, a twelve-position carousel, removable pill containers, a designated AI verification slot (Slot A), and a designated loading and pickup slot (Slot L) in one desktop prototype.
         </p>
 
         <div class="mt-8 flex flex-wrap gap-3">
@@ -109,7 +109,7 @@ const locations = [
       <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
         <img
           src={heroImage}
-          alt="Medicine dispensing device showing rotating carrier, removable compartments, camera structure, and access interface"
+          alt="Medication dispenser showing the carousel, removable pill containers, camera structure, and access slot"
           class="mx-auto w-full"
         />
       </div>
@@ -120,8 +120,8 @@ const locations = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Mechanical Architecture"
-        title="Three physical layers keep identity, movement, and access distinct."
-        description="The design separates the fixed base, rotating carrier positions, and removable compartment identity. This lets the system move a known physical compartment without treating its identity as the same thing as its current location."
+        title="Three major mechanical components defining access, motion, and identity."
+        description="The components include the fixed base, the rotating carousel, and the removable pill containers. Together, they let medication be loaded, inspected, stored securely, and dispensed automatically, all while keeping it hygienic. The portable containers also let the patient take a dose along when away from home."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -145,16 +145,16 @@ const locations = [
   <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Indexed Carrier"
-        title="Twelve positions, up to eleven installed compartments."
-        description="The rotating carrier uses twelve equally indexed positions. During normal operation, at least one position remains empty so compartments can be loaded, moved, inspected, and dispensed without assigning a fixed carrier position to a particular compartment."
+        label="Carousel"
+        title="Twelve identical positions that can store up to eleven pill containers."
+        description="The carousel has twelve equally spaced positions. One position is always kept empty, so no pill container is ever stored at the loading slot (Slot L). Pairing each container's ID with its carousel position ID at loading lets containers be placed in any available position and moved as needed for inspection, storage, and dispensing."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
         <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
           <img
             src={carrierImage}
-            alt="Rotating carrier with removable dose compartments arranged around twelve indexed positions"
+            alt="Carousel with twelve identical positions to store pill containers"
             class="mx-auto w-full"
           />
         </div>
@@ -181,9 +181,9 @@ const locations = [
   <section class="bg-[var(--color-graphite)] py-14 text-white sm:py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Fixed Base Locations"
-        title="Inspection and loading happen at dedicated physical locations."
-        description="Base Slot identity is fixed while the carrier rotates beneath it. The application moves the required carrier position to the appropriate base location for each operation."
+        label="Slots of the Fixed Base"
+        title="Loading, verification, and pickup are conducted at dedicated slots."
+        description="The fixed base remains stationary while the carousel rotates. Every motion aims to align a specific carousel position, and therefore a specific pill container, with the desired slot."
         light
       />
 
@@ -208,7 +208,7 @@ const locations = [
       </div>
 
       <p class="mt-8 max-w-[900px] text-sm leading-7 text-white/60">
-        HOME establishes the device reference by aligning P1 with Base Slot L. From that known pose, the controller can maintain deterministic indexed movement to the required inspection or access location.
+        The carousel is in its home position when P1 is at Slot L. From this known position, the controller can move the carousel precisely to the slot needed for verification, loading, or pickup.
       </p>
     </div>
   </section>
@@ -220,7 +220,7 @@ const locations = [
           <SectionHeader
             label="Interactive Model"
             title="Explore the assembled prototype from every angle."
-            description="Rotate and zoom the model to examine the base, indexed carrier, removable compartments, enclosure, camera structure, and access geometry."
+            description="Rotate and zoom the model to examine the fixed base, carousel, removable pill containers, enclosure, camera structure, and Slot L access."
           />
 
           <p class="mt-8 border-t border-[var(--color-border)] pt-6 text-sm leading-7 text-[var(--color-text-secondary)]">
@@ -231,9 +231,9 @@ const locations = [
         <ModelViewer
           modelPath={fullModel}
           posterPath={heroImage}
-          title="Complete Device"
+          title="Complete Dispenser"
           description="Drag to rotate. Scroll or pinch to zoom."
-          alt="Interactive 3D model of the complete medicine dispensing device"
+          alt="Interactive 3D model of the complete medication dispenser"
           viewerId="complete-device-model"
           loading="eager"
         />
@@ -246,7 +246,7 @@ const locations = [
       <SectionHeader
         label="Component Models"
         title="Inspect the mechanical system at multiple levels."
-        description="Separate models make it easier to understand how the assembly is constructed and how the rotating carrier and removable compartment relate to the complete device."
+        description="Separate models make it easier to understand how the assembly is constructed and how the carousel and removable pill containers relate to the complete dispenser."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -255,7 +255,7 @@ const locations = [
           posterPath={explodedImage}
           title="Exploded Assembly"
           description="Explore the major mechanical layers and their relationship."
-          alt="Interactive exploded 3D model of the medicine dispensing device"
+          alt="Interactive exploded 3D model of the medication dispenser"
           viewerId="exploded-device-model"
           heightClass="device-model-compact"
         />
@@ -263,9 +263,9 @@ const locations = [
         <ModelViewer
           modelPath={carrierModel}
           posterPath={carrierImage}
-          title="Rotating Carrier"
-          description="Examine the indexed carrier and compartment arrangement."
-          alt="Interactive 3D model of the medicine dispenser rotating carrier"
+          title="Carousel"
+          description="Examine the carousel and how the pill containers can be arranged on it."
+          alt="Interactive 3D model of the medication dispenser carousel"
           viewerId="carrier-model"
           heightClass="device-model-compact"
         />
@@ -273,9 +273,9 @@ const locations = [
         <ModelViewer
           modelPath={compartmentModel}
           posterPath={compartmentImage}
-          title="Removable Compartment"
-          description="Inspect the individual dose-compartment geometry and retention features."
-          alt="Interactive 3D model of a removable medicine dose compartment"
+          title="Removable Pill Container"
+          description="Inspect the pill container's shape and the features that hold it in place."
+          alt="Interactive 3D model of a removable pill container"
           viewerId="compartment-model"
           heightClass="device-model-compact"
         />
@@ -283,16 +283,16 @@ const locations = [
         <article class="overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-background)]">
           <img
             src={topImage}
-            alt="Top view of the medicine dispensing device and indexed rotating carrier"
+            alt="Top view of the medication dispenser and its carousel"
             class="aspect-[4/3] w-full object-cover"
           />
           <div class="p-7">
             <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">
               Top View
             </p>
-            <h2 class="mt-3 text-2xl font-semibold">Fixed slots around a rotating carrier.</h2>
+            <h2 class="mt-3 text-2xl font-semibold">Fixed slots around a rotating carousel.</h2>
             <p class="mt-4 leading-7 text-[var(--color-text-secondary)]">
-              The top view makes the distinction between the circular carrier and the fixed inspection and access geometry easier to see.
+              The top view shows how the round carousel turns within the fixed base, while Slot A and Slot L stay in place.
             </p>
           </div>
         </article>
@@ -303,39 +303,39 @@ const locations = [
   <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Removable Compartment"
-        title="The compartment is the persistent physical unit of each prepared dispense event."
-        description="A compartment keeps its C-ID when it is inserted, moved to another carrier position, dispensed, returned, or prepared again. Retention features secure it during normal carousel movement while still allowing deliberate loading and ejection."
+        label="Removable Pill Container"
+        title="Each pill container holds one prepared dose, which may contain multiple medications."
+        description="Each pill container is given a unique ID at loading and keeps it while inside the dispenser. Magnets and the carousel walls hold it securely while the carousel moves, while still letting the caregiver load it and the patient pick it up."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
         <div class="overflow-hidden rounded-[2rem] bg-white p-6 lg:p-10">
           <img
             src={compartmentImage}
-            alt="Removable dose compartment showing its individual enclosure and handle geometry"
+            alt="Removable pill container showing its enclosure and handle"
             class="mx-auto w-full"
           />
         </div>
 
         <div class="grid gap-5">
           <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
-            <h2 class="text-xl font-semibold">Persistent identity</h2>
+            <h2 class="text-xl font-semibold">Unique ID</h2>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              C-ID identifies the physical compartment independently from whichever P-position currently stores it.
+              At loading, the container is given its dose's unique ID. That ID is then tied to the carousel position where the container is stored.
             </p>
           </article>
 
           <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
             <h2 class="text-xl font-semibold">Secure during motion</h2>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              The retention interface is designed to prevent unintended compartment displacement while the carrier indexes between locations.
+              Magnets and the walls of the carousel keep the container from shifting while the carousel rotates between slots.
             </p>
           </article>
 
           <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
             <h2 class="text-xl font-semibold">Deliberately removable</h2>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              The compartment can be intentionally inserted, ejected, returned, and prepared again without making its identity dependent on its previous location.
+              The container can be loaded, picked up, refilled, and loaded again. Each time it's loaded, its ID is tied to its new dose.
             </p>
           </article>
         </div>
@@ -354,33 +354,33 @@ const locations = [
         <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
           <img
             src={accessImage}
-            alt="Side perspective of medicine dispenser showing compartment access area"
+            alt="Side view of the medication dispenser showing the loading and pickup slot (Slot L)"
             class="w-full rounded-[1.5rem]"
           />
           <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
-            Access-side perspective showing the relationship between the rotating assembly and the compartment ejection path.
+            Access-side view showing how the carousel lines up with Slot L, where pill containers are loaded and picked up.
           </figcaption>
         </figure>
 
         <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
           <img
             src={explodedImage}
-            alt="Exploded view of the medicine dispensing device mechanical assembly"
+            alt="Exploded view of the medication dispenser's mechanical assembly"
             class="w-full rounded-[1.5rem]"
           />
           <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
-            Exploded assembly illustrating the major mechanical layers and camera structure.
+            Exploded assembly illustrating the major mechanical components and the camera holding structure.
           </figcaption>
         </figure>
 
         <figure class="overflow-hidden rounded-[2rem] bg-[var(--color-background)] p-5">
           <img
             src={topImage}
-            alt="Top perspective of medicine dispensing device rotating carrier"
+            alt="Top view of the medication dispenser carousel"
             class="w-full rounded-[1.5rem]"
           />
           <figcaption class="px-2 pb-2 pt-5 text-sm leading-6 text-[var(--color-text-secondary)]">
-            Top perspective emphasizing the twelve-position circular carrier and fixed surrounding structure.
+            Top view of the twelve-position carousel within the fixed base.
           </figcaption>
         </figure>
       </div>
@@ -398,7 +398,7 @@ const locations = [
             See how the mechanical system connects to software and control.
           </h2>
           <p class="mt-5 max-w-[760px] text-lg leading-8 text-[var(--color-text-secondary)]">
-            Continue to Technology for the application architecture, embedded controller responsibilities, ports and adapters, persistence, and system interfaces behind the physical device.
+            Continue to Technology for the application architecture, embedded controller, data storage, and system interfaces behind the dispenser.
           </p>
         </div>
 
