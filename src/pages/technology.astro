@@ -14,18 +14,18 @@ const mobileLight = `${base}/images/software/design_m4_03.jpg`;
 
 const workflowServices = [
   "Medication & Prescription",
-  "Scheduler & Event Aggregation",
+  "Scheduler & Dose Grouping",
   "Preparation Planning",
-  "Compartment & Placement",
+  "Container & Placement",
   "Scheduled Dispense",
-  "Pickup Resolution",
+  "Pickup Tracking",
   "Alerts & Audit",
 ];
 
 const ports = [
   {
     name: "DevicePort",
-    description: "Mechanical commands, pose, safety state, load/eject status, lighting, and recovery.",
+    description: "Carousel commands, position, safety state, loading and pickup status, lighting, and recovery.",
   },
   {
     name: "CameraPort",
@@ -33,7 +33,7 @@ const ports = [
   },
   {
     name: "VisionPort",
-    description: "Expected-vs-observed medication verification with explicit result states.",
+    description: "AI verification of expected versus observed pills, with explicit result states.",
   },
   {
     name: "ClockPort",
@@ -46,19 +46,19 @@ const ports = [
 ];
 
 const firmwareResponsibilities = [
-  "HOME with P1 aligned to Base Slot L",
-  "Indexed movement between carrier positions and Base Slots",
-  "One-index CW and CCW motion",
-  "Local motion and ejection interlocks",
-  "Illumination control",
-  "Physical pose, status, and fault reporting",
+  "Home position: P1 at Slot L",
+  "Movement between carousel positions and base slots",
+  "One-step clockwise and counterclockwise motion",
+  "Local motion and access interlocks",
+  "Lighting control",
+  "Position, status, and fault reporting",
 ];
 
 const firmwareDoesNotOwn = [
   "Prescription or scheduling decisions",
-  "Medication-content correctness",
-  "Compartment C-ID semantics",
-  "Pickup or adherence outcome",
+  "Verifying pill contents",
+  "Container and dose IDs",
+  "Pickup outcomes",
 ];
 
 const dataEntities = [
@@ -81,7 +81,7 @@ const dataEntities = [
 
 <MainLayout
   title="Technology & Architecture | MediSAFE: Medication Dispenser"
-  description="Explore the software UI, application workflows, APIs, ports and adapters, local persistence, computer vision, simulation, and embedded-control architecture of the medicine dispensing prototype."
+  description="Explore the software UI, application workflows, APIs, ports and adapters, local data storage, AI vision, simulation, and embedded-control architecture of the medication dispensing prototype."
 >
   <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
@@ -90,11 +90,11 @@ const dataEntities = [
       </p>
 
       <h1 class="mt-5 max-w-[1050px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl">
-        Software coordinates the medication workflow. Embedded control owns deterministic motion.
+        Software coordinates the workflow from prescription to pickup. Embedded control owns motion, lighting, and sensing.
       </h1>
 
       <p class="mt-7 max-w-[860px] text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
-        The system separates medication-domain decisions from physical execution. A browser interface communicates through FastAPI to application workflows, which use explicit ports for device, camera, vision, time, and notifications while local device firmware handles motion, interlocks, illumination, and hardware state.
+        The system separates logical decisions from physical execution. A browser interface communicates through FastAPI with the backend application workflows, which use explicit ports for the device, camera, AI vision, time, and notifications. Local Arduino firmware handles motion, interlocks, lighting, and hardware state.
       </p>
     </div>
   </section>
@@ -105,13 +105,13 @@ const dataEntities = [
         <div>
           <SectionHeader
             label="Software Experience"
-            title="The software UI is the operational view of the complete system."
-            description="The interface brings carousel state, upcoming dispense events, alerts, prescriptions, preparation status, calendar state, and direct prototype controls into a summary-first experience."
+            title="The UI highlights the operational states of the complete system."
+            description="The main UI of the app summarizes carousel status, upcoming doses, alerts, prescriptions, preparation status, the calendar, and direct dispenser motion controls."
           />
         </div>
 
         <p class="max-w-[580px] text-base leading-7 text-[var(--color-text-secondary)] lg:justify-self-end">
-          The desktop view exposes more system detail at once, while the responsive mobile view preserves the same core workflow for smaller screens. Light and dark appearance modes support different viewing environments.
+          Major features are available on both phone and desktop, with more detail on the larger screen. Light and dark modes are both supported.
         </p>
       </div>
 
@@ -159,7 +159,7 @@ const dataEntities = [
             src={desktopLight}
             data-light-src={desktopLight}
             data-dark-src={desktopDark}
-            alt="Desktop medicine dispenser software interface in light mode showing carousel status, scheduled dose, alerts, prescriptions, calendar, and device controls"
+            alt="Desktop medication dispenser app in light mode showing carousel status, scheduled dose, alerts, prescriptions, calendar, and device controls"
             loading="eager"
             class="w-full rounded-[1.25rem]"
           />
@@ -168,7 +168,7 @@ const dataEntities = [
         <div class="absolute bottom-0 right-3 w-[38%] min-w-[150px] max-w-[330px] overflow-hidden rounded-[1.75rem] border-[6px] border-white bg-white shadow-[0_20px_60px_rgba(34,34,34,0.22)] sm:right-8 lg:right-12 lg:border-[8px]">
           <img
             src={mobileLight}
-            alt="Responsive mobile version of the medicine dispenser software interface"
+            alt="Mobile version of the medication dispenser app"
             loading="lazy"
             class="w-full"
           />
@@ -182,14 +182,14 @@ const dataEntities = [
       <SectionHeader
         label="System Architecture"
         title="From browser interaction to motor, sensors, and lighting."
-        description="The layered system architecture keeps high-level medication decisions in the application while hardware-specific timing, sensing, and interlocks remain under embedded control."
+        description="The layered architecture keeps logical decisions in the application, while hardware timing, sensing, and interlocks stay under embedded control."
       />
 
       <div class="mt-12">
         <ResponsiveDiagram
           desktopPath="/images/architecture/desktop/01-layered-system-architecture.svg"
           mobilePath="/images/architecture/mobile/01-layers-mobile.svg"
-          alt="Layered system architecture for the medicine dispensing device"
+          alt="Layered system architecture for the medication dispenser"
           caption="The same system layers are presented at different information densities for desktop and mobile viewing."
           eager={true}
         />
@@ -201,8 +201,8 @@ const dataEntities = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Application Layer"
-        title="Workflows own medication and product decisions."
-        description="The application coordinates scheduling, preparation, compartment placement, verification, physical dispense, pickup resolution, alerts, and audit while keeping hardware-specific details behind ports and adapters."
+        title="Seven domains defined within the workflow."
+        description="The application coordinates scheduling, preparation, container placement, AI verification, dispensing, pickup tracking, alerts, and audit, while keeping hardware details behind ports and adapters."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -217,7 +217,7 @@ const dataEntities = [
       <div class="mt-10 rounded-3xl border border-[var(--color-border)] bg-[var(--color-background)] p-7 lg:p-9">
         <p class="text-lg font-semibold">Important boundary</p>
         <p class="mt-3 max-w-[900px] leading-7 text-[var(--color-text-secondary)]">
-          The scheduler creates medication occurrences and device dispense events, but it does not directly command motors. Hardware movement happens only through application workflows and the device abstraction after the required product and safety checks are satisfied.
+          The scheduler creates scheduled doses but never commands the motors directly. The carousel moves only through the application workflows and the device interface, after the required product and safety checks pass.
         </p>
       </div>
     </div>
@@ -227,7 +227,7 @@ const dataEntities = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Ports & Adapters"
-        title="Hardware and providers remain replaceable behind explicit interfaces."
+        title="Explicit software interfaces, defined up front, keep the workflows independent of hardware and service providers."
         description="The same application workflows can run with simulated adapters during development and physical adapters during integration, reducing coupling between product logic and specific devices or providers."
       />
 
@@ -254,7 +254,7 @@ const dataEntities = [
         <ResponsiveDiagram
           desktopPath="/images/architecture/desktop/06-interface-control-map.svg"
           mobilePath="/images/architecture/mobile/06-interfaces-mobile.svg"
-          alt="Interface control map for the medicine dispensing device"
+          alt="Interface control map for the medication dispenser"
           caption="The interface map highlights the boundaries between the browser, application workflows, software services, device adapters, embedded control, and physical hardware."
         />
       </div>
@@ -267,7 +267,7 @@ const dataEntities = [
         <SectionHeader
           label="Computer Vision"
           title="Vision provides evidence to the workflow — not direct motor control."
-          description="For inspection, the application provides the expected combined medication set and receives an explicit verification outcome. Time-critical physical interlocks remain local to the device rather than depending on cloud vision."
+          description="For verification, AI vision identifies the pill types and quantities in the image, and the backend application compares that result with the details of the scheduled dose. Time-critical physical interlocks stay local to the device rather than depending on cloud-based AI."
         />
 
         <div class="mt-8">
@@ -290,16 +290,16 @@ const dataEntities = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Embedded Controller"
-        title="Firmware owns deterministic physical execution and local safety."
-        description="The embedded state model makes startup, homing, indexed movement, controlled access/ejection, and fault recovery explicit. Medication-domain decisions remain outside firmware."
+        title="Firmware owns physical execution and physical safety."
+        description="The embedded state model makes startup, homing, carousel movement, controlled access at Slot L, and fault recovery explicit. Logical decisions stay outside the firmware."
       />
 
       <div class="mt-12">
         <ResponsiveDiagram
           desktopPath="/images/architecture/desktop/04-embedded-controller-states.svg"
           mobilePath="/images/architecture/mobile/04-firmware-states-mobile.svg"
-          alt="Embedded controller state diagram for the medicine dispensing device"
-          caption="The embedded controller state machine separates physical initialization, homing, ready state, motion, controlled access/ejection, and fault recovery."
+          alt="Embedded controller state diagram for the medication dispenser"
+          caption="The embedded controller state machine separates physical initialization, homing, ready state, motion, controlled access at Slot L, and fault recovery."
         />
       </div>
 
@@ -323,7 +323,7 @@ const dataEntities = [
 
           <div class="mt-8 rounded-2xl bg-[var(--color-graphite)] p-6 text-white">
             <p class="font-semibold">Mechanical reference</p>
-            <p class="mt-2 text-sm leading-6 text-white/70">HOME establishes P1 aligned with Base Slot L. From that reference, the controller maintains a discrete indexed pose and supports deterministic one-index CW / CCW movement.</p>
+            <p class="mt-2 text-sm leading-6 text-white/70">The carousel is in its home position when P1 is at Slot L. From that reference, the controller always knows the carousel's position and moves it one step clockwise or counterclockwise at a time.</p>
           </div>
         </article>
       </div>
@@ -335,15 +335,15 @@ const dataEntities = [
       <SectionHeader
         label="Domain Model"
         title="Scheduling, physical state, evidence, and operations remain explicit."
-        description="The domain model separates medications and prescriptions from concrete dispense events, compartment identity and placement, inspection evidence, physical dispense, pickup outcome, alerts, and audit history."
+        description="The domain model separates medications and prescriptions from scheduled doses, container IDs and placement, AI verification results, dispensing, pickup outcomes, alerts, and audit history."
       />
 
       <div class="mt-12">
         <ResponsiveDiagram
           desktopPath="/images/architecture/desktop/07-domain-model.svg"
           mobilePath="/images/architecture/mobile/07-domain-model-mobile.svg"
-          alt="Domain model for the medicine dispensing application"
-          caption="The domain model shows how schedule, compartment, inspection, dispense, pickup, and system-event records remain separate while participating in the same product workflow."
+          alt="Domain model for the medication dispensing application"
+          caption="The domain model shows how schedule, container, verification, dispensing, pickup, and system-event records stay separate while taking part in the same product workflow."
         />
       </div>
 
@@ -360,11 +360,11 @@ const dataEntities = [
       <SectionHeader
         label="Persistence"
         title="Product state is stored as separate, explicit records."
-        description="Medication scheduling, physical compartment identity, placement, carousel pose, inspection, dispense, pickup, and alerts remain separate so one physical action cannot silently imply another product state."
+        description="Medication schedules, container IDs, placement, carousel position, AI verification, dispensing, pickup, and alerts are stored separately, so one physical action can never silently imply another product state."
       />
 
       <p class="mt-8 max-w-[880px] text-sm leading-7 text-[var(--color-text-secondary)]">
-        SQLite provides local persistence with foreign keys, versioned migrations, and transactional workflow updates. In-memory carousel pose is represented relative to the HOME reference so automatic operation can reconcile physical and persisted state after startup or uncertainty.
+        SQLite provides local data storage with foreign keys, versioned migrations, and transactional workflow updates. The carousel's position is tracked relative to its home position, so the system can reconcile its physical and stored state after startup or any uncertainty.
       </p>
     </div>
   </section>
@@ -375,7 +375,7 @@ const dataEntities = [
         <SectionHeader
           label="Testing & Simulation"
           title="The same workflows can run without the physical device."
-          description="Simulated adapters model carrier positions, Base Slots, HOME, indexed motion, loading, ejection, compartment placement, verification failures, grouped dispense events, and time. This enables deterministic replay before hardware integration."
+          description="Simulated adapters model carousel positions, base slots, the home position, carousel motion, loading, pickup, container placement, verification failures, combined doses, and time. This enables deterministic replay before hardware integration."
           light={true}
         />
 
@@ -399,7 +399,7 @@ const dataEntities = [
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-accent-orange)]">Next</p>
           <h2 class="mt-4 max-w-[760px] text-2xl font-semibold leading-tight sm:text-3xl lg:text-4xl">See the architecture operating as a complete workflow.</h2>
-          <p class="mt-5 max-w-[720px] text-lg leading-8 text-[var(--color-text-secondary)]">Follow prescription generation, compartment preparation, inspection, physical dispensing, and pickup resolution from end to end.</p>
+          <p class="mt-5 max-w-[720px] text-lg leading-8 text-[var(--color-text-secondary)]">Follow prescription scheduling, container preparation, AI verification, dispensing, and pickup tracking from end to end.</p>
         </div>
         <div class="mt-8 shrink-0 lg:mt-0">
           <Button href={howItWorksPage}>How It Works →</Button>
@@ -416,7 +416,7 @@ const dataEntities = [
   const themeButtons = document.querySelectorAll(".software-theme-toggle");
 
   if (desktopPreview instanceof HTMLImageElement) {
-    const setSoftwareTheme = (theme) => {
+    const setSoftwareTheme = (theme: "dark" | "light") => {
       const isDark = theme === "dark";
       const nextSrc = isDark
         ? desktopPreview.dataset.darkSrc
