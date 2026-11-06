@@ -11,64 +11,64 @@ const workflowPage = `${base}/how-it-works/`;
 
 const inspectionLocations = [
   {
-    location: "Base Slot L",
-    purpose: "Loading / refill verification",
+    location: "Slot A",
+    purpose: "Content verification",
     description:
-      "During preparation and loading, the observed compartment contents can be compared with the CompartmentPreparationPlan before placement is accepted.",
+      "The carousel places each container at Slot A twice: at loading, before it goes into storage, and again before it is made available for pickup. Each time, its contents are checked against its dose details.",
   },
   {
-    location: "Base Slot A",
-    purpose: "Scheduled pre-dispense verification",
+    location: "Slot L",
+    purpose: "Pickup verification",
     description:
-      "When a dispense event becomes due, the assigned compartment is positioned at Base Slot A and its complete expected medication-type and quantity set is checked before dispensing.",
+      "At the next scheduled dose, AI checks Slot L. Pickup is confirmed if there is no container, or if the container is empty, in which case it is marked empty and stored.",
   },
 ];
 
 const pipeline = [
   {
     number: "01",
-    title: "Provide expected contents",
+    title: "Provide the expected result",
     description:
-      "The application supplies the inspection purpose, location, and complete expected medication-and-quantity set for the compartment.",
+      "The backend application provides the dose details: the medication types and the quantity of each. For pickup verification, the expected result is no container or an empty container.",
   },
   {
     number: "02",
-    title: "Capture",
+    title: "Capture the container image",
     description:
-      "A camera acquires a repeatable image of the compartment under controlled inspection conditions.",
+      "A single, fixed camera covers both Slot A and Slot L under controlled lighting, and a computer vision package optimizes the captured images.",
   },
   {
     number: "03",
-    title: "Observe",
+    title: "Identify the contents",
     description:
-      "The vision implementation identifies visible medication objects, types, counts, and supporting evidence such as geometry or confidence where available.",
+      "If any pills appear in the image, multimodal AI models outline each pill, identify its type with a confidence score, and count the total.",
   },
   {
     number: "04",
-    title: "Compare",
+    title: "Compare actual and expected results",
     description:
-      "Observed medication type and count are compared with the full expected combined-content set for that preparation or dispense event.",
+      "The identified pill types and counts are compared with the expected outcome for that verification.",
   },
   {
     number: "05",
-    title: "Return an explicit outcome",
+    title: "Return the verification result",
     description:
-      "Vision returns a distinct result to the application workflow. The workflow—not the vision provider—decides what product action follows.",
+      "The AI service sends a summary result, with supporting evidence, back to the backend application, which decides on and coordinates the next steps.",
   },
 ];
 
 const outcomes = [
   {
     name: "MATCH",
-    meaning: "Observed contents satisfy the expected combined medication set.",
+    meaning: "The identified contents match the expected outcome.",
   },
   {
     name: "MISMATCH",
-    meaning: "Observed medication type or count does not match the expected set.",
+    meaning: "The identified pill type or count does not match the expected outcome.",
   },
   {
     name: "UNKNOWN",
-    meaning: "The observation cannot be classified with sufficient confidence.",
+    meaning: "The contents cannot be identified with enough confidence.",
   },
   {
     name: "AMBIGUOUS",
@@ -76,19 +76,19 @@ const outcomes = [
   },
   {
     name: "VISION_UNAVAILABLE",
-    meaning: "The configured vision capability is unavailable for the requested inspection.",
+    meaning: "The AI vision service is unavailable for this verification.",
   },
   {
     name: "TIMEOUT",
-    meaning: "The inspection did not complete within the allowed workflow interval.",
+    meaning: "The verification did not finish within the allowed time.",
   },
   {
     name: "PROVIDER_ERROR",
-    meaning: "The vision implementation or provider returned an execution failure.",
+    meaning: "The AI service or provider returned an error.",
   },
   {
     name: "PROTOCOL_ERROR",
-    meaning: "The application could not interpret the returned vision response as a valid inspection result.",
+    meaning: "The backend application could not read the AI response as a valid verification result.",
   },
 ];
 
@@ -122,7 +122,7 @@ const results = [
     label: "Interim Result 03",
     title: "Mixed pill types",
     description:
-      "Three visually different pills are annotated in the same compartment image.",
+      "Three visually different pills are annotated in the same container image.",
     details: [
       "Three detections are visible across PILL_A, PILL_B, and PILL_C labels.",
       "Each displayed model confidence is 99%.",
@@ -146,7 +146,7 @@ const results = [
 
 <MainLayout
   title="Computer Vision | MediSAFE: Medication Dispenser"
-  description="Explore how MediSAFE uses computer vision to compare expected and observed compartment contents during loading and before medication dispensing."
+  description="Explore how MediSAFE uses AI vision to verify each pill container at loading and before pickup."
 >
   <section class="py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
@@ -155,17 +155,17 @@ const results = [
       </p>
 
       <h1 class="mt-5 max-w-[1000px] text-3xl font-semibold leading-[1.08] tracking-tight sm:text-4xl lg:text-6xl">
-        Visual verification before medication dispensing.
+        AI verification of every dose, at loading and before pickup.
       </h1>
 
       <p class="mt-5 max-w-[840px] sm:mt-6 text-base leading-7 text-[var(--color-text-secondary)] lg:text-lg lg:leading-8">
-        Computer vision provides evidence about the medication contents of a removable compartment. The application compares the observed medication type and count with the complete expected set and uses the result as a verification gate in the loading and scheduled-dispense workflows.
+        OpenCV optimizes each image from a single camera, then OpenAI models outline each pill, identify it with a confidence score, and count the total. The result is compared with the details of the scheduled dose, at loading and again before the container is made available for pickup.
       </p>
 
       <div class="mt-8 max-w-[900px] rounded-2xl border border-[var(--color-border)] bg-white p-5">
         <p class="font-semibold">Development evidence, not clinical validation</p>
         <p class="mt-2 text-sm leading-6 text-[var(--color-text-secondary)]">
-          The annotated images on this page are interim development outputs. Displayed confidence values are model-output confidence values, not measured end-to-end system accuracy or a completed validation result.
+          The annotated images on this page are interim development outputs. Confidence values are the AI model's own per-pill scores, not measured end-to-end system accuracy or a completed validation result.
         </p>
       </div>
     </div>
@@ -175,8 +175,8 @@ const results = [
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
         label="Role in the Product"
-        title="Vision checks contents at two points in the compartment workflow."
-        description="The same expected-vs-observed concept supports preparation verification during loading and a final scheduled inspection before dispensing."
+        title="AI checks each container at two slots."
+        description="Contents are verified at Slot A, and pickup is confirmed at Slot L."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -200,9 +200,9 @@ const results = [
   <section class="py-14 sm:py-14 sm:py-16 lg:py-20">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Inspection Pipeline"
-        title="Expected contents become an explicit verification outcome."
-        description="The application coordinates inspection through the camera and vision boundaries. Vision returns evidence and an outcome; application workflows retain responsibility for medication and dispense decisions."
+        label="Verification Flow"
+        title="Verification passes when the container contents match the expected result."
+        description="The backend application coordinates verification using the camera and the AI services. The camera captures the images the AI service uses to identify and count the pills. Using the target dose's details, the AI service returns the evidence and the comparison result."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -224,9 +224,9 @@ const results = [
   <section class="bg-[var(--color-graphite)] py-14 text-white sm:py-16 lg:py-24">
     <div class="mx-auto max-w-[1280px] px-6 lg:px-10">
       <SectionHeader
-        label="Explicit Outcomes"
-        title="Verification results remain distinct instead of collapsing every failure into one state."
-        description="Keeping inspection outcomes explicit allows the application to distinguish a true content mismatch from uncertainty, availability, timeout, provider, or protocol failures."
+        label="Explicit Verification Results"
+        title="Verification results go beyond pass or fail: each failure is classified by its root cause."
+        description="Going beyond a binary outcome lets the backend application tell apart a true content mismatch, an uncertain result, a failure to reach the AI service, a timeout while waiting for its answer, an error returned by the AI service, and a communication protocol error."
         light={true}
       />
 
@@ -248,8 +248,8 @@ const results = [
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
         <SectionHeader
           label="Workflow Decision"
-          title="Verification can allow or block a dispense event."
-          description="A successful pre-dispense inspection allows the same compartment to proceed to Base Slot L. A failed verification blocks the affected event and marks the compartment as an exception while unrelated safe operations may continue."
+          title="Verification results gate dose availability for pickup."
+          description="The backend application uses the verification result to decide the next step. A successful verification lets the container move to Slot L for pickup. A failed verification holds the dose, marks the container with an error, and alerts the patient and caregiver, while other doses continue per schedule."
         />
 
         <div class="grid gap-5">
@@ -257,15 +257,15 @@ const results = [
             <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">MATCH</p>
             <h2 class="mt-3 text-xl font-semibold">Continue the scheduled workflow.</h2>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              The verified compartment can move from Base Slot A to Base Slot L for controlled dispensing.
+              The verified container moves from Slot A to Slot L, where it is made available for pickup by the patient.
             </p>
           </article>
 
           <article class="rounded-3xl border border-[var(--color-border)] bg-white p-7">
             <p class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent-orange)]">Non-match / unresolved result</p>
-            <h2 class="mt-3 text-xl font-semibold">Do not automatically dispense the affected compartment.</h2>
+            <h2 class="mt-3 text-xl font-semibold">Hold the dose and return the container to storage.</h2>
             <p class="mt-3 leading-7 text-[var(--color-text-secondary)]">
-              The event is blocked or routed to the appropriate exception policy. Vision failure is localized to the affected workflow rather than automatically disabling every unrelated safe event.
+              The dose is held, and the container is marked with an error and returned to storage. A failed verification affects only that dose; other doses continue when it is mechanically safe.
             </p>
           </article>
         </div>
@@ -278,7 +278,7 @@ const results = [
       <SectionHeader
         label="Current Development Evidence"
         title="Increasing scene complexity across four inspection examples."
-        description="These images document current annotation behavior rather than a completed benchmark. Formal validation requires a controlled labeled dataset, defined acceptance metrics, and repeatable test conditions."
+        description="These images show current annotation behavior, not completed testing. Formal validation requires a controlled labeled dataset, defined acceptance metrics, and repeatable test conditions."
       />
 
       <div class="mt-9 sm:mt-10 lg:mt-12 space-y-8">
@@ -292,10 +292,10 @@ const results = [
       <div>
         <SectionHeader label="What This Demonstrates" title="Observable development evidence." />
         <ul class="mt-8 space-y-4 leading-7 text-[var(--color-text-secondary)]">
-          <li>• Multiple medication objects can be annotated in one compartment image.</li>
+          <li>• Multiple pills are outlined and identified in one container image.</li>
           <li>• Different configured pill-type labels can appear in the same scene.</li>
-          <li>• Object geometry can be represented by visible outlines.</li>
-          <li>• Per-object model confidence can be included with annotations.</li>
+          <li>• Each pill is shown with a visible outline.</li>
+          <li>• Each pill's identification includes a confidence score.</li>
         </ul>
       </div>
 
@@ -305,7 +305,7 @@ const results = [
           <li>• Detection and classification performance across a controlled labeled dataset.</li>
           <li>• Robustness to lighting, orientation, reflections, touching pills, and occlusion.</li>
           <li>• Count accuracy and false-positive / false-negative behavior.</li>
-          <li>• Acceptance thresholds and override behavior for unresolved inspection outcomes.</li>
+          <li>• Acceptance thresholds and handling of unresolved verification results.</li>
         </ul>
       </div>
     </div>
@@ -317,11 +317,11 @@ const results = [
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent-orange)]">Safety Boundary</p>
-            <h2 class="mt-4 text-2xl font-semibold tracking-tight lg:text-3xl">Vision verifies medication contents; it does not own time-critical motion safety.</h2>
+            <h2 class="mt-4 text-2xl font-semibold tracking-tight lg:text-3xl">AI vision verifies container contents; it does not handle time-critical physical safety.</h2>
           </div>
 
           <p class="leading-8 text-[var(--color-text-secondary)]">
-            Local hardware interlocks, physical pose, and unsafe motion or ejection conditions remain responsibilities of the embedded device layer. A cloud-dependent vision provider must not be used as the mechanism enforcing time-critical local motion safety.
+            Local hardware interlocks, carousel position, and unsafe motion or access conditions stay with the embedded device layer. A cloud-based AI service must never be used to enforce time-critical physical safety.
           </p>
         </div>
       </div>
